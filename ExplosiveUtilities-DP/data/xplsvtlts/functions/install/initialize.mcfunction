@@ -9,12 +9,14 @@ scoreboard objectives add xplsvtlts dummy
 # Flags that installation has occured.
 scoreboard players set installed xplsvtlts 1
 # The cooldown time in ticks between when tnt can be summoned with a tnt wand.
-scoreboard players set tnt_wand_cooldown xplsvtlts 40
+scoreboard players set tnt_wand_summon_cooldown xplsvtlts 40
+# The cooldown time in ticks between when an explosive punch can be done with a tnt wand.
+scoreboard players set tnt_wand_punch_cooldown xplsvtlts 80
 
-# Used to check if a Carrot On A Stick based item is right-clicked.
-scoreboard objectives add xplsvtlts_use_item minecraft.used:carrot_on_a_stick
 # A cool down for summoning tnt with the tnt wand.
-scoreboard objectives add xplsvtlts_tnt_wand_cooldown dummy
+scoreboard objectives add xplsvtlts_tnt_wand_summon_cooldown dummy
+# A cool down for punching with the tnt wand.
+scoreboard objectives add xplsvtlts_tnt_wand_punch_cooldown dummy
 
 
 

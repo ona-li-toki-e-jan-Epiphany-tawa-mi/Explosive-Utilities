@@ -6,10 +6,10 @@ scoreboard players reset installed xplsvtlts
 scoreboard players reset tnt_wand_cooldown xplsvtlts
 scoreboard objectives remove xplsvtlts
 
-scoreboard players reset @a xplsvtlts_use_item
-scoreboard objectives remove xplsvtlts_use_item
-scoreboard players reset @a xplsvtlts_tnt_wand_cooldown
-scoreboard objectives remove xplsvtlts_tnt_wand_cooldown
+scoreboard players reset @a xplsvtlts_tnt_wand_summon_cooldown
+scoreboard objectives remove xplsvtlts_tnt_wand_summon_cooldown
+scoreboard players reset @a xplsvtlts_tnt_wand_punch_cooldown
+scoreboard objectives remove xplsvtlts_tnt_wand_punch_cooldown
 
 
 
