@@ -4,7 +4,7 @@
 #
 # Needs to be called with @s being the tnt, located where the tnt should be corraled. Also, the third vector will need to contain the 
 #   corraling position.
-#
+# TODO fix corraling fail with lag.
 
 # Corrals the tnt to the front of the wand.
 function xplsvtlts:vector3d/get_positon
