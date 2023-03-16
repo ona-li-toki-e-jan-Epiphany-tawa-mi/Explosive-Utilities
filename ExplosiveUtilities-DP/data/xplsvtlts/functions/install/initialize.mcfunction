@@ -17,6 +17,8 @@ scoreboard players set tnt_wand_punch_cooldown xplsvtlts 80
 scoreboard objectives add xplsvtlts_tnt_wand_summon_cooldown dummy
 # A cool down for punching with the tnt wand.
 scoreboard objectives add xplsvtlts_tnt_wand_punch_cooldown dummy
+# The amount of time a piece of tnt has before it's fuse can continue.
+scoreboard objectives add xplsvtlts_fuse_freeze_time dummy
 
 
 

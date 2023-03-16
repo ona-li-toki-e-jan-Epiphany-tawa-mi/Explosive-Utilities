@@ -4,7 +4,7 @@
 #
 # Needs to be called with @s being the tnt, located where the tnt should be corraled. Also, the third vector will need to contain the 
 #   corraling position.
-# TODO fix corraling fail with lag.
+# 
 
 # Corrals the tnt to the front of the wand.
 function xplsvtlts:vector3d/get_positon
@@ -14,14 +14,12 @@ function xplsvtlts:vector3d/subtract
 # Since the motion is based on the distance of the tnt to the corral position we get tnt throwing for free.
 scoreboard players set _scalar xplsvtlts 5
 function xplsvtlts:vector3d/scalar_divide
+# A little verticle motion to fight gravity if there's any lag that prevents the corraling from working..
+scoreboard players add _y1 xplsvtlts 250
 function xplsvtlts:vector3d/set_motion
 
-# Increases the fuse time to make sure the tnt doesn't blow up on the user.
-execute store result score _fuse xplsvtlts run data get entity @s Fuse
-# The conditional here just makes sure that we don't make a stupidly long fuse.
-execute if score _fuse xplsvtlts matches ..80 run scoreboard players add _fuse xplsvtlts 5
-execute store result entity @s Fuse short 1.0 run scoreboard players get _fuse xplsvtlts
-scoreboard players reset _fuse xplsvtlts
+# Freezes the fuse to make sure the tnt doesn't blow up in the user's face.
+scoreboard players set @s xplsvtlts_fuse_freeze_time 14
 
 playsound minecraft:entity.phantom.flap player @a ~ ~ ~ 1.0 0.1
 particle minecraft:portal ~ ~ ~ 0.25 0.25 0.25 0.1 10

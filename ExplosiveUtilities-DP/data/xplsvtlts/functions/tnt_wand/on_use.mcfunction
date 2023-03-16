@@ -19,7 +19,7 @@ function xplsvtlts:vector3d/get_positon
 function xplsvtlts:vector3d/add
 scoreboard players add _y1 xplsvtlts 15000
 function xplsvtlts:vector3d/store/3
-execute positioned ^ ^1.5 ^4 as @e[type=minecraft:tnt,distance=..4] run function xplsvtlts:tnt_wand/corral_tnt
+execute positioned ^ ^1.5 ^4 as @e[type=minecraft:tnt,distance=..5] run function xplsvtlts:tnt_wand/corral_tnt
 
 # Prevents spawning tnt whilst corraling if the user moves to fast or something lags.
 execute if score _corraled_tnt xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_summon_cooldown = tnt_wand_summon_cooldown xplsvtlts
