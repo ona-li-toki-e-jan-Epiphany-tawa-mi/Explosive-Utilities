@@ -11,4 +11,7 @@ execute unless entity @s[gamemode=creative] run execute store success score _sum
 execute if score _summoned_tnt xplsvtlts matches 1 run summon minecraft:tnt ~ ~ ~ {Fuse:80s}
 execute if score _summoned_tnt xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_cooldown = tnt_wand_cooldown xplsvtlts
 
+execute if score _summoned_tnt xplsvtlts matches 1 run playsound minecraft:entity.evoker.prepare_attack player @a ~ ~ ~ 1.0 1.0
+execute if score _summoned_tnt xplsvtlts matches 1 run particle minecraft:large_smoke ~ ~ ~ 0.25 0.25 0.25 0.15 45
+
 scoreboard players reset _summoned_tnt xplsvtlts

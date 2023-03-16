@@ -23,4 +23,7 @@ execute if score _fuse xplsvtlts matches ..80 run scoreboard players add _fuse x
 execute store result entity @s Fuse short 1.0 run scoreboard players get _fuse xplsvtlts
 scoreboard players reset _fuse xplsvtlts
 
+playsound minecraft:entity.phantom.flap player @a ~ ~ ~ 1.0 0.1
+particle minecraft:portal ~ ~ ~ 0.25 0.25 0.25 0.1 10
+
 scoreboard players set _corraled_tnt xplsvtlts 1
