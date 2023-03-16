@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "on_craft_tnt_wand": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "xplsvtlts:tnt_wand"
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:tnt_wand/on_craft"
+    }
+}

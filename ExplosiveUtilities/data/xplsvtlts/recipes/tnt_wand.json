@@ -1,0 +1,23 @@
+{
+    "type": "crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        " ST",
+        " DS",
+        "S  "
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:stick"
+        },
+        "T": {
+            "item": "minecraft:tnt"
+        },
+        "D": {
+            "item": "minecraft:totem_of_undying"
+        }
+    },
+    "result": {
+        "item": "minecraft:knowledge_book"
+    }
+}
