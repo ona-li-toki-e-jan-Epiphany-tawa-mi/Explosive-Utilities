@@ -2,6 +2,8 @@
 # Corrals tnt in front of the player, allowing them to control it.
 # Sets _corraled_tnt to 1, which can be used to check if any tnt was corraled. Make sure to reset! 
 #
+# Note: this is meant for tnt, but it should work for other things too.
+#
 # Needs to be called with @s being the tnt, located where the tnt should be corraled. Also, the third vector will need to contain the 
 #   corraling position.
 # 
@@ -24,7 +26,7 @@ execute if score _has_gravity xplsvtlts matches 0 run data modify entity @s NoGr
 execute if score _has_gravity xplsvtlts matches 0 run tag @s add xplsvtlts_gravity_on_thaw
 
 # Freezes the fuse to make sure the tnt doesn't blow up in the user's face.
-scoreboard players set @s xplsvtlts_fuse_freeze_time 15
+scoreboard players set @s xplsvtlts_fuse_freeze_time 20
 
 playsound minecraft:entity.phantom.flap player @a ~ ~ ~ 1.0 0.1
 particle minecraft:portal ~ ~ ~ 0.25 0.25 0.25 0.1 10

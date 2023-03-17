@@ -8,7 +8,7 @@ advancement revoke @s only xplsvtlts:use_tnt_wand
 
 
 
-# Tnt corraling abilty.
+# Tnt corraling abilty. Note: works with all entities under #xplsvtlts:explosive
 # Gets position in front of player into the third vector slot for setting the motion of the tnt towards that point.
 scoreboard players set _corraled_tnt xplsvtlts 0
 function xplsvtlts:vector3d/get_rotation_vector
@@ -19,7 +19,9 @@ function xplsvtlts:vector3d/get_positon
 function xplsvtlts:vector3d/add
 scoreboard players add _y1 xplsvtlts 12500
 function xplsvtlts:vector3d/store/3
-execute positioned ^ ^1.25 ^4 as @e[type=minecraft:tnt,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
+execute positioned ^ ^1.25 ^4 as @e[type=#xplsvtlts:explosive,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
+# Compatibility with PigsThatGoBoomInTheNight! to corral explosive entities.
+execute if score installed pgsthtgbmnthnght matches 1 positioned ^ ^1.25 ^4 as @e[tag=pgsthtgbmnthnght_explosive,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
 
 # Prevents spawning tnt whilst corraling if the user moves to fast or something lags.
 execute if score _corraled_tnt xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_summon_cooldown = tnt_wand_summon_cooldown xplsvtlts
