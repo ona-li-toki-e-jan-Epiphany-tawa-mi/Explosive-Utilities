@@ -1,5 +1,6 @@
 ##
 # Gets the rotation vector of an entity and stores it in the first vector.
+# Note: scales input by 10,000 to capture the decimal component of the number.
 #
 # Needs to be called with @s being the entity.
 #

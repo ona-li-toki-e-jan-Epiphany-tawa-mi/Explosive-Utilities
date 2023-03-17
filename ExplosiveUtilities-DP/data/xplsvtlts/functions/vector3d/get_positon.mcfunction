@@ -1,6 +1,7 @@
 ##
 # Gets the position of an entity and stores it in the first vector.
 # If the entity is a vector math marker it will be destoryed here.
+# Note: scales input by 10,000 to capture the decimal component of the number.
 #
 # Needs to be called with @s being the entity.
 #

@@ -1,5 +1,6 @@
 ##
 # Sets the motion of an entity to the first vector.
+# Note: scales input by 1/10,000 to undo the scaling by the vector get methods.
 #
 # Needs to be called with @s being the entity.
 #
