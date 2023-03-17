@@ -18,7 +18,7 @@ Right-clicking can consume a piece of tnt from your inventory to summon a lit tn
 
 Holding right-click whilst looking at a lit tnt will allow you to corral it. It will follow your cursor and it's fuse will be frozen so it doesn't blow up in your face. This uses actual motion so you can build up momentum and lob around tnt with it. You can also do this with tnt minecarts and creepers, but just because you can, does not mean you should.
 
-Press left-click to create an explosion 1 block in front of you at the cost of 1 tnt. It is slightly less powerful than a normal explosion but has extreme knockback on non-player entities. Has a cooldown of 80 ticks by default.
+Press left-click to create an explosion 1 block in front of you at the cost of 1 tnt. It is slightly less powerful than a normal explosion but has extreme knockback on non-player entities. Has a cooldown of 80 ticks by default. Damage from the explosion will be reduced by 80% for you.
 
 Combining all three moves, you can create, aim, and launch a piece of tnt like a hand-held tnt cannon.
 
@@ -33,18 +33,22 @@ Tnt Wands can be used to corral mobs made explosive by [PigsThatGoBoomInTheNight
 You can set the summon cooldown for the tnt wand with this command, defaults to 40:
 
 ```text
-scoreboard players set tnt_wand_summon_cooldown xplsvtlts <ticks>
+/scoreboard players set tnt_wand_summon_cooldown xplsvtlts <ticks>
 ```
 
 You can set the explosive punch cooldown for the tnt wand with this command, defaults to 80:
 
 ```text
-scoreboard players set tnt_wand_punch_cooldown xplsvtlts <ticks>
+/scoreboard players set tnt_wand_punch_cooldown xplsvtlts <ticks>
 ```
 
 ## Installation
 
-Grab a version from [RELEASES](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/releases "Explosive Utilities Releases Page") and place it inside your world's datapacks folder. [See for more information.](https://minecraft.fandom.com/wiki/Tutorials/Installing_a_data_pack "A Minecraft Wiki tutorial on installing data packs")
+Grab a version from [RELEASES.](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/releases "Explosive Utilities Releases Page")
+
+Place the resource pack inside your Minecraft installation's resource pack folder and enable it. [See for more information.](https://minecraft.fandom.com/wiki/Tutorials/Loading_a_resource_pack "A Minecraft Wiki tutorial on installing resource packs")
+
+Place the datapack inside your world's datapacks folder. [See for more information.](https://minecraft.fandom.com/wiki/Tutorials/Installing_a_data_pack "A Minecraft Wiki tutorial on installing data packs")
 
 The pack will automatically finish installation on world load, but you can force it using (recommended if updating pack, note: resets configurations):
 
@@ -64,6 +68,7 @@ After that, remove the datapack from your world's datapacks folder before reload
 
 ## Links
 
+- [Explosive Utilities Planet Minecraft Page](https://www.planetminecraft.com/data-pack/explosive-utilities "Explosive Utilities on Planet Minecraft")
 - [PigsThatGoBoomInTheNight! Planet Minecraft Page](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
 - [PigsThatGoBoomInTheNight! GitHub Repository](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/PigsThatGoBoomInTheNight "PigsThatGoBoomInTheNight on GitHub")
 
