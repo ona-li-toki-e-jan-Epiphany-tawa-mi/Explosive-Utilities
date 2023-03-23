@@ -5,4 +5,4 @@
 #
 
 # Ensures the cursor exists if it doesn't already.
-execute unless entity @e[type=minecraft:interaction,tag=xplsvtlts_tnt_wand_cursor,limit=1,distance=..1] run summon minecraft:interaction ~ ~1 ~ {Tags:["xplsvtlts_tnt_wand_cursor"],width:2f,height:2f}
+execute unless entity @e[type=minecraft:interaction,tag=xplsvtlts_tnt_wand_cursor,limit=1,distance=..1] run summon minecraft:interaction ~ ~ ~ {Tags:["xplsvtlts_tnt_wand_cursor"],width:3f,height:2.5f}

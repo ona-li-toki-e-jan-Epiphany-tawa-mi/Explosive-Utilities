@@ -12,11 +12,11 @@ execute unless entity @s[gamemode=creative] run execute store success score _can
 execute if score _can_punch xplsvtlts matches 1 run effect give @s minecraft:resistance 1 3 true 
 
 # Summons actual explosion. The explosion power is toned down so the player doesn't Minecraft themselves.
-execute if score _can_punch xplsvtlts matches 1 run summon minecraft:creeper ^ ^1.5 ^1 {ExplosionRadius:2b, Fuse:0s, "CustomName": '{"text":"Explosion Wand Explosive Punch"}', CustomNameVisible: false}
+execute if score _can_punch xplsvtlts matches 1 anchored eyes run summon minecraft:creeper ^ ^-0.25 ^1 {ExplosionRadius:2b, Fuse:0s, "CustomName": '{"text":"Explosion Wand Explosive Punch"}', CustomNameVisible: false}
 
 # Applies extreme knockback to all entities nearby the explosion.
 # Needs to be ran a tick later to prevent 
-execute if score _can_punch xplsvtlts matches 1 run summon minecraft:armor_stand ^ ^1.5 ^1 {Marker:true, Tags:["xplsvtlts_punch_knockback_marker"]}
+execute if score _can_punch xplsvtlts matches 1 anchored eyes run summon minecraft:armor_stand ^ ^-0.25 ^1 {Marker:true, Tags:["xplsvtlts_punch_knockback_marker"]}
 execute if score _can_punch xplsvtlts matches 1 run schedule function xplsvtlts:tnt_wand/knockback/apply_punch_knockback 1t
 
 

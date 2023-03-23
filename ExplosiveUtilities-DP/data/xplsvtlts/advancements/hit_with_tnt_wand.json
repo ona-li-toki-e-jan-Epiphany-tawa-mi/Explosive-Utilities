@@ -3,10 +3,6 @@
         "on_hurt_entity": {
             "trigger": "minecraft:player_hurt_entity",
             "conditions": {
-                "entity": {
-                    "type": "minecraft:interaction",
-                    "nbt": "{Tags:[\"xplsvtlts_tnt_wand_cursor\"]}"
-                },
                 "player": {
                     "equipment": {
                         "mainhand": {
