@@ -5,7 +5,6 @@
 #
 
 # Generates desired motion away from marker.
-# TODO normalize movement vector so that knockback is constant based on distance from marker.
 function xplsvtlts:vector3d/load/3
 function xplsvtlts:vector3d/swap
 function xplsvtlts:vector3d/get_positon
@@ -15,6 +14,9 @@ scoreboard players set _y1 xplsvtlts 7500
 function xplsvtlts:vector3d/normalize
 scoreboard players set _scalar xplsvtlts 4
 function xplsvtlts:vector3d/scalar_multiply
+
+# If the entity is a fireball we need to set it's acceleration or else nothing will happen.
+execute if data entity @s power run function xplsvtlts:vector3d/set_power
 
 # Adds motion to the entity's current motion.
 function xplsvtlts:vector3d/swap

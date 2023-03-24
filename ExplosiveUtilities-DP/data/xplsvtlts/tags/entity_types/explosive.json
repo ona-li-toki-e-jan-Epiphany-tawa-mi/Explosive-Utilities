@@ -2,6 +2,7 @@
     "values": [
         "minecraft:tnt",
         "minecraft:tnt_minecart",
-        "minecraft:creeper"
+        "minecraft:creeper",
+        "minecraft:fireball"
     ]
 }

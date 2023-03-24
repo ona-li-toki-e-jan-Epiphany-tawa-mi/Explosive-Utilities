@@ -18,6 +18,10 @@ scoreboard players set _scalar xplsvtlts 6
 function xplsvtlts:vector3d/scalar_divide
 # Since the motion is based on the distance of the tnt to the corral position we get tnt throwing for free.
 function xplsvtlts:vector3d/set_motion
+# If the entity is a fireball we also need to set the accerleration or else it will try to keep going.
+scoreboard players set _scalar xplsvtlts 12
+function xplsvtlts:vector3d/scalar_divide
+execute if data entity @s power run function xplsvtlts:vector3d/set_power
 
 # Sets the tnt to have no gravity (if that isn't already the case) in case of lag and sets it up to return to normal on thawing, i.e.
 #   when it is no longer being corraled

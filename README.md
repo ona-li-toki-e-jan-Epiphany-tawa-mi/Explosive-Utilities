@@ -16,7 +16,7 @@ The tnt wand is a magic weapon that allows you to manipulate tnt.
 
 Right-clicking can consume a piece of tnt from your inventory to summon a lit tnt 4 blocks in front of you, even if that's inside a block. This has a cooldown of 40 ticks by default.
 
-Holding right-click whilst looking at a lit tnt will allow you to corral it. It will follow your cursor and it's fuse will be frozen so it doesn't blow up in your face. This uses actual motion so you can build up momentum and lob around tnt with it. You can also do this with tnt minecarts and creepers, but just because you can, does not mean you should.
+Holding right-click whilst looking at a lit tnt will allow you to corral it. It will follow your cursor and it's fuse will be frozen so it doesn't blow up in your face. This uses actual motion so you can build up momentum and lob around tnt with it. You can also do this with tnt minecarts and creepers, but just because you can, does not mean you should. Also with ghast fireballs, but you'll need to keep your cursor moving to keep control, lest you set yourself ablaze.
 
 Press left-click to create an explosion 1 block in front of you at the cost of 1 tnt. It is slightly less powerful than a normal explosion but has extreme knockback on non-player entities. Has a cooldown of 80 ticks by default. Damage from the explosion will be reduced by 80% for you.
 
