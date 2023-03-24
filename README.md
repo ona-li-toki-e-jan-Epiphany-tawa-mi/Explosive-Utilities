@@ -24,9 +24,13 @@ Combining all three moves, you can create, aim, and launch a piece of tnt like a
 
 It can be crafted using three sticks, a totem of undying, and a piece of tnt. View the screenshots for more information.
 
+### ***Tnt on a Stick***
+
+Slapping together a stick, tnt, and a pressure plate creates a highly volatile weapon. Use is not recommended for those who enjoy living.
+
 ## Compatiblity
 
-Tnt Wands can be used to corral mobs made explosive by [PigsThatGoBoomInTheNight!.](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
+Tnt Wands can be used to corral mobs made explosive by [PigsThatGoBoomInTheNight.](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
 
 ## Configuration
 
@@ -69,10 +73,12 @@ After that, remove the datapack from your world's datapacks folder before reload
 ## Links
 
 - [Explosive Utilities Planet Minecraft Page](https://www.planetminecraft.com/data-pack/explosive-utilities "Explosive Utilities on Planet Minecraft")
-- [PigsThatGoBoomInTheNight! Planet Minecraft Page](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
-- [PigsThatGoBoomInTheNight! GitHub Repository](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/PigsThatGoBoomInTheNight "PigsThatGoBoomInTheNight on GitHub")
+- [PigsThatGoBoomInTheNight Planet Minecraft Page](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
+- [PigsThatGoBoomInTheNight GitHub Repository](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/PigsThatGoBoomInTheNight "PigsThatGoBoomInTheNight on GitHub")
 
 ## Screenshots
 
 ![corraling tnt](screenshots/corraling_tnt.png)
+![holding a tnt on a stick](screenshots/holding_a_tnt_on_a_stick.png)
 ![tnt wand recipe](screenshots/tnt_wand_recipe.png)
+![tnt on a stick recipe](screenshots/tnt_on_a_stick_recipe.png)

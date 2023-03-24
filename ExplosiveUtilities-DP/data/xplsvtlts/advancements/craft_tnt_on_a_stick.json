@@ -1,0 +1,13 @@
+{
+    "criteria": {
+        "on_craft_tnt_on_a_stick": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "xplsvtlts:tnt_on_a_stick"
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:tnt_on_a_stick/on_craft"
+    }
+}

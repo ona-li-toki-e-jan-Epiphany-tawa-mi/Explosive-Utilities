@@ -1,0 +1,22 @@
+{
+    "criteria": {
+        "on_interact_with_entity": {
+            "trigger": "minecraft:player_hurt_entity",
+            "conditions": {
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "minecraft:stone_sword"
+                            ],
+                            "nbt": "{CustomModelData:252573366}"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:tnt_on_a_stick/on_hit"
+    }
+}
