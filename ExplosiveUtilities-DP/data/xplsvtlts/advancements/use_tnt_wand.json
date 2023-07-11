@@ -8,10 +8,6 @@
                         "minecraft:stone_pickaxe"
                     ],
                     "nbt": "{CustomModelData:417106215}"
-                },
-                "entity": {
-                    "type": "minecraft:interaction",
-                    "nbt": "{Tags:[\"xplsvtlts_tnt_wand_cursor\"]}"
                 }
             }
         }
