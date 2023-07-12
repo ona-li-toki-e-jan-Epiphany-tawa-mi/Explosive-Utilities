@@ -6,7 +6,8 @@
                 "player": {
                     "equipment": {
                         "mainhand": {
-                            "nbt": "{\"Reactive\":1b}"
+                            "nbt": "{\"Reactive\":1b}",
+                            "tag": "xplsvtlts:can_reactive_explode_on_melee"
                         }
                     }
                 },

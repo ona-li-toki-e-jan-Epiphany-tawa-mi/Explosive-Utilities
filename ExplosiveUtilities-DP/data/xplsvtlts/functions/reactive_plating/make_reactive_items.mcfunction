@@ -10,9 +10,9 @@
 scoreboard players set _made_reactive xplsvtlts 0
 execute as @e[type=item,distance=..1] run function xplsvtlts:reactive_plating/try_make_reactive
 
-#TODO Make use up anvil.
+# Immersion baby.
 execute if score _made_reactive xplsvtlts matches 1 run particle minecraft:end_rod ~ ~ ~ 0.1 0.1 0.1 0.5 25 
-execute if score _made_reactive xplsvtlts matches 1 run playsound minecraft:block.anvil.use block @a
+execute if score _made_reactive xplsvtlts matches 1 positioned ~ ~-0.25 ~ run function xplsvtlts:anvil/simulate_useage
 
 # Each plating can only upgrade 1 item.
 execute if score _made_reactive xplsvtlts matches 1 run kill @s
