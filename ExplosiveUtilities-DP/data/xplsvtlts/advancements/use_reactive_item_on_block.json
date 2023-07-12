@@ -1,0 +1,20 @@
+{
+    "criteria": {
+        "on_use_reactive_item_on_block": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "nbt": "{\"Reactive\":1b}"
+                        }
+                    }
+                },
+                "location": []
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:reactive_plating/on_use_reactive_item"
+    }
+}

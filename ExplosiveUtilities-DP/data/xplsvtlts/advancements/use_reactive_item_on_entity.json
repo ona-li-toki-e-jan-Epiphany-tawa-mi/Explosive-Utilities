@@ -1,0 +1,15 @@
+{
+    "criteria": {
+        "use_reactive_item_on_entity": {
+            "trigger": "minecraft:player_interacted_with_entity",
+            "conditions": {
+                "item": {
+                    "nbt": "{\"Reactive\":1b}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:reactive_plating/on_use_reactive_item"
+    }
+}
