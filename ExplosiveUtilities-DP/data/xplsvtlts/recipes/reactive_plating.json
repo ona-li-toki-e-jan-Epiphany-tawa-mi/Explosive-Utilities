@@ -1,0 +1,23 @@
+{
+    "type": "crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "PPP",
+        "TTT",
+        "OOO"
+    ],
+    "key": {
+        "P": {
+            "tag": "xplsvtlts:pressure_plates"
+        },
+        "T": {
+            "item": "minecraft:tnt"
+        },
+        "O": {
+            "item": "minecraft:obsidian"
+        }
+    },
+    "result": {
+        "item": "minecraft:knowledge_book"
+    }
+}

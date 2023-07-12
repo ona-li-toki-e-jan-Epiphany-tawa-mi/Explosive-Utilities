@@ -9,3 +9,4 @@ execute as @e[scores={xplsvtlts_fuse_freeze_time=1..}] run function xplsvtlts:fr
 
 execute as @a[scores={xplsvtlts_tnt_wand_summon_cooldown=1..}] run scoreboard players remove @s xplsvtlts_tnt_wand_summon_cooldown 1
 execute as @a[scores={xplsvtlts_tnt_wand_punch_cooldown=1..}] run scoreboard players remove @s xplsvtlts_tnt_wand_punch_cooldown 1
+execute as @a[scores={xplsvtlts_reactive_armor_cooldown=1..}] run function xplsvtlts:reactive_plating/armor/tick_cooldown

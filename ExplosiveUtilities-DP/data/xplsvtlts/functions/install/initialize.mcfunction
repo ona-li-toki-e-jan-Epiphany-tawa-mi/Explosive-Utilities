@@ -8,10 +8,12 @@
 scoreboard objectives add xplsvtlts dummy
 # Flags that installation has occured.
 scoreboard players set installed xplsvtlts 1
-# The cooldown time in ticks between when tnt can be summoned with a tnt wand.
+# The cooldown time, in ticks, between when tnt can be summoned with a tnt wand.
 scoreboard players set tnt_wand_summon_cooldown xplsvtlts 40
-# The cooldown time in ticks between when an explosive punch can be done with a tnt wand.
+# The cooldown time, in ticks, between when an explosive punch can be done with a tnt wand.
 scoreboard players set tnt_wand_punch_cooldown xplsvtlts 80
+# The maximum cooldown time, in ticks, until reactive armor can explode again.
+scoreboard players set reactive_armor_maximum_cooldown xplsvtlts 120
 
 # A cool down for summoning tnt with the tnt wand.
 scoreboard objectives add xplsvtlts_tnt_wand_summon_cooldown dummy
@@ -19,6 +21,8 @@ scoreboard objectives add xplsvtlts_tnt_wand_summon_cooldown dummy
 scoreboard objectives add xplsvtlts_tnt_wand_punch_cooldown dummy
 # The amount of time a piece of tnt has before it's fuse can continue.
 scoreboard objectives add xplsvtlts_fuse_freeze_time dummy
+# A cooldown for the explosion ability of reactive armor.
+scoreboard objectives add xplsvtlts_reactive_armor_cooldown dummy
 
 
 
