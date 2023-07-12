@@ -7,7 +7,6 @@
 #
 
 # TODO make explosive mining work.
-# TODO finish trident shit.
 advancement revoke @s only xplsvtlts:use_reactive_item_on_block
 advancement revoke @s only xplsvtlts:hit_with_reactive_item
 advancement revoke @s only xplsvtlts:use_reactive_item_on_entity
