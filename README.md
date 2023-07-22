@@ -52,9 +52,9 @@ Similar to the previous tool items, but will not detonate when attacking entitie
 
 Makes your armor detonate in reaction to taking non-explosive damage from entities. 
 
-Has a default cooldown of 120 ticks divided by the number of armor pieces you are wearing with the upgrade, for a minimum cooldown of 30 ticks.
+Has a default cooldown of 120 ticks divided by the number of armor pieces you are wearing with the upgrade, for a minimum cooldown of 30 ticks. Wearing all 4 pieces will greatly increase the power of the explosion.
 
-Additionally, wearing all 4 pieces will greatly increase the power of the explosion.
+Additionally, upgrading an armor piece with reactive plating will give it blast protection II if blast protection is not already present on the armor piece, no repair costs involved.
 
 - Trident
 
