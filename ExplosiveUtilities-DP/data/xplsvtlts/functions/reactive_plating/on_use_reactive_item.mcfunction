@@ -15,7 +15,6 @@ advancement revoke @s only xplsvtlts:use_reactive_shears_on_block
 advancement revoke @s only xplsvtlts:use_reactive_shears_on_entity
 
 
-# TODO only make durability decrease when not in creative mode.
 
 # High resistance to protect against the item's explosion.
 effect give @s minecraft:resistance 1 4 true 
@@ -23,7 +22,7 @@ effect give @s minecraft:resistance 1 4 true
 #TODO make use raycast.
 summon creeper ^ ^1 ^1 {Fuse:0s,ExplosionRadius:1b,"CustomName":'{"text":"Reactive Item Explosion"}',"CustomNameVisible":false}
 
-item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_no_unbreaking
-item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_i
-item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_ii
-item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_iii
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_no_unbreaking
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_i
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_ii
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_iii
