@@ -11,6 +11,7 @@ advancement revoke @s only xplsvtlts:hit_with_reactive_item
 advancement revoke @s only xplsvtlts:strip_block_with_reactive_axe
 advancement revoke @s only xplsvtlts:use_reactive_shovel_on_block
 advancement revoke @s only xplsvtlts:till_with_reactive_hoe
+advancement revoke @s only xplsvtlts:use_reactive_shears_on_block
 advancement revoke @s only xplsvtlts:use_reactive_shears_on_entity
 
 
