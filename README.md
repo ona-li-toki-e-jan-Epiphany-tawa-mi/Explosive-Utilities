@@ -4,7 +4,7 @@
 
 *Spice of Death*
 
-A data pack and resource pack for Minecraft 1.19.4 that adds various explosive tools to your world.
+A data pack and resource pack for Minecraft 1.20 (but will probably work in 1.19.4 as well) that adds various explosive tools to your world.
 
 *Note: I will add more stuff over time.*
 
