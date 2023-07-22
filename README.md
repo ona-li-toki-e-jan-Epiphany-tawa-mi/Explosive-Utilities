@@ -26,7 +26,45 @@ It can be crafted using three sticks, a totem of undying, and a piece of tnt. Vi
 
 ### ***Tnt on a Stick***
 
-Slapping together a stick, tnt, and a pressure plate creates a highly volatile weapon. Use is not recommended for those who enjoy living.
+Slapping together a stick, tnt, and a pressure plate creates a highly volatile weapon. View the screenshots for more information on the recipe. Use is not recommended for those who enjoy living.
+
+### ***Reactive Plating***
+
+An upgrade for your equipment that adds an explosive touch in exchange for added durability use. 
+
+You will be protected from damage by the reactive explosions, but it will eat through any armor you are wearing.
+
+Crafted using 3 obsidian, 3 tnt, and 3 pressure plates of any kind (see screenshots,) and can be applied to a piece of equipment by tossing it on an anvil with the reactive plating (note: will use up anvil over time.)
+
+The following items can be upgraded:
+
+- Swords, pickaxes, shovels, hoes, and axes
+
+All of these tool items will detonate when attacking entities, stripping blocks, tilling soil, making dirt paths, etc..
+
+I intend to also make them detonate when mining blocks, but I've yet to find a reliable method of general block break detection.
+
+- Shears
+
+Similar to the previous tool items, but will not detonate when attacking entities.
+
+- Armor
+
+Makes your armor detonate in reaction to taking non-explosive damage from entities. 
+
+Has a default cooldown of 120 ticks divided by the number of armor pieces you are wearing with the upgrade, for a minimum cooldown of 30 ticks.
+
+Additionally, wearing all 4 pieces will greatly increase the power of the explosion.
+
+- Trident
+
+Detonates when attacking, similar to the tool items, but will also detonate on the first thing it comes into contact with when thrown.
+
+- Shield
+
+Detonates when blocking non-explosive damage. 
+
+Additionally, if you are crouching, it can consume 1 gunpowder from your inventory to create a larger explosion.
 
 ## Compatiblity
 
@@ -44,6 +82,12 @@ You can set the explosive punch cooldown for the tnt wand with this command, def
 
 ```text
 /scoreboard players set tnt_wand_punch_cooldown xplsvtlts <ticks>
+```
+
+You can set the base cooldown for the reactive armor with this command, defaults to 120:
+
+```text
+/scoreboard players set reactive_armor_maximum_cooldown xplsvtlts <ticks>
 ```
 
 ## Installation
@@ -80,5 +124,7 @@ After that, remove the datapack from your world's datapacks folder before reload
 
 ![corraling tnt](screenshots/corraling_tnt.png)
 ![holding a tnt on a stick](screenshots/holding_a_tnt_on_a_stick.png)
+![reactive trident detonation](screenshots/reactive_trident_detonation.png)
 ![tnt wand recipe](screenshots/tnt_wand_recipe.png)
 ![tnt on a stick recipe](screenshots/tnt_on_a_stick_recipe.png)
+![reactive plating recipe](screenshots/reactive_plating_recipe.png)
