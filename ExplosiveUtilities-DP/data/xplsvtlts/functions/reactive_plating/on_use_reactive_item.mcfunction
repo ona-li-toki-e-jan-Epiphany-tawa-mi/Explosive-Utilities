@@ -7,11 +7,14 @@
 #
 
 # TODO make explosive mining work.
-advancement revoke @s only xplsvtlts:use_reactive_item_on_block
 advancement revoke @s only xplsvtlts:hit_with_reactive_item
-advancement revoke @s only xplsvtlts:use_reactive_item_on_entity
+advancement revoke @s only xplsvtlts:strip_block_with_reactive_axe
+advancement revoke @s only xplsvtlts:use_reactive_shovel_on_block
+advancement revoke @s only xplsvtlts:till_with_reactive_hoe
+advancement revoke @s only xplsvtlts:use_reactive_shears_on_entity
 
 
+# TODO only make durability decrease when not in creative mode.
 
 # High resistance to protect against the item's explosion.
 effect give @s minecraft:resistance 1 4 true 
