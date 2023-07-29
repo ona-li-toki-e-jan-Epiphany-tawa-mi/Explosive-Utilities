@@ -70,6 +70,8 @@ Additionally, if you are crouching, it can consume 1 gunpowder from your invento
 
 Tnt Wands can be used to corral mobs made explosive by [PigsThatGoBoomInTheNight.](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
 
+Tnt Wands can be used to corral bees if [Incendiary Bees](https://www.planetminecraft.com/data-pack/incendiary-bees "Incendiary Bees on Planet Minecraft") is installed.
+
 ## Configuration
 
 You can set the summon cooldown for the tnt wand with this command, defaults to 40:
@@ -119,6 +121,8 @@ After that, remove the datapack from your world's datapacks folder before reload
 - [Explosive Utilities Planet Minecraft Page](https://www.planetminecraft.com/data-pack/explosive-utilities "Explosive Utilities on Planet Minecraft")
 - [PigsThatGoBoomInTheNight Planet Minecraft Page](https://www.planetminecraft.com/data-pack/pigsthatgoboominthenight "PigsThatGoBoomInTheNight on Planet Minecraft")
 - [PigsThatGoBoomInTheNight GitHub Repository](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/PigsThatGoBoomInTheNight "PigsThatGoBoomInTheNight on GitHub")
+- [Incendiary Bees Planet Minecraft Page](https://www.planetminecraft.com/data-pack/incendiary-bees "Incendiary Bees on Planet Minecraft")
+- [Incendiary Bees GitHub Repository](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Incendiary-Bees "Incendiary Bees on GitHub")
 
 ## Screenshots
 
@@ -128,3 +132,11 @@ After that, remove the datapack from your world's datapacks folder before reload
 ![tnt wand recipe](screenshots/tnt_wand_recipe.png)
 ![tnt on a stick recipe](screenshots/tnt_on_a_stick_recipe.png)
 ![reactive plating recipe](screenshots/reactive_plating_recipe.png)
+
+## Changelog
+
+- Added combatiblity with Incendiary Bees to corral them with the tnt wand.
+- Added visual and auditory cue for when the tnt wand's cooldowns are over.
+- Added reactive plating and it's effects to various equiment items.
+- Added tnt on a stick.
+- bungus.

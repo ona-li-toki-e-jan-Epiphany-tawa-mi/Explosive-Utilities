@@ -22,6 +22,8 @@ function xplsvtlts:vector3d/store/3
 execute anchored eyes positioned ^ ^-0.25 ^4 as @e[type=#xplsvtlts:explosive,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
 # Compatibility with PigsThatGoBoomInTheNight! to corral explosive entities.
 execute if score installed pgsthtgbmnthnght matches 1 anchored eyes positioned ^ ^-0.25 ^4 as @e[tag=pgsthtgbmnthnght_explosive,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
+# Compatibility with Incendiary Bees to corral bees.
+execute if score installed incndrybs matches 1 anchored eyes positioned ^ ^-0.25 ^4 as @e[type=minecraft:bee,distance=..5] at @s run function xplsvtlts:tnt_wand/corral_tnt
 
 # Prevents spawning tnt whilst corraling if the user moves to fast or something lags.
 execute if score _corraled_tnt xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_summon_cooldown = tnt_wand_summon_cooldown xplsvtlts
