@@ -15,6 +15,7 @@ scoreboard players set tnt_wand_punch_cooldown xplsvtlts 80
 # The maximum cooldown time, in ticks, until reactive armor can explode again.
 scoreboard players set reactive_armor_maximum_cooldown xplsvtlts 120
 
+scoreboard objectives add xplsvtlts_error_error_error_error dummy
 # A cool down for summoning tnt with the tnt wand.
 scoreboard objectives add xplsvtlts_tnt_wand_summon_cooldown dummy
 # A cool down for punching with the tnt wand.

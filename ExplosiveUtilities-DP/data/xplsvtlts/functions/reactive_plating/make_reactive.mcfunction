@@ -10,10 +10,17 @@
 
 # Adds reactive identifiers to the item.
 data modify entity @s Item.tag.Reactive set value 1b
-data modify entity @s Item.tag.display.Lore append value "{\"text\":\"Reactive\",\"italic\":false,\"color\":\"red\"}"
+execute unless predicate xplsvtlts:is_tnt_wand_item_entity run data modify entity @s Item.tag.display.Lore append value "{\"text\":\"Reactive\",\"italic\":false,\"color\":\"red\"}"
 
 # Adds blast protection II to armor if it is not already present (does not check level.)
 execute unless predicate xplsvtlts:is_blast_protected_item_entity if predicate xplsvtlts:is_armor_item_entity run data modify entity @s Item.tag.Enchantments append value {"id":"minecraft:blast_protection","lvl":2s}
+
+
+
+#???
+execute if predicate xplsvtlts:is_tnt_wand_item_entity run function xplsvtlts:reactive_plating/invalid
+
+
 
 # Marks that the reative plating has been used up.
 scoreboard players set _made_reactive xplsvtlts 1

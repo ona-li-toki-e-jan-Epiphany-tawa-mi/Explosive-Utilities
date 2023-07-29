@@ -12,6 +12,7 @@ advancement revoke @s only xplsvtlts:use_reactive_shovel_on_block
 advancement revoke @s only xplsvtlts:till_with_reactive_hoe
 advancement revoke @s only xplsvtlts:use_reactive_shears_on_block
 advancement revoke @s only xplsvtlts:use_reactive_shears_on_entity
+advancement revoke @s only xplsvtlts:use_error_error_on_error
 
 
 
