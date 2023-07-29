@@ -4,13 +4,15 @@
 
 *Spice of Death*
 
-A data pack and resource pack for Minecraft 1.20 (but will probably work in 1.19.4 as well) that adds various explosive tools to your world.
+A data pack and resource pack for Minecraft 1.20+ (but will probably work in 1.19.4 as well) that adds various explosive tools to your world.
 
 *Note: I will add more stuff over time.*
 
 ## Items
 
 ### ***Tnt Wand***
+
+![tnt wand recipe](screenshots/tnt_wand_recipe.png)
 
 The tnt wand is a magic weapon that allows you to manipulate tnt.
 
@@ -22,19 +24,35 @@ Press left-click to create an explosion 1 block in front of you at the cost of 1
 
 Combining all three moves, you can create, aim, and launch a piece of tnt like a hand-held tnt cannon.
 
-It can be crafted using three sticks, a totem of undying, and a piece of tnt. View the screenshots for more information.
+It can be crafted using three sticks, a totem of undying, and a piece of tnt (see above.)
+
+#### **Give command:**
+
+```text
+/function xplsvtlts:tnt_wand/on_craft
+```
 
 ### ***Tnt on a Stick***
 
-Slapping together a stick, tnt, and a pressure plate creates a highly volatile weapon. View the screenshots for more information on the recipe. Use is not recommended for those who enjoy living.
+![tnt on a stick recipe](screenshots/tnt_on_a_stick_recipe.png)
+
+Slapping together a stick, tnt, and a pressure plate creates a highly volatile weapon (see above.) Use is not recommended for those who enjoy living.
+
+#### **Give command:**
+
+```
+/function xplsvtlts:tnt_on_a_stick/on_craft
+```
 
 ### ***Reactive Plating***
+
+![reactive plating recipe](screenshots/reactive_plating_recipe.png)
 
 An upgrade for your equipment that adds an explosive touch in exchange for added durability use. 
 
 You will be protected from damage by the reactive explosions, but it will eat through any armor you are wearing.
 
-Crafted using 3 obsidian, 3 tnt, and 3 pressure plates of any kind (see screenshots,) and can be applied to a piece of equipment by tossing it on an anvil with the reactive plating (note: will use up anvil over time.)
+Crafted using 3 obsidian, 3 tnt, and 3 pressure plates of any kind (see above,) and can be applied to a piece of equipment by tossing it on an anvil with the reactive plating (note: will use up anvil over time.)
 
 The following items can be upgraded:
 
@@ -65,6 +83,11 @@ Detonates when attacking, similar to the tool items, but will also detonate on t
 Detonates when blocking non-explosive damage. 
 
 Additionally, if you are crouching, it can consume 1 gunpowder from your inventory to create a larger explosion.
+
+#### **Give command:**
+```text
+/function xplsvtlts:reactive_plating/on_craft
+```
 
 ## Compatiblity
 
@@ -129,9 +152,6 @@ After that, remove the datapack from your world's datapacks folder before reload
 ![corraling tnt](screenshots/corraling_tnt.png)
 ![holding a tnt on a stick](screenshots/holding_a_tnt_on_a_stick.png)
 ![reactive trident detonation](screenshots/reactive_trident_detonation.png)
-![tnt wand recipe](screenshots/tnt_wand_recipe.png)
-![tnt on a stick recipe](screenshots/tnt_on_a_stick_recipe.png)
-![reactive plating recipe](screenshots/reactive_plating_recipe.png)
 
 ## Changelog
 
