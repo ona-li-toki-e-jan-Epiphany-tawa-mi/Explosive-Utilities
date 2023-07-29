@@ -4,7 +4,7 @@
 # Needs to be called with @s being the player, located at @s.
 #
 
-advancement revoke @s only xplsvtlts:hit_with_tnt_wand
+advancement revoke @s only xplsvtlts:event_listeners/on_hit/hit_with_tnt_wand
 
 
 # Explosive punch ability.

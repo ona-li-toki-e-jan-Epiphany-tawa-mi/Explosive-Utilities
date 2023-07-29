@@ -4,7 +4,7 @@
 # Needs to be called with @s being the player, located at @s.
 #
 
-advancement revoke @s only xplsvtlts:use_tnt_wand
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_tnt_wand
 
 
 

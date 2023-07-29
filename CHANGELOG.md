@@ -4,7 +4,7 @@
 - Added visual and auditory cue for when the tnt wand's cooldowns are over.
 - Added reactive plating and it's effects to various equiment items.
 - Added tnt on a stick.
-- bungus.
+- ???.
 
 ## v0.1.0
 

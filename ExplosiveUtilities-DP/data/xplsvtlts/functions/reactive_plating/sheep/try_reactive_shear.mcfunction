@@ -10,7 +10,7 @@
 #   Location - at @s.
 #
 
-advancement revoke @s only xplsvtlts:use_reactive_shears_on_sheep
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_reactive_shears_on_sheep
 
 
 

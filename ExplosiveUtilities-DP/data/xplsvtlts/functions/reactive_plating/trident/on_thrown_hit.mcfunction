@@ -6,7 +6,7 @@
 #   Location - at @s.
 #
 
-advancement revoke @s only xplsvtlts:hit_with_thrown_reactive_trident
+advancement revoke @s only xplsvtlts:event_listeners/on_hit/hit_with_thrown_reactive_trident
 
 
 

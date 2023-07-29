@@ -4,7 +4,7 @@
 # Needs to be called with @s being the player.
 #
 
-advancement revoke @s only xplsvtlts:hit_with_tnt_on_a_stick
+advancement revoke @s only xplsvtlts:event_listeners/on_hit/hit_with_tnt_on_a_stick
 
 
 

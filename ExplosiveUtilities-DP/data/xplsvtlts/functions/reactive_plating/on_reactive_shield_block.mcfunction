@@ -6,7 +6,7 @@
 #   Location - at @s.
 #
 
-advancement revoke @s only xplsvtlts:reactive_shield_block
+advancement revoke @s only xplsvtlts:event_listeners/on_hurt/reactive_shield_block
 
 
 

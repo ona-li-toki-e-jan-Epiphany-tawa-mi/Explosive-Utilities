@@ -6,13 +6,13 @@
 #   Location - at @s.
 #
 
-advancement revoke @s only xplsvtlts:hit_with_reactive_item
-advancement revoke @s only xplsvtlts:strip_block_with_reactive_axe
-advancement revoke @s only xplsvtlts:use_reactive_shovel_on_block
-advancement revoke @s only xplsvtlts:till_with_reactive_hoe
-advancement revoke @s only xplsvtlts:use_reactive_shears_on_block
-advancement revoke @s only xplsvtlts:use_reactive_shears_on_entity
-advancement revoke @s only xplsvtlts:use_error_error_on_error
+advancement revoke @s only xplsvtlts:event_listeners/on_hit/hit_with_reactive_item
+advancement revoke @s only xplsvtlts:event_listeners/on_use/strip_block_with_reactive_axe
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_reactive_shovel_on_block
+advancement revoke @s only xplsvtlts:event_listeners/on_use/till_with_reactive_hoe
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_reactive_shears_on_block
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_reactive_shears_on_entity
+advancement revoke @s only xplsvtlts:event_listeners/on_use/use_error_error_on_error
 
 
 
