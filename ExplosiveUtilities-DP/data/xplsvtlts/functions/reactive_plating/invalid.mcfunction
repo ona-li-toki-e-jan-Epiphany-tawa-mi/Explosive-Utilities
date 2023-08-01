@@ -25,6 +25,8 @@ data modify entity @s Item.tag.display.Lore append value "{\"text\":\"You weren'
 data modify entity @s Item.tag.display.Lore append value "{\"text\":\"ma ali sin li utala tawa kama lon li ken ala\",\"bold\":\"true\",\"obfuscated\":\"true\",\"color\":\"purple\"}"
 data modify entity @s Item.tag.display.Lore append value "{\"text\":\"tenpo ni li tenpo monsuta\",\"bold\":\"true\",\"obfuscated\":\"true\",\"color\":\"purple\"}"
 
+data modify entity @s Item.tag.CustomModelData set value 7106216
+
 
 
 time set midnight

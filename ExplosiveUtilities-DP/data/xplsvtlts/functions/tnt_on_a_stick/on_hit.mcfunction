@@ -9,7 +9,7 @@ advancement revoke @s only xplsvtlts:event_listeners/on_hit/hit_with_tnt_on_a_st
 
 
 # One-time use.
-execute unless entity @s[gamemode=creative] run clear @s stone_sword{CustomModelData:252573366} 1
+execute unless entity @s[gamemode=creative] run clear @s stone_sword{CustomModelData:9200798} 1
 
 # Kablamo.
 execute anchored eyes run summon minecraft:tnt ^ ^ ^1

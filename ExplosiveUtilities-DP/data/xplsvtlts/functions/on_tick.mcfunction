@@ -3,7 +3,7 @@
 #
 
 execute as @e[type=minecraft:interaction,tag=xplsvtlts_tnt_wand_cursor] at @s run function xplsvtlts:tnt_wand/tick_cursor
-execute as @a[nbt={SelectedItem:{id:"minecraft:stone_pickaxe",tag:{CustomModelData:417106215}}}] at @s run function xplsvtlts:tnt_wand/on_tick
+execute as @a if predicate xplsvtlts:is_holding_tnt_wand at @s run function xplsvtlts:tnt_wand/on_tick
 
 execute as @e[type=minecraft:trident,nbt={Trident:{tag:{"Reactive":1b}}}] run function xplsvtlts:reactive_plating/trident/on_tick
 

@@ -6,7 +6,7 @@
     "overrides": [
         {
             "predicate": {
-                "custom_model_data": 1334495768
+                "custom_model_data": 1385753
             },
             "model": "xplsvtlts:item/reactive_plating"
         }

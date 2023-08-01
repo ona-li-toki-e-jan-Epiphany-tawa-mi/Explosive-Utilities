@@ -6,7 +6,7 @@
     "overrides": [
         {
             "predicate": {
-                "custom_model_data": 252573366
+                "custom_model_data": 9200798
             },
             "model": "xplsvtlts:item/tnt_on_a_stick"
         }

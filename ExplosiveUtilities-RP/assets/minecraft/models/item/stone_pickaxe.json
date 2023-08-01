@@ -6,9 +6,15 @@
     "overrides": [
         {
             "predicate": {
-                "custom_model_data": 417106215
+                "custom_model_data": 7106215
             },
             "model": "xplsvtlts:item/tnt_wand"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 7106216
+            },
+            "model": "xplsvtlts:item/tnt_wand_error"
         }
     ]
 }
