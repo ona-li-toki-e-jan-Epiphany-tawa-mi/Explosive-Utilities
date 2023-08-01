@@ -2,8 +2,7 @@
 # Called once every tick.
 #
 
-execute as @e[type=minecraft:interaction,tag=xplsvtlts_tnt_wand_cursor] at @s run function xplsvtlts:tnt_wand/tick_cursor
-execute as @a if predicate xplsvtlts:is_holding_tnt_wand at @s run function xplsvtlts:tnt_wand/on_tick
+execute as @a[predicate=xplsvtlts:is_holding_click_detection_enabled_item] at @s run function xplsvtlts:click_detection/on_tick_player
 
 execute as @e[type=minecraft:trident,nbt={Trident:{tag:{"Reactive":1b}}}] run function xplsvtlts:reactive_plating/trident/on_tick
 
