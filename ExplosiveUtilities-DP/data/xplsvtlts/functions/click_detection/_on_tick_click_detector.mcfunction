@@ -8,7 +8,7 @@
 
 # Ensures the detector stays around the player.
 scoreboard players set _found_player xplsvtlts 0
-execute store success score _found_player xplsvtlts run tp @s @p[predicate=xplsvtlts:is_holding_click_detection_enabled_item,distance=..1]
+execute store success score _found_player xplsvtlts run tp @s @p[predicate=xplsvtlts:entity/is_holding_click_detection_enabled_item,distance=..1]
 
 # We can just kill it if it got too far away or the player is no longer needing
 #   detection.

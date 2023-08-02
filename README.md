@@ -115,6 +115,12 @@ You can set the base cooldown for the reactive armor with this command, defaults
 /scoreboard players set reactive_armor_maximum_cooldown xplsvtlts <ticks>
 ```
 
+You can set whether to disable the corraling restrictions on the tnt wand with the following command. 1 to disable, 0 to enable, defaults to 0.
+
+```text
+/scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts <1 or 0>
+```
+
 ## Installation
 
 Grab a version from [RELEASES.](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/releases "Explosive Utilities Releases Page")
@@ -161,5 +167,12 @@ After that, remove the datapack from your world's datapacks folder before reload
 - Added tnt on a stick.
 - ???.
 - Optimizations, baby!
+- Added config option to disable the entity restrictions on the tnt wand corraling ability.
+
+Make sure to run the following command if updating (note: resets configurations):
+
+```text
+/function xplsvtlts:install/initialize
+```
 
 Note: the CustomModelData number used for tnt wands has changed, making any preexisting ones malfunction. Either craft or give yourself a new one.

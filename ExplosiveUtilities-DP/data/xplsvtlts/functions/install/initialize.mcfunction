@@ -1,7 +1,7 @@
 ##
 # Runs the installation process. 
-# Do not call directly, but through xplsvtlts:try_install, as it only runs when not already installed (unless you
-#   want to reset the variables.)
+# Do not call directly, but through xplsvtlts:try_install, as it only runs when 
+#   not already installed (unless you want to reset the variables.)
 #
 
 # Create scoreboard in case of force-install and scoreboard does not exist for some reason.
@@ -14,6 +14,9 @@ scoreboard players set tnt_wand_summon_cooldown xplsvtlts 40
 scoreboard players set tnt_wand_punch_cooldown xplsvtlts 80
 # The maximum cooldown time, in ticks, until reactive armor can explode again.
 scoreboard players set reactive_armor_maximum_cooldown xplsvtlts 120
+# Whether to disable the restriction on which entities can be corraled with the
+#   tnt wand.
+scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts 0
 
 scoreboard objectives add xplsvtlts_error_error_error_error dummy
 # A cool down for summoning tnt with the tnt wand.

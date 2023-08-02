@@ -2,10 +2,17 @@
 
 - Added combatiblity with Incendiary Bees to corral them with the tnt wand.
 - Added visual and auditory cue for when the tnt wand's cooldowns are over.
+- Added config option to disable the entity restrictions on the tnt wand corraling ability.
 - Added reactive plating and it's effects to various equiment items.
 - Added tnt on a stick.
 - ???.
 - Optimizations, baby!
+
+Make sure to run the following command if updating (note: resets configurations):
+
+```text
+/function xplsvtlts:install/initialize
+```
 
 Note: the CustomModelData number used for tnt wands has changed, making any preexisting ones malfunction. Either craft or give yourself a new one.
 

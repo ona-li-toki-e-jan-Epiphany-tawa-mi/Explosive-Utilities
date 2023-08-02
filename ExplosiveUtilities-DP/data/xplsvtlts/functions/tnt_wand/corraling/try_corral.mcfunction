@@ -14,4 +14,4 @@ scoreboard players set _corraled_tnt xplsvtlts 0
 function xplsvtlts:vector3d/get_location_as_vector
 function xplsvtlts:vector3d/store/3
 
-execute as @e[distance=..5] run function xplsvtlts:tnt_wand/corraling/_try_corral_entity
+execute store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,predicate=xplsvtlts:entity/can_be_corraled] run function xplsvtlts:tnt_wand/corraling/_corral_entity
