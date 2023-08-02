@@ -1,7 +1,7 @@
 ##
 # Gets the position of an entity at their eyes and stores it in the first 
 #   vector.
-# Note: scales input by 10,000 to capture the decimal component of the number.
+# Note: scales input by 70 to capture the decimal component of the number.
 #
 # Parameters:
 #   @s - the entity.

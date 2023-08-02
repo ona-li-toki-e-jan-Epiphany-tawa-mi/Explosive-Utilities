@@ -1,6 +1,6 @@
 ## 
 # Gets the magnitude of the given vector.
-# Note: The magnitude is 10,000 times what it should be because we need to 
+# Note: The magnitude is 70 times what it should be because we need to 
 #   capture the decimal component. Beware when using this.
 #
 # Parameters:

@@ -1,6 +1,6 @@
 ##
 # Gets the rotation vector of an entity.
-# Note: scales input by 10,000 to capture the decimal component of the number.
+# Note: scales input by 70 to capture the decimal component of the number.
 #
 # Parameters:
 #   @s - the entity.
