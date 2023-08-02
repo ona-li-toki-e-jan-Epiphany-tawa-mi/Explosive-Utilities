@@ -5,7 +5,7 @@
 #   @s - the player
 #
 
-recipe take @s xplsvtlts:reactive_plating
+recipe take @s xplsvtlts:crafting/reactive_plating
 advancement revoke @s only xplsvtlts:event_listeners/on_craft/craft_reactive_plating
 clear @s knowledge_book
 

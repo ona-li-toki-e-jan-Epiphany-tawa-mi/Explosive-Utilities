@@ -12,7 +12,7 @@ advancement revoke @s only xplsvtlts:event_listeners/on_hurt/reactive_shield_blo
 
 # Can consume 1 gunpowder if shifting for a larger explosion.
 scoreboard players set _use_larger_explosion xplsvtlts 0
-execute if predicate xplsvtlts:is_shifting store success score _use_larger_explosion xplsvtlts run clear @s minecraft:gunpowder 1
+execute if predicate xplsvtlts:entity/is_shifting store success score _use_larger_explosion xplsvtlts run clear @s minecraft:gunpowder 1
 
 execute if score _use_larger_explosion xplsvtlts matches 0 run summon creeper ^ ^1 ^0.25 {Fuse:0s,ExplosionRadius:1b,"CustomName":'{"text":"Reactive Shield Explosion"}',"CustomNameVisible":false}
 execute if score _use_larger_explosion xplsvtlts matches 1 run summon creeper ^ ^1 ^0.25 {Fuse:0s,ExplosionRadius:2b,"CustomName":'{"text":"Reactive Shield Explosion"}',"CustomNameVisible":false}

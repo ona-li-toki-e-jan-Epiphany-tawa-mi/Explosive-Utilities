@@ -3,7 +3,7 @@
         "on_craft_reactive plating": {
             "trigger": "minecraft:recipe_unlocked",
             "conditions": {
-                "recipe": "xplsvtlts:reactive_plating"
+                "recipe": "xplsvtlts:crafting/reactive_plating"
             }
         }
     },

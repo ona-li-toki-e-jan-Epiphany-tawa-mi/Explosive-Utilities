@@ -3,7 +3,7 @@
     "terms": [
         {
             "condition": "minecraft:reference",
-            "name": "xplsvtlts:is_holding_tnt_wand"
+            "name": "xplsvtlts:entity/tnt_wand/is_holding_tnt_wand"
         }
     ]
 }

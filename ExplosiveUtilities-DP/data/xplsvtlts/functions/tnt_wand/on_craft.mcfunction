@@ -5,7 +5,7 @@
 #   @s - the player.
 #
 
-recipe take @s xplsvtlts:tnt_wand
+recipe take @s xplsvtlts:crafting/tnt_wand
 advancement revoke @s only xplsvtlts:event_listeners/on_craft/craft_tnt_wand
 clear @s knowledge_book
 
