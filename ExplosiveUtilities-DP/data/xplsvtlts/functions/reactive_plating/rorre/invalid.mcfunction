@@ -34,13 +34,13 @@ weather thunder
 
 
 
-effect give @e[distance=..30] minecraft:wither 10 0 false
-effect give @e[distance=..30] minecraft:nausea 20 0 false
-effect give @e[distance=..30] minecraft:weakness 40 1 false
-effect give @e[distance=..30] minecraft:slowness 30 1 false
-effect give @e[distance=..30] minecraft:mining_fatigue 40 1 false
-effect give @e[distance=..30] minecraft:hunger 30 1 false
-effect give @e[distance=..30] minecraft:darkness 10 0 false
+effect give @e[distance=..40] minecraft:wither 10 0 false
+effect give @e[distance=..40] minecraft:nausea 20 0 false
+effect give @e[distance=..40] minecraft:weakness 40 1 false
+effect give @e[distance=..40] minecraft:slowness 30 1 false
+effect give @e[distance=..40] minecraft:mining_fatigue 40 1 false
+effect give @e[distance=..40] minecraft:hunger 30 1 false
+effect give @e[distance=..40] minecraft:darkness 10 0 false
 
 
 
@@ -62,5 +62,5 @@ playsound minecraft:entity.generic.explode hostile @a ~ ~ ~ 4.0 1.0
 
 
 summon minecraft:armor_stand ~ ~ ~ {Tags:[xplsvtlts_error_error_invalid],Marker:1b,Invisible:1b}
-scoreboard players set @e[type=minecraft:armor_stand,tag=xplsvtlts_error_error_invalid,limit=1,sort=nearest] xplsvtlts_error_error_error_error 13
-schedule function xplsvtlts:reactive_plating/_error_loop_error 8t
+scoreboard players set @e[type=minecraft:armor_stand,tag=xplsvtlts_error_error_invalid,limit=1,sort=nearest] xplsvtlts_error_error_error_error 14
+schedule function xplsvtlts:reactive_plating/rorre/_error_loop_error 8t

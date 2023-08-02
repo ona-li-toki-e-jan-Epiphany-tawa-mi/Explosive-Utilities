@@ -7,7 +7,7 @@
 #
 
 scoreboard players set _exists_players_with_cooldown xplsvtlts 0
-execute store success score _exists_players_with_cooldown xplsvtlts run execute as @e[scores={xplsvtlts_fuse_freeze_time=1..}] run function xplsvtlts:fuse_freezing/on_frozen_fuse_tick
+execute store success score _exists_players_with_cooldown xplsvtlts run execute as @e[scores={xplsvtlts_fuse_freeze_time=1..}] run function xplsvtlts:fuse_freezing/_on_frozen_fuse_tick
 
 execute if score _exists_players_with_cooldown xplsvtlts matches 1 run schedule function xplsvtlts:fuse_freezing/tick_frozen_fuses 1t
 

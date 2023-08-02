@@ -1,7 +1,8 @@
 ##
 # Runs when a player crafts a tnt wand.
 #
-# Needs to be called with @s being the player.
+# Parameters:
+#   @s - the player.
 #
 
 recipe take @s xplsvtlts:tnt_wand

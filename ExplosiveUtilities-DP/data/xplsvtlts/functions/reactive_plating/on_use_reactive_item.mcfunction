@@ -1,5 +1,6 @@
 ##
-# Called when an entity uses a reactive item, i.e. attacking, right-clicking blocks or entities, etc..
+# Called when an entity uses a reactive item, i.e. attacking, right-clicking 
+#   blocks or entities, etc..
 #
 # Parameters:
 #   @s - the entity.
@@ -19,7 +20,8 @@ advancement revoke @s only xplsvtlts:event_listeners/on_use/use_error_error_on_e
 # High resistance to protect against the item's explosion.
 effect give @s minecraft:resistance 1 4 true 
 
-# Raycasts out to the nearest block or entity to try and create the explosion with the thing the player interacted with.
+# Raycasts out to the nearest block or entity to try and create the explosion 
+#   with the thing the player interacted with.
 scoreboard players set _max_distance xplsvtlts 6
 function xplsvtlts:raycast/raycast_from_entity
 execute at @e[type=minecraft:armor_stand,tag=xplsvtlts_raycast_marker,limit=1,sort=nearest] run summon creeper ~ ~ ~ {Fuse:0s,ExplosionRadius:1b,"CustomName":'{"text":"Reactive Item Explosion"}',"CustomNameVisible":false}

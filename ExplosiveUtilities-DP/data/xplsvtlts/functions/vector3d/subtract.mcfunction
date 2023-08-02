@@ -1,5 +1,12 @@
 ##
-# Subtracts the first vector by the second and stores the result in the first.
+# Subtracts two vectors.
+#
+# Parameters:
+#   Vector register 1 - the first vector.
+#   Vector register 2 - the vector to subtract from the first.
+#
+# Returns:
+#   Vector register 1 - the resulting vector.
 #
 
 scoreboard players operation _x1 xplsvtlts -= _x2 xplsvtlts

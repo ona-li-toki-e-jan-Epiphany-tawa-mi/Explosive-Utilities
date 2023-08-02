@@ -7,4 +7,4 @@
 
 scoreboard players remove @s xplsvtlts_tnt_wand_summon_cooldown 1
 
-execute if score @s xplsvtlts_tnt_wand_summon_cooldown matches ..0 at @s run function xplsvtlts:tnt_wand/cooldown/end_summon_cooldown
+execute if score @s xplsvtlts_tnt_wand_summon_cooldown matches ..0 at @s run function xplsvtlts:tnt_wand/cooldown/_end_summon_cooldown

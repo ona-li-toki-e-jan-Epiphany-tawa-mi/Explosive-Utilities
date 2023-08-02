@@ -7,4 +7,4 @@
 
 scoreboard players remove @s xplsvtlts_reactive_armor_cooldown 1
 
-execute if score @s xplsvtlts_reactive_armor_cooldown matches ..0 at @s run function xplsvtlts:reactive_plating/armor/end_cooldown
+execute if score @s xplsvtlts_reactive_armor_cooldown matches ..0 at @s run function xplsvtlts:reactive_plating/armor/_end_cooldown

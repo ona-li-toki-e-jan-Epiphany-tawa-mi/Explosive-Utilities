@@ -4,10 +4,12 @@
 # Parameters:
 #   @s - the raycast marker as a fresh armor stand.
 #   Location - at @s.
-#   _max_distance (scoreboard: xplsvtlts) - the remaning distance before ending the raycast.
+#   _max_distance (scoreboard: xplsvtlts) - the remaning distance before ending 
+#       the raycast.
 #
 # Returns:
-#   An armor stand with the tag "xplsvtlts_raycast_marker" as the raycast result.
+#   An armor stand with the tag "xplsvtlts_raycast_marker" as the raycast 
+#       result.
 #
 
 scoreboard players set _should_continue xplsvtlts 1

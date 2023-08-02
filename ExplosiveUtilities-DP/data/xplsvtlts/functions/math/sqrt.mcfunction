@@ -26,7 +26,13 @@
 ##################################################################################
 
 ##
-# Finds the square root of the number stored in _n using the Babylonian method and stores it in _sqrt.
+# Finds the square root of a number using the Babylonian method.
+#
+# Parameters:
+#   _n (scoreboard: xplsvtlts) - the number to find the square root of.
+#
+# Returns:
+#   _sqrt (scoreboard: xplsvtlts) - the square root of _n.
 #
 
 scoreboard players operation _sqrt xplsvtlts = _n xplsvtlts

@@ -1,5 +1,5 @@
 ##
-# Stores the first vector into the third.
+# Stores the value in vector register 1 into register 3.
 #
 
 scoreboard players operation _x3 xplsvtlts = _x1 xplsvtlts

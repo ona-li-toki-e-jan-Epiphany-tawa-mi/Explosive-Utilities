@@ -5,4 +5,4 @@
 # Location - at @s.
 #
 
-execute if block ~ ~-0.25 ~ #minecraft:anvil run function xplsvtlts:reactive_plating/make_reactive_items
+execute if block ~ ~-0.25 ~ #minecraft:anvil run function xplsvtlts:reactive_plating/crafting/_make_reactive_items

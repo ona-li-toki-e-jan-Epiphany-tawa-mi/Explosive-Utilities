@@ -1,5 +1,5 @@
 ##
-# Loads the third vector into the first.
+# Loads from vector register 3 into register 1.
 #
 
 scoreboard players operation _x1 xplsvtlts = _x3 xplsvtlts

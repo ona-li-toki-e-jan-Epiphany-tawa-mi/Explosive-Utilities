@@ -4,7 +4,8 @@
 # Parameters:
 #   @s - the bearer of the armor.
 #   Location - at @s.
-#   _reactive_level (scoreboard: xplsvtlts) - the number of reactive armor items worn by @s.
+#   _reactive_level (scoreboard: xplsvtlts) - the number of reactive armor items 
+#       worn by @s.
 #
 
 # High resistance to protect against the armor's explosion.

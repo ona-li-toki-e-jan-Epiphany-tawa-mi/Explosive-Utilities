@@ -1,6 +1,13 @@
 ## 
-# Gets the magnitude of the first vector.
-# Note: The magnitude is 10,000 times what it should be because we need to capture the decimal component. Beware when using this.
+# Gets the magnitude of the given vector.
+# Note: The magnitude is 10,000 times what it should be because we need to 
+#   capture the decimal component. Beware when using this.
+#
+# Parameters:
+#   Vector register 1 - the vector.
+#
+# Returns:
+#   _magnitude (scoreboard: xplsvtlts) - the magnitude of the vector.
 #
 
 # Sets _n equal to the squared magnitude of the vector so a sqrt can be applied.

@@ -1,5 +1,13 @@
 ##
-# Swaps the first and second vector.
+# Swaps the first two vector registers.
+#
+# Parameters:
+#   Vector register 1 - the first register.
+#   Vector register 2 - the second register.
+#
+# Returns:
+#   Vector register 1 - the value the second register had.
+#   Vector register 2 - the value the first register had.
 #
 
 scoreboard players operation _temp_x xplsvtlts = _x1 xplsvtlts

@@ -26,7 +26,16 @@
 ##################################################################################
 
 ##
-# A loop used to calculate the square root of a number using the Babylonian method, requires setup from xplsvtlts:math/sqrt.
+# Inner loop for the function xplsvtlts:math/sqrt.
+#
+# Parameters:
+#   _sqrt (scoreboard: xplsvtlts) - intialize to the number to get the square
+#       root of.
+#   #2 (scoreboard: xplsvtlts) - set to the number 2.
+#   _temp (scoreboard: xplsvtlts) - initialize to the number 1.
+#
+# Returns:
+#   _sqrt (scoreboard: xplsvtlts) - the square root of _n.
 #
 
 scoreboard players operation _sqrt xplsvtlts += _temp xplsvtlts

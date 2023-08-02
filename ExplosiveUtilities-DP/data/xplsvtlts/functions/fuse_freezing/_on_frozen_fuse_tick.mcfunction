@@ -17,4 +17,4 @@ scoreboard players reset _fuse xplsvtlts
 
 scoreboard players remove @s xplsvtlts_fuse_freeze_time 1
 
-execute if score @s xplsvtlts_fuse_freeze_time matches ..0 run function xplsvtlts:fuse_freezing/on_fuse_thaw
+execute if score @s xplsvtlts_fuse_freeze_time matches ..0 run function xplsvtlts:fuse_freezing/_on_fuse_thaw

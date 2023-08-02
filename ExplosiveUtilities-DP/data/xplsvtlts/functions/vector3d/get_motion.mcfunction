@@ -1,8 +1,12 @@
 ##
-# Gets the motion of an entity and stores it in the first vector.
+# Gets the motion of an entity as a vector.
 # Note: scales input by 10,000 to capture the decimal component of the number.
 #
-# Needs to be called with @s being the entity.
+# Parameters:
+#   @s - the entity.
+#
+# Returns:
+#   Vector register 1 - the motion of the entity.
 #
 
 execute store result score _x1 xplsvtlts run data get entity @s Motion[0] 10000.0

@@ -1,5 +1,12 @@
 ##
-# Adds the first and second vectors and stores the result in the first.
+# Adds two vectors together.
+#
+# Parameters:
+#   Vector register 1 - the first vector.
+#   Vector register 2 - the second vector.
+#
+# Returns:
+#   Vector register 1 - the new summed vector.
 #
 
 scoreboard players operation _x1 xplsvtlts += _x2 xplsvtlts

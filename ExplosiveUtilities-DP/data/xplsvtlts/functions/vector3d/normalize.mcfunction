@@ -1,5 +1,11 @@
 ##
-# Normalizes the first vector.
+# Normalizes the given vector.
+#
+# Parameters:
+#   Vector register 1 - the vector to normalize.
+#
+# Returns:
+#   Vector register 1 - the normalized vector.
 #
 
 function xplsvtlts:vector3d/get_magnitude

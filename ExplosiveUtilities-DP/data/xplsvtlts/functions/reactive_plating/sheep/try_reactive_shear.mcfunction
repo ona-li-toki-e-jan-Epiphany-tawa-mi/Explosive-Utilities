@@ -1,9 +1,11 @@
 ##
-# The advancement player_interacted_with_entity shows the entity after it has been interacted with.
-# Because of this, we cannot directly differentiate between a sheep sheared through the interaction,
-#   or a sheep that was already sheared beforehand.
-# This solution relies on placing a tag on sheep that were already sheared to isolate them, so that this
-#   only reacts to sheep that were sheared through the interaction that called this function.
+# The advancement player_interacted_with_entity shows the entity after it has 
+#   been interacted with.
+# Because of this, we cannot directly differentiate between a sheep sheared 
+#   through the interaction, or a sheep that was already sheared beforehand.
+# This solution relies on placing a tag on sheep that were already sheared to 
+#   isolate them, so that this only reacts to sheep that were sheared through 
+#   the interaction that called this function.
 #
 # Parameters:
 #   @s - the player.

@@ -1,5 +1,6 @@
 ##
-# Called when an entity is damaged and doesn't have an active reactive armor cooldown.
+# Called when an entity is damaged and doesn't have an active reactive armor 
+#   cooldown.
 # Used to check if they have reactive armor and whether it should detonate.
 #
 # Parameters:
@@ -13,5 +14,5 @@ execute if predicate xplsvtlts:is_chestplate_reactive run scoreboard players add
 execute if predicate xplsvtlts:is_leggings_reactive run scoreboard players add _reactive_level xplsvtlts 1
 execute if predicate xplsvtlts:is_boots_reactive run scoreboard players add _reactive_level xplsvtlts 1
 
-execute if score _reactive_level xplsvtlts matches 1.. run function xplsvtlts:reactive_plating/armor/detonate
+execute if score _reactive_level xplsvtlts matches 1.. run function xplsvtlts:reactive_plating/armor/_detonate
 scoreboard players reset _reactive_level xplsvtlts
