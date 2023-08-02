@@ -34,13 +34,13 @@ weather thunder
 
 
 
-effect give @e[distance=..40] minecraft:wither 10 0 false
-effect give @e[distance=..40] minecraft:nausea 20 0 false
-effect give @e[distance=..40] minecraft:weakness 40 1 false
-effect give @e[distance=..40] minecraft:slowness 30 1 false
-effect give @e[distance=..40] minecraft:mining_fatigue 40 1 false
-effect give @e[distance=..40] minecraft:hunger 30 1 false
-effect give @e[distance=..40] minecraft:darkness 10 0 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:wither 10 0 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:nausea 20 0 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:weakness 40 1 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:slowness 30 1 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:mining_fatigue 40 1 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:hunger 30 1 false
+effect give @e[distance=..40,gamemode=!creative,gamemode=!spectator] minecraft:darkness 10 0 false
 
 
 
