@@ -27,6 +27,8 @@ execute if score installed incndrybs matches 1 anchored eyes positioned ^ ^-0.25
 
 # Prevents spawning tnt whilst corraling if the user moves to fast or something lags.
 execute if score _corraled_tnt xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_summon_cooldown = tnt_wand_summon_cooldown xplsvtlts
+# Kickstarts cooldown ticking.
+execute if score _corraled_tnt xplsvtlts matches 1 run schedule function xplsvtlts:tnt_wand/cooldown/tick_summon_cooldowns 1t
 
 
 # Tnt summon ability.

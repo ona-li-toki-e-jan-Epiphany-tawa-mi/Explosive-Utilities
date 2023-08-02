@@ -160,5 +160,6 @@ After that, remove the datapack from your world's datapacks folder before reload
 - Added reactive plating and it's effects to various equiment items.
 - Added tnt on a stick.
 - ???.
+- Optimizations, baby!
 
-Note: the CustomModelData number used for tnt wands has changed, making any preexisting ones useless. Either craft or give yourself a new one.
+Note: the CustomModelData number used for tnt wands has changed, making any preexisting ones malfunction. Either craft or give yourself a new one.

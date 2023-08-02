@@ -2,7 +2,9 @@
 # Has the player do an explosive punch that causes massive knockback 
 # If the player is in survival, it will need to consume a piece of tnt to succeed.
 #
-# Needs to be called with @s being the player, located at @s.
+# Parameters:
+#   @s - the player.
+#   Location - at @s.
 #
 
 scoreboard players set _can_punch xplsvtlts 1
@@ -23,5 +25,7 @@ execute if score _can_punch xplsvtlts matches 1 run schedule function xplsvtlts:
 
 # Sets cooldown to whatever is in the config.
 execute if score _can_punch xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_tnt_wand_punch_cooldown = tnt_wand_punch_cooldown xplsvtlts
+# Kickstarts cooldown ticking.
+execute if score _can_punch xplsvtlts matches 1 run schedule function xplsvtlts:tnt_wand/cooldown/tick_punch_cooldowns 1t
 
 scoreboard players reset _can_punch xplsvtlts

@@ -17,3 +17,5 @@ execute if score _reactive_level xplsvtlts matches 4.. run summon creeper ~ ~1 ~
 # Set bonus reduces cooldown.
 scoreboard players operation @s xplsvtlts_reactive_armor_cooldown = reactive_armor_maximum_cooldown xplsvtlts
 scoreboard players operation @s xplsvtlts_reactive_armor_cooldown /= _reactive_level xplsvtlts
+# Kickstarts cooldown ticking.
+schedule function xplsvtlts:reactive_plating/armor/tick_cooldowns 1t
