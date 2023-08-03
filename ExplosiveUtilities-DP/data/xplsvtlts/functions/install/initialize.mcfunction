@@ -27,6 +27,12 @@ scoreboard objectives add xplsvtlts_tnt_wand_punch_cooldown dummy
 scoreboard objectives add xplsvtlts_fuse_freeze_time dummy
 # A cooldown for the explosion ability of reactive armor.
 scoreboard objectives add xplsvtlts_reactive_armor_cooldown dummy
+# Used to store the uuid of players and the owner of a click detector for
+#   comparison.
+scoreboard objectives add xplsvtlts_click_detector_uuid_memory_0 dummy  
+scoreboard objectives add xplsvtlts_click_detector_uuid_memory_1 dummy 
+scoreboard objectives add xplsvtlts_click_detector_uuid_memory_2 dummy 
+scoreboard objectives add xplsvtlts_click_detector_uuid_memory_3 dummy
 
 
 

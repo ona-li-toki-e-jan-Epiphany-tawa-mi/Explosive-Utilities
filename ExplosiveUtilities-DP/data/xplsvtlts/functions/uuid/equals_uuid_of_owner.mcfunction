@@ -1,6 +1,5 @@
 ##
 # Tests whether the owner of the given entity has the same UUID as the given UUID and stores the result.
-# Make sure to call "scoreboard players reset _success xplsvtlts" to reset the result after it is no longer needed.
 #
 # Parameters:
 #   @s - the entity to get the UUID from.

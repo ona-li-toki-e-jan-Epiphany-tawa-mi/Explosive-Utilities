@@ -19,6 +19,14 @@ scoreboard players reset @e xplsvtlts_fuse_freeze_time
 scoreboard objectives remove xplsvtlts_fuse_freeze_time
 scoreboard players reset @a xplsvtlts_reactive_armor_cooldown
 scoreboard objectives remove xplsvtlts_reactive_armor_cooldown
+scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_0
+scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_0
+scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_1
+scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_1
+scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_2
+scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_2
+scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_3
+scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_3
 
 
 
