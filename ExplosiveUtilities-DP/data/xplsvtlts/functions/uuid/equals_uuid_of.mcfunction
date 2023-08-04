@@ -1,6 +1,6 @@
 ##
-# Tests whether the owner of the given entity has the same UUID as the given 
-#   UUID and stores the result.
+# Tests whether the given entity has the same UUID as the given UUID and 
+#   stores the result.
 #
 # Parameters:
 #   @s - the entity to get the UUID from.
@@ -11,10 +11,10 @@
 #   _success (scoreboard: xplsvtlts) - whether the UUIDs are the same
 #
 
-execute store result score _comapare_uuid0 xplsvtlts run data get entity @s Owner[0]
-execute store result score _comapare_uuid1 xplsvtlts run data get entity @s Owner[1]
-execute store result score _comapare_uuid2 xplsvtlts run data get entity @s Owner[2]
-execute store result score _comapare_uuid3 xplsvtlts run data get entity @s Owner[3]
+execute store result score _comapare_uuid0 xplsvtlts run data get entity @s UUID[0]
+execute store result score _comapare_uuid1 xplsvtlts run data get entity @s UUID[1]
+execute store result score _comapare_uuid2 xplsvtlts run data get entity @s UUID[2]
+execute store result score _comapare_uuid3 xplsvtlts run data get entity @s UUID[3]
 
 scoreboard players set _success xplsvtlts 1
 execute unless score _uuid0 xplsvtlts = _comapare_uuid0 xplsvtlts run scoreboard players set _success xplsvtlts 0

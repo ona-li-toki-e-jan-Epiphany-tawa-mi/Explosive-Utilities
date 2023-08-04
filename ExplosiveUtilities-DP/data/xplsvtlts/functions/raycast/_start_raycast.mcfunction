@@ -6,8 +6,12 @@
 #   @s - the raycast marker as a fresh armor stand.
 #   _max_distance (scoreboard: xplsvtlts) - the maximum distance to carry the 
 #       raycast.
-#   _source_y_rotation - the y rotation to give to the raycast marker.
-#   _source_x_rotation - the x rotation to give to the raycast marker.
+#   [_uuid0, _uuid1, _uuid2, _uuid3] (scoreboard: xplsvtlts) - the UUID of the
+#       source entity, if applicable.
+#   _source_y_rotation (scoreboard: xplsvtlts) - the y rotation to give to the 
+#       raycast marker.
+#   _source_x_rotation (scoreboard: xplsvtlts) - the x rotation to give to the 
+#       raycast marker.
 #
 # Returns:
 #   An armor stand with the tag "xplsvtlts_raycast_marker" as the raycast 
@@ -15,6 +19,7 @@
 #
 
 data modify entity @s Marker set value 1b
+data modify entity @s Invisible set value 1b
 tag @s add xplsvtlts_raycast_marker
 
 execute store result entity @s Rotation[0] float 0.001 run scoreboard players get _source_y_rotation xplsvtlts
