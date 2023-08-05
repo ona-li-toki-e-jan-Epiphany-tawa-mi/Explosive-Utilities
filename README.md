@@ -4,7 +4,7 @@
 
 *Spice of Death*
 
-A data pack and resource pack for Minecraft 1.20+ (but will probably work in 1.19.4 as well) that adds various explosive tools to your world.
+A data pack and resource pack for Minecraft 1.20+ that adds various explosive tools to your world.
 
 *Note: I will add more stuff over time.*
 
@@ -87,6 +87,12 @@ Additionally, if you are crouching, it can consume 1 gunpowder from your invento
 #### **Give command:**
 ```text
 /function xplsvtlts:reactive_plating/on_craft
+```
+
+#### **Make reactive command (makes the held item reactive):**
+
+```text
+/function xplsvtlts:reactive_plating/make_held_item_reactive
 ```
 
 ## Compatiblity

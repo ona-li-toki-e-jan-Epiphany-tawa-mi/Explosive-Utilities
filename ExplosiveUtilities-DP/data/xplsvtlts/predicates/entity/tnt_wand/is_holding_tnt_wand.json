@@ -16,18 +16,8 @@
             }
         },
         {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-                "equipment": {
-                    "mainhand": {
-                        "items": [
-                            "minecraft:stone_pickaxe"
-                        ],
-                        "nbt": "{\"Reactive\":1b,\"CustomModelData\":7106216}"
-                    }
-                }
-            }
+            "condition": "minecraft:reference",
+            "name": "xplsvtlts:entity/tnt_wand/whatawawtawtaw"
         }
     ]
 }

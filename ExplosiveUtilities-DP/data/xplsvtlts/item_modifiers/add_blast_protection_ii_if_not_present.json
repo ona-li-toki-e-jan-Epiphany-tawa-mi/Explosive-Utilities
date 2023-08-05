@@ -1,0 +1,16 @@
+{
+    "function": "minecraft:set_enchantments",
+    "conditions": [
+        {
+            "condition": "minecraft:inverted",
+            "term": {
+                "condition": "minecraft:reference",
+                "name": "xplsvtlts:item/has_blast_protection"
+            }
+        }
+    ],
+    "enchantments": {
+        "minecraft:blast_protection": 2
+    },
+    "add": false
+}

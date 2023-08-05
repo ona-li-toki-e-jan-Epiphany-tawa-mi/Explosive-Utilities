@@ -3,6 +3,7 @@
 #   location.
 #
 # Parameters:
+#   @s - the player using the tnt wand.
 #   Location - where to corral.
 #
 # Returns:
@@ -14,4 +15,5 @@ scoreboard players set _corraled_tnt xplsvtlts 0
 function xplsvtlts:vector3d/get_location_as_vector
 function xplsvtlts:vector3d/store/3
 
-execute store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,predicate=xplsvtlts:entity/can_be_corraled] run function xplsvtlts:tnt_wand/corraling/_corral_entity
+execute unless predicate xplsvtlts:entity/tnt_wand/whatawawtawtaw store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,predicate=xplsvtlts:entity/tnt_wand/can_be_corraled] run function xplsvtlts:tnt_wand/corraling/_corral_entity
+execute if predicate xplsvtlts:entity/tnt_wand/whatawawtawtaw store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,type=!minecraft:player] run function xplsvtlts:tnt_wand/corraling/_corral_entity

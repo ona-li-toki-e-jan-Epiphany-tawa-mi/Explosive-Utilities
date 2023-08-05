@@ -1,0 +1,10 @@
+{
+    "condition": "minecraft:match_tool",
+    "predicate": {
+        "enchantments": [
+            {
+                "enchantment": "minecraft:blast_protection"
+            }
+        ]
+    }
+}

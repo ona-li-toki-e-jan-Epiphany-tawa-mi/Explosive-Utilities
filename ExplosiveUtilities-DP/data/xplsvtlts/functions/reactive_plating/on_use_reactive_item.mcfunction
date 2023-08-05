@@ -28,7 +28,7 @@ execute at @e[type=minecraft:armor_stand,tag=xplsvtlts_raycast_marker,limit=1,so
 function xplsvtlts:raycast/cleanup
 scoreboard players reset _max_distance xplsvtlts
 
-execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_no_unbreaking
-execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_i
-execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_ii
-execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_wear_and_tear_unbreaking_iii
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_no_unbreaking
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_unbreaking_i
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_unbreaking_ii
+execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_unbreaking_iii
