@@ -4,8 +4,14 @@
         {
             "condition": "minecraft:inverted",
             "term": {
-                "condition": "minecraft:reference",
-                "name": "xplsvtlts:item/has_blast_protection"
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                    "enchantments": [
+                        {
+                            "enchantment": "minecraft:blast_protection"
+                        }
+                    ]
+                }
             }
         }
     ],

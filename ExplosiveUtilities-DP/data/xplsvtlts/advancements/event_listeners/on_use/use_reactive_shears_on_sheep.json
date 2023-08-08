@@ -7,7 +7,7 @@
                     "items": [
                         "minecraft:shears"
                     ],
-                    "nbt": "{\"Reactive\":1b}"
+                    "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}"
                 },
                 "entity": {
                     "type": "minecraft:sheep"

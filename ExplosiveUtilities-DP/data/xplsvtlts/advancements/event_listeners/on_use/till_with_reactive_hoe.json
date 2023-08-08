@@ -6,7 +6,7 @@
                 "player": {
                     "equipment": {
                         "mainhand": {
-                            "nbt": "{\"Reactive\":1b}",
+                            "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}",
                             "tag": "minecraft:hoes"
                         }
                     }

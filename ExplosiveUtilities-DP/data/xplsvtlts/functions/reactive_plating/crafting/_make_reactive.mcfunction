@@ -9,7 +9,7 @@
 #
 
 # Adds reactive identifiers to the item.
-data modify entity @s Item.tag.Reactive set value 1b
+data modify entity @s Item.tag.xplsvtlts.Reactive set value 1b
 execute unless predicate xplsvtlts:entity/tnt_wand/is_tnt_wand_item_entity run data modify entity @s Item.tag.display.Lore append value "{\"text\":\"Reactive\",\"italic\":false,\"color\":\"red\"}"
 
 # Adds blast protection II to armor if it is not already present (does not check 

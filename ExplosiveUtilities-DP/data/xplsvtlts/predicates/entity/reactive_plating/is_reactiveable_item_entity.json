@@ -7,7 +7,7 @@
                 "condition": "minecraft:entity_properties",
                 "entity": "this",
                 "predicate": {
-                    "nbt": "{\"Item\":{\"tag\":{\"Reactive\":1b}}}"
+                    "nbt": "{\"Item\":{\"tag\":{\"xplsvtlts\":{\"Reactive\":1b}}}}"
                 }
             }
         },

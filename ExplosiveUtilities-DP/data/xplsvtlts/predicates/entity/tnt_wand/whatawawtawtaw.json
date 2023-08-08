@@ -7,7 +7,7 @@
                 "items": [
                     "minecraft:stone_pickaxe"
                 ],
-                "nbt": "{\"Reactive\":1b,\"CustomModelData\":7106216}"
+                "nbt": "{\"xplsvtlts\":{\"Reactive\":1b},\"CustomModelData\":7106216}"
             }
         }
     }

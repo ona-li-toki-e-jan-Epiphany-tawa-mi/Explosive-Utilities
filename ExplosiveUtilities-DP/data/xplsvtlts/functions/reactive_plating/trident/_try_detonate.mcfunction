@@ -9,7 +9,8 @@
 #       trident was found
 #
 # Returns:
-#   _success (scoreboard: xplsvtlts) - 2 if a trident was detonated, else 0.
+#   _success (scoreboard: xplsvtlts) - 2 if a trident was detonated, else 0 or 
+#       1.
 #
 
 execute if score _success xplsvtlts matches 0 run function xplsvtlts:uuid/equals_uuid_of_owner
