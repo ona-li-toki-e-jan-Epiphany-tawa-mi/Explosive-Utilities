@@ -174,6 +174,7 @@ After that, remove the datapack from your world's datapacks folder before reload
 - ???.
 - Optimizations, baby!
 - Added config option to disable the entity restrictions on the tnt wand corraling ability.
+- Moved minimum version to 1.20.
 
 Make sure to run the following command if updating (note: resets configurations):
 

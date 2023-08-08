@@ -33,6 +33,11 @@ scoreboard objectives add xplsvtlts_click_detector_uuid_memory_0 dummy
 scoreboard objectives add xplsvtlts_click_detector_uuid_memory_1 dummy 
 scoreboard objectives add xplsvtlts_click_detector_uuid_memory_2 dummy 
 scoreboard objectives add xplsvtlts_click_detector_uuid_memory_3 dummy
+# Used to store the uuid of entities being raycasted from for comparison.
+scoreboard objectives add xplsvtlts_raycast_uuid_memory_0 dummy  
+scoreboard objectives add xplsvtlts_raycast_uuid_memory_1 dummy 
+scoreboard objectives add xplsvtlts_raycast_uuid_memory_2 dummy 
+scoreboard objectives add xplsvtlts_raycast_uuid_memory_3 dummy
 
 
 

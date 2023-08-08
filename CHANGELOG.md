@@ -7,6 +7,7 @@
 - Added tnt on a stick.
 - ???.
 - Optimizations, baby!
+- Moved minimum version to 1.20.
 
 Make sure to run the following command if updating (note: resets configurations):
 

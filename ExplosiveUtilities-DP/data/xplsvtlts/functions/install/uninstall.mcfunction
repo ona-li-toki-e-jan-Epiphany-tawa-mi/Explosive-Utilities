@@ -27,6 +27,14 @@ scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_2
 scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_2
 scoreboard players reset @e xplsvtlts_click_detector_uuid_memory_3
 scoreboard objectives remove xplsvtlts_click_detector_uuid_memory_3
+scoreboard players reset @e xplsvtlts_raycast_uuid_memory_0
+scoreboard objectives remove xplsvtlts_raycast_uuid_memory_0
+scoreboard players reset @e xplsvtlts_raycast_uuid_memory_1
+scoreboard objectives remove xplsvtlts_raycast_uuid_memory_1
+scoreboard players reset @e xplsvtlts_raycast_uuid_memory_2
+scoreboard objectives remove xplsvtlts_raycast_uuid_memory_2
+scoreboard players reset @e xplsvtlts_raycast_uuid_memory_3
+scoreboard objectives remove xplsvtlts_raycast_uuid_memory_3
 
 
 

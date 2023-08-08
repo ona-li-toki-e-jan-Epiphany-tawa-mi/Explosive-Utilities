@@ -16,4 +16,4 @@ function xplsvtlts:vector3d/get_location_as_vector
 function xplsvtlts:vector3d/store/3
 
 execute unless predicate xplsvtlts:entity/tnt_wand/whatawawtawtaw store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,predicate=xplsvtlts:entity/tnt_wand/can_be_corraled] run function xplsvtlts:tnt_wand/corraling/_corral_entity
-execute if predicate xplsvtlts:entity/tnt_wand/whatawawtawtaw store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,type=!minecraft:player] run function xplsvtlts:tnt_wand/corraling/_corral_entity
+execute if predicate xplsvtlts:entity/tnt_wand/whatawawtawtaw store success score _corraled_tnt xplsvtlts run execute as @e[distance=..5,type=!minecraft:player,predicate=!xplsvtlts:entity/is_ignorable_no_items] run function xplsvtlts:tnt_wand/corraling/_corral_entity

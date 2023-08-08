@@ -19,6 +19,7 @@
 
 # Needed so the raycast does not collide with @s.
 function xplsvtlts:uuid/get_uuid
+function xplsvtlts:raycast/store_uuid_into_raycast_memory
 # The rotation of the entity needs to be stored so it can be copied to the 
 #   marker so it faces the same way.
 execute store result score _source_y_rotation xplsvtlts run data get entity @s Rotation[0] 1000.0
