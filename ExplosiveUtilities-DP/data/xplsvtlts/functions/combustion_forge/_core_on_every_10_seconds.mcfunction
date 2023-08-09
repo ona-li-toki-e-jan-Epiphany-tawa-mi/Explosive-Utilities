@@ -1,5 +1,5 @@
 ##
-# Runs once every second for combustion forge cores.
+# Runs once every 10 seconds for combustion forge cores.
 #
 # Parameters:
 #   @s - the combustion forge core.
@@ -14,6 +14,7 @@ function xplsvtlts:combustion_forge/validation/run_structual_validator
 
 # Shows what blocks are missing.
 execute if entity @s[tag=!xplsvtlts_was_valid_structure] run function xplsvtlts:combustion_forge/projection/display_projection
+# Shows where invalid blocks are in the structure.
 execute if entity @s[tag=!xplsvtlts_was_valid_structure] run function xplsvtlts:combustion_forge/projection/project_invalid_blocks
 
 

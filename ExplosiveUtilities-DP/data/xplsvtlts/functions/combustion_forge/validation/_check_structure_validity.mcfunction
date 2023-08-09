@@ -31,6 +31,7 @@ execute if entity @s[y_rotation=175.0..185.0] positioned ~ ~ ~ positioned ^ ^0.2
 execute positioned ~ ~ ~ positioned ^-1 ^0.25 ^1 unless block ~ ~ ~ minecraft:obsidian run return 0
 
 execute positioned ~ ~ ~ positioned ^1 ^0.25 ^ unless block ~ ~ ~ minecraft:obsidian run return 0
+execute positioned ~ ~ ~ positioned ^ ^0.25 ^ unless block ~ ~ ~ #minecraft:replaceable run return 0
 execute positioned ~ ~ ~ positioned ^-1 ^0.25 ^ unless block ~ ~ ~ minecraft:obsidian run return 0
 
 execute positioned ~ ~ ~ positioned ^1 ^0.25 ^-1 unless block ~ ~ ~ minecraft:obsidian run return 0
