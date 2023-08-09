@@ -31,7 +31,6 @@
 # Parameters:
 #   _sqrt (scoreboard: xplsvtlts) - intialize to the number to get the square
 #       root of.
-#   #2 (scoreboard: xplsvtlts) - set to the number 2.
 #   _temp (scoreboard: xplsvtlts) - initialize to the number 1.
 #
 # Returns:

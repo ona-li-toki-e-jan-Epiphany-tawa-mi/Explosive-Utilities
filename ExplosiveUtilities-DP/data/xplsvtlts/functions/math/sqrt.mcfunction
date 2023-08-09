@@ -36,11 +36,10 @@
 #
 
 scoreboard players operation _sqrt xplsvtlts = _n xplsvtlts
-scoreboard players set #2 xplsvtlts 2
 scoreboard players set _temp xplsvtlts 1
 
 # If the number is less than or equal to 1 there is no reason to try and calculate the square root.
 execute if score _sqrt xplsvtlts > _temp xplsvtlts run function xplsvtlts:math/_sqrt_loop
 
 scoreboard players reset _temp xplsvtlts
-scoreboard players reset #2 xplsvtlts
+

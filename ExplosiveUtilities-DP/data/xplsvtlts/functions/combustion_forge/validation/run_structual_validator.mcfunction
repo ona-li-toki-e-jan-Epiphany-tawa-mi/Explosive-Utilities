@@ -19,4 +19,9 @@ execute if score _is_valid_structure xplsvtlts matches 1 if entity @s[tag=!xplsv
 # Player broke completed multiblock.
 execute if score _is_valid_structure xplsvtlts matches 0 if entity @s[tag=xplsvtlts_was_valid_structure] run function xplsvtlts:combustion_forge/validation/_mark_as_invalid
 
+# Kickstarts looping for valid inactive combustion forges.
+execute if score _is_valid_structure xplsvtlts matches 1 run schedule function xplsvtlts:combustion_forge/ideling/tick_inactive_cores 1s 
+
+
+
 scoreboard players reset _is_valid_structure xplsvtlts
