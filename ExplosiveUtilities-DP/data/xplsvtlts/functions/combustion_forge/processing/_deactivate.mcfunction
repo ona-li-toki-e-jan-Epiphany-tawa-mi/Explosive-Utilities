@@ -19,8 +19,8 @@ execute positioned ^1 ^-1 ^-1 if block ~ ~ ~ minecraft:target run setblock ~ ~ ~
 
 # Dumps any leftover items in the crafting grid out inside the combustion forge.
 function xplsvtlts:combustion_forge/processing/_move_leftovers_to_output
-
-# TODO Create blast from inside to splode out items.
+# Blasts any outputted items out of the forge.
+function xplsvtlts:combustion_forge/processing/_explode
 
 
 

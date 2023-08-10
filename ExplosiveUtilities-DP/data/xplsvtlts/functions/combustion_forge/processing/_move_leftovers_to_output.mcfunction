@@ -61,7 +61,6 @@ data modify block ~ ~ ~ Items set value []
 data modify block ~ ~ ~ Items append from block ^-1 ^1 ^1 Items[]
 data modify block ^-1 ^1 ^1 Items set value []
 loot spawn ~ ~ ~ mine ~ ~ ~ minecraft:air{drop_contents:1b}
-data modify block ~ ~ ~ Items set value []
 
 
 
