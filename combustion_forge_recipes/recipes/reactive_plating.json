@@ -1,0 +1,32 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "PPP",
+        "TTT",
+        "OOO"
+        
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:stone_pressure_plate"
+        },
+        "T": {
+            "item": "minecraft:tnt"
+        },
+        "O": {
+            "item": "minecraft:obsidian"
+        }
+    },
+    "result": {
+        "item": "minecraft:enchanted_book",
+        "nbt": {
+            "CustomModelData": 1385753,
+            "display": {
+                "Name": "'{\"text\":\"Reactive Plating\",\"italic\":false,\"color\":\"red\"}'",
+                "Lore": [
+                    "'{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}'"
+                ]
+            }
+        }
+    }
+}
