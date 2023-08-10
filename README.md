@@ -2,7 +2,7 @@
 
 # Explosive Utilities
 
-*Spice of Death*
+*Nitroglycerinomancology Reborn*
 
 A data pack and resource pack for Minecraft 1.20+ that adds various explosive tools to your world.
 
