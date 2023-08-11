@@ -7,12 +7,12 @@
 #   Location - at @s.
 #
 
-item modify block ^-1 ^ ^-1 container.0 xplsvtlts:decrement_stack
-item modify block ^0 ^ ^-1 container.0 xplsvtlts:decrement_stack
-item modify block ^1 ^ ^-1 container.0 xplsvtlts:decrement_stack
-item modify block ^-1 ^ ^0 container.0 xplsvtlts:decrement_stack
-item modify block ^0 ^ ^0 container.0 xplsvtlts:decrement_stack
-item modify block ^1 ^ ^0 container.0 xplsvtlts:decrement_stack
-item modify block ^-1 ^ ^1 container.0 xplsvtlts:decrement_stack
-item modify block ^0 ^ ^1 container.0 xplsvtlts:decrement_stack
-item modify block ^1 ^ ^1 container.0 xplsvtlts:decrement_stack
+item modify block ^-1 ^1 ^-1 container.0 xplsvtlts:decrement_stack
+item modify block ^0 ^1 ^-1 container.0 xplsvtlts:decrement_stack
+item modify block ^1 ^1 ^-1 container.0 xplsvtlts:decrement_stack
+item modify block ^-1 ^1 ^0 container.0 xplsvtlts:decrement_stack
+item modify block ^0 ^1 ^0 container.0 xplsvtlts:decrement_stack
+item modify block ^1 ^1 ^0 container.0 xplsvtlts:decrement_stack
+item modify block ^-1 ^1 ^1 container.0 xplsvtlts:decrement_stack
+item modify block ^0 ^1 ^1 container.0 xplsvtlts:decrement_stack
+item modify block ^1 ^1 ^1 container.0 xplsvtlts:decrement_stack

@@ -165,7 +165,10 @@ def write_shaped_recipe_mcfunction_code( output_file: TextIOWrapper, recipe_func
 
                 output_file.write(f'# Item {(crafting_grid_x + 1) + (crafting_grid_z + 1) * 3 + 1}.\n')
                 for ingredient_item_id in ingredient_item_ids:
-                    output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{ingredient_item_id}"{item_tag_string}}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
+                    if ingredient_item_id != 'minecraft:air':
+                        output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{ingredient_item_id}"{item_tag_string}}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
+                    else:
+                        output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
 
         # If it is present, we can consume the ingredients,
         output_file.write('# Consume ingredients.\n')
@@ -191,45 +194,74 @@ def write_shaped_recipe_mcfunction_code( output_file: TextIOWrapper, recipe_func
 
 
 
-def write_recipe_mcfunction_code(output_directory: str, recipe_directory_path: str, recipe_name: str, recipe_json: object):
+def write_recipe_mcfunction_code(output_directory: str, recipe_name: str, recipe_function_id: str, recipe_json: object) -> bool:
     ''' Attempts to write the code for the given recipe to the specified output
-        file. '''
+        file and returns whether it succeded. '''
     output_file_path = path.join(output_directory, recipe_name + '.mcfunction')
     recipe_type = recipe_json["type"]
 
     if recipe_type == 'crafting_shaped':
         with open(output_file_path, 'w') as output_file:
             write_shaped_recipe_mcfunction_code( output_file
-                                               , recipe_function_directory_id + path.join(recipe_directory_path, recipe_name)
+                                               , recipe_function_id
                                                , recipe_json)
 
         logging.info(f"Wrote shaped recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
+        return True
 
     else:
         logging.error(f"'{recipe_type}' is not a supported recipe type! Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'", )
+        return False
 
-        
+def write_recipe_function_tag_json(output_file_path: str, recipe_function_ids: 'list[str]'):
+    ''' Writes out the recipe function ids into a tag so they can all be called
+        by the combustion forge crafting system. '''
+    with open(output_file_path, 'w') as output_file:
+        output_file.write('{\n')
+        output_file.write('\t"values": [\n')
+
+        if len(recipe_function_ids) > 0:
+            for i in range(0, len(recipe_function_ids) - 1):
+                output_file.write(f'\t\t"{recipe_function_ids[i]}",\n')
+            output_file.write(f'\t\t"{recipe_function_ids[-1]}"\n')
+
+        output_file.write('\t]\n')
+        output_file.write('}\n')
+
+        logging.info(f'Wrote out recipe function ids into tag json file -> {path.abspath(output_file_path)}')
+
 
 def main():
     logging.getLogger().setLevel(logging_level)
 
 
+    # Changing directory into the recipe directory makes messing with the recipe
+    #   file paths 1 million times easier.
     os.chdir(combustion_forge_recipe_directory)
     recipe_file_paths = glob(r'**.json', recursive=True)
 
+
+    recipe_function_ids = []
     os.makedirs(recipe_output_directory, exist_ok=True)
 
     # TODO make JSON validator for recipes.
     # TODO Add shapeless recipes.
-    # TODO Make recipes be added to function tag to be used by forge
     for recipe_file_path in recipe_file_paths:
         recipe_directory_path, recipe_file_name = path.split(recipe_file_path)
+        recipe_name = recipe_file_name.replace('.json', '')
+        recipe_function_id = recipe_function_directory_id + path.join(recipe_directory_path, recipe_name)
 
         with open(recipe_file_path, 'rb') as recipe_byte_stream:
-            write_recipe_mcfunction_code( path.join(recipe_output_directory, recipe_directory_path)
-                                        , recipe_directory_path
-                                        , recipe_file_name.replace('.json', '')
-                                        , json.loads(recipe_byte_stream.read()))
+            success = write_recipe_mcfunction_code( path.join(recipe_output_directory, recipe_directory_path)
+                                                  , recipe_name
+                                                  , recipe_function_id
+                                                  , json.loads(recipe_byte_stream.read()))
+            
+        if success:
+            recipe_function_ids.append(recipe_function_id)
+
+    os.makedirs(path.split(recipe_function_tag_file_path)[0], exist_ok=True)
+    write_recipe_function_tag_json(recipe_function_tag_file_path, recipe_function_ids)
 
 if __name__ == '__main__':
     main()
