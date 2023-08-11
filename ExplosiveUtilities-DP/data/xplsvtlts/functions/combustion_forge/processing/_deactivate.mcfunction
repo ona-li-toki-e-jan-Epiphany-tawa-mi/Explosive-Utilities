@@ -15,8 +15,8 @@ execute positioned ^1 ^-1 ^-1 if block ~ ~ ~ minecraft:target run setblock ~ ~ ~
 
 
 
-# TODO Recipe system.
-
+# If finished, attempts to craft items with what is in the crafting grid.
+execute if score @s xplsvtlts_combustion_forge_runtime matches 120.. run function xplsvtlts:combustion_forge/recipes/try_craft
 # Dumps any leftover items in the crafting grid out inside the combustion forge.
 function xplsvtlts:combustion_forge/processing/_move_leftovers_to_output
 # Blasts any outputted items out of the forge.

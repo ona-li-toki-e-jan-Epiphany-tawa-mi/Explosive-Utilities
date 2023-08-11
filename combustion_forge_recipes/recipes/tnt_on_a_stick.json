@@ -14,10 +14,27 @@
             "item": "minecraft:tnt"
         },
         "P": {
-            "item": "minecraft:stone_pressure_plate"
+            "item": [
+                "minecraft:oak_pressure_plate",
+                "minecraft:birch_pressure_plate",
+                "minecraft:acacia_pressure_plate",
+                "minecraft:cherry_pressure_plate",
+                "minecraft:jungle_pressure_plate",
+                "minecraft:spruce_pressure_plate",
+                "minecraft:warped_pressure_plate",
+                "minecraft:crimson_pressure_plate",
+                "minecraft:dark_oak_pressure_plate",
+                "minecraft:mangrove_pressure_plate",
+                "minecraft:bamboo_pressure_plate",
+                "minecraft:stone_pressure_plate",
+                "minecraft:polished_blackstone_pressure_plate",
+                "minecraft:light_weighted_pressure_plate",
+                "minecraft:heavy_weighted_pressure_plate"
+            ]
         }
     },
     "result": {
-        "item": "minecraft:knowledge_book"
+        "item": "minecraft:stone_sword",
+        "nbt": "{CustomModelData:9200798,display:{Name:'{\"text\":\"Tnt on a Stick\",\"italic\":false}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']}}"
     }
 }
