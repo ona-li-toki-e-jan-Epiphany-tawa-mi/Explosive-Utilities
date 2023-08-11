@@ -29,7 +29,7 @@ It can be crafted using three sticks, a totem of undying, and a piece of tnt (se
 #### **Give command:**
 
 ```text
-/function xplsvtlts:tnt_wand/on_craft
+/function xplsvtlts:tnt_wand/give
 ```
 
 ### ***Tnt on a Stick***
@@ -41,7 +41,7 @@ Slapping together a stick, tnt, and a pressure plate creates a highly volatile w
 #### **Give command:**
 
 ```
-/function xplsvtlts:tnt_on_a_stick/on_craft
+/function xplsvtlts:tnt_on_a_stick/give
 ```
 
 ### ***Reactive Plating***
@@ -86,7 +86,7 @@ Additionally, if you are crouching, it can consume 1 gunpowder from your invento
 
 #### **Give command:**
 ```text
-/function xplsvtlts:reactive_plating/on_craft
+/function xplsvtlts:reactive_plating/give
 ```
 
 #### **Make reactive command (makes the held item reactive):**
