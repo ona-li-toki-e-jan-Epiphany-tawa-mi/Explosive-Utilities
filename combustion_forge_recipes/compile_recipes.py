@@ -53,20 +53,57 @@ logging_level = logging.NOTSET
 
 
 
-# Basic type definition for minecraft items.
-Item = dict
-# Type definition for the patterns of shaped forge recipes.
-ShapedPattern = 'list[list[Union[str,Item]]]'
+@dataclass
+class Item:
+    ''' Represents Minecraft items. '''
+    ids: 'list[str]'
+    tag: str = ""
+    count: int = 1
 
-# The item form of air, used to fill the empty spaces of shaped patterns.
-item_air: Item = { r"item": r"minecraft:air" }
+    @staticmethod
+    def from_json(item_json: dict, root_path: str = '') -> 'Item':
+        ''' If parsing fails a ValueError will be raised. '''
+        ids = item_json.get("item")
+        if ids is None:
+            raise ValueError(f"Unable to decode item JSON: missing value for key '{root_path}item'")
+        if type(ids) is not list:
+            ids = [ids]
 
+        if not ids:
+            raise ValueError(f"Unable to decode item JSON: expected non-empty list of item ids in key '{root_path}item'")
+
+        for id in ids:
+            if type(id) is not str:
+                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in key '{root_path}item' (found: {type(id)})")
+            # TODO Check if item ids have valid namespace.
+            if not id:
+                raise ValueError(f"Unable to decode item JSON: empty item id found in key '{root_path}item'")
+            
+
+        tag = item_json.get("nbt")
+        if tag is not None and type(tag) is not str:
+            raise ValueError(f"Unable to decode item JSON: expected string in optional key '{root_path}nbt' (found: {type(tag)})")
+        
+
+        count = item_json.get("count")
+        if count is not None:
+            if type(count) is not int:
+                raise ValueError(f"Unable to decode item JSON: expected integer in optional key '{root_path}count' (found: {type(count)})")
+            
+            if count <= 0:
+                raise ValueError(f"Unable to decode item JSON: expected integer greater than 0 in optional key '{root_path}count' (found: {count})")
+        else:
+            count = 1
+
+
+        return Item(ids, tag, count)
+    
 
 
 class RecipeType(Enum):
     ''' Represents the possible recipe types that can be used in the recipe
         files. Values are the value that should be specified in the files. '''
-    CRAFTING_SHAPED = "crafting_shaped"
+    COMBUSTION_FORGE_SHAPED = "combustion_forge_shaped"
 
 @dataclass
 class Recipe(ABC):
@@ -75,31 +112,43 @@ class Recipe(ABC):
     result: Item
 
     @staticmethod
-    def fromJSON(recipe_json: dict) -> 'Recipe':
+    def from_json(recipe_json: dict, root_path: str = '') -> 'Recipe':
         ''' If parsing fails a ValueError will be raised. '''
-        type = recipe_json['type']
+        # TODO add way to request 1 item id only.
+        type = recipe_json.get("type")
+        if type is None:
+            raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}type'")
         try:
             type = RecipeType(type)
         except ValueError:
-            raise ValueError(f"Unable to decode recipe JSON: unknown recipe type '{type}' in key 'type'")
+            raise ValueError(f"Unable to decode recipe JSON: unknown recipe type '{type}' in key '{root_path}type'")
         
-        # TODO Add verification for items.
-        result = recipe_json["result"]
-
-        if type == RecipeType.CRAFTING_SHAPED:
+        result = Item.from_json(recipe_json["result"], 'result.')
+    
+        if type == RecipeType.COMBUSTION_FORGE_SHAPED:
             # TODO Add verification for patterns.
             pattern = recipe_json["pattern"]
-            # TODO Add verification for item keys.
+            
             item_keys = recipe_json["key"]
+            for item_key, item_json in item_keys.items():
+                item_keys[item_key] = Item.from_json(item_json, 'key.' + item_key + '.')
 
             return ShapedRecipe(type, result, pattern, item_keys)
         
+# Type definition for the patterns of shaped forge recipes.
+ShapedPattern = 'list[list[Union[str,Item]]]'
+
 @dataclass
 class ShapedRecipe(Recipe):
     ''' Represents a shaped combustion forge recipe. '''
     pattern: ShapedPattern
     # Maps the letters from the pattern to actual items.
     item_keys: 'list[dict[str, Item]]'
+
+
+
+# The item form of air, used to fill the empty spaces of shaped patterns.
+item_air = Item([r"minecraft:air"])
 
 
 
@@ -184,10 +233,8 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
     
     pattern_arrangements = create_pattern_arrangments(decode_shaped_recipe_pattern(recipe))
 
-    result_item_data = recipe.result
-    result_item_id = result_item_data["item"]
-    result_item_count = result_item_data.get("count", 1)
-    result_item_tag_string = f',tag:{result_item_data["nbt"]}' if result_item_data.get("nbt") is not None else '' 
+    
+    result_item_tag_string = f',tag:{recipe.result.tag}' if recipe.result.tag else '' 
 
     pattern_number = 1
     # Writes code to test and craft each possible arrangement of the recipe on
@@ -202,12 +249,11 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
         #   crafting grid.
         for crafting_grid_z in range(-1, 2):
             for crafting_grid_x in range(-1, 2):
-                ingredient_item_data = pattern[crafting_grid_z + 1][crafting_grid_x + 1]
-                ingredient_item_ids = ingredient_item_data["item"] if type(ingredient_item_data["item"]) is list else [ingredient_item_data["item"]]
-                item_tag_string = f',tag:{ingredient_item_data["nbt"]}' if ingredient_item_data.get("nbt") is not None else '' 
+                ingredient_item: Item = pattern[crafting_grid_z + 1][crafting_grid_x + 1]
+                item_tag_string = f',tag:{ingredient_item.tag}' if ingredient_item.tag else '' 
 
                 output_file.write(f'# Item {(crafting_grid_x + 1) + (crafting_grid_z + 1) * 3 + 1}.\n')
-                for ingredient_item_id in ingredient_item_ids:
+                for ingredient_item_id in ingredient_item.ids:
                     if ingredient_item_id != 'minecraft:air':
                         output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{ingredient_item_id}"{item_tag_string}}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
                     else:
@@ -218,7 +264,7 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run function {decrement_crafting_grid_function_id}\n')
         #   produce the resulting item(s),
         output_file.write('# Create result.\n')
-        output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result_item_id}",Count:{result_item_count}b{result_item_tag_string}}}}}\n')
+        output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{recipe.result.ids[0]}",Count:{recipe.result.count}b{result_item_tag_string}}}}}\n')
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
         #   and recursively run the recipe now that is has been found.
         output_file.write('# Recipe found, repeat until done.\n')
@@ -241,9 +287,9 @@ def write_recipe_mcfunction_code(output_file_path: str, recipe_name: str, recipe
     ''' Attempts to write the code for the given recipe to the specified output
         file and returns whether it succeded. '''
     try:
-        recipe = Recipe.fromJSON(recipe_json)
+        recipe = Recipe.from_json(recipe_json)
 
-        if recipe.type == RecipeType.CRAFTING_SHAPED:
+        if recipe.type == RecipeType.COMBUSTION_FORGE_SHAPED:
             with open(output_file_path, 'w') as output_file:
                 write_shaped_recipe_mcfunction_code(output_file, recipe_function_id, recipe)
 
@@ -253,9 +299,9 @@ def write_recipe_mcfunction_code(output_file_path: str, recipe_name: str, recipe
             assert False, f"Recieved unhandled recipe type {recipe.type} from JSON decoder!"
         
         return True
-        
+    
     except ValueError as error:
-        logging.error(f"{error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
+        logging.error(f"Unable to decode recipe JSON: {error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
         return False
 
 def write_recipe_function_tag_json(output_file_path: str, recipe_function_ids: 'list[str]'):
@@ -302,7 +348,7 @@ def main():
             try:
                 recipe_json = json.loads(recipe_byte_stream.read())
             except json.JSONDecodeError as error:
-                logging.error(f"{error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
+                logging.error(f"Unable to decode recipe JSON: {error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
                 
         if recipe_json is not None: 
             wrote_file = write_recipe_mcfunction_code(output_file_path, recipe_name, recipe_function_id, recipe_json)
