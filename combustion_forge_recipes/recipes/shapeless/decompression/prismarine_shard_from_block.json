@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:prismarine"
+        }
+    ],
+    "result": {
+        "item": "minecraft:prismarine_shard",
+        "count": 4
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "AA",
+        "AA"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:amethyst_shard"
+        }
+    },
+    "result": {
+        "item": "minecraft:amethyst_block"
+    }
+}

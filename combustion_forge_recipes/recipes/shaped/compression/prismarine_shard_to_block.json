@@ -1,0 +1,15 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "PP",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:prismarine_shard"
+        }
+    },
+    "result": {
+        "item": "minecraft:prismarine"
+    }
+}

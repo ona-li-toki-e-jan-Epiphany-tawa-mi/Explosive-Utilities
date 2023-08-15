@@ -2,7 +2,11 @@
     "type": "combustion_forge_shapeless",
     "ingredients": [
         {
-            "item": "minecraft:cobblestone"
+            "item": [
+                "minecraft:cobblestone",
+                "minecraft:cobbled_deepslate",
+                "minecraft:blackstone"
+            ]
         }
     ],
     "result": {

@@ -1,0 +1,15 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": [
+                "minecraft:copper_block",
+                "minecraft:waxed_copper_block"
+            ]
+        }
+    ],
+    "result": {
+        "item": "minecraft:copper_ingot",
+        "count": 9
+    }
+}

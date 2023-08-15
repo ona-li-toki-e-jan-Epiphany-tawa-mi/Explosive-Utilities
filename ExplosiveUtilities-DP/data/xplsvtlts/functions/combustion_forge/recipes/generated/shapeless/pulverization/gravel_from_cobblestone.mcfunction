@@ -36,14 +36,32 @@ scoreboard players set _valid_ingredient_count xplsvtlts 0
 
 scoreboard players set _item_1_count xplsvtlts 0
 execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobbled_deepslate"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:blackstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if score _item_1_count xplsvtlts matches 1 run scoreboard players add _valid_ingredient_count xplsvtlts 1
 scoreboard players reset _item_1_count xplsvtlts
 
