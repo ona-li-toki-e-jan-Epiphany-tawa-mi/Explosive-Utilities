@@ -1,0 +1,20 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:sand"
+        },
+        {
+            "item": "minecraft:gunpowder"
+        },
+        {
+            "item": "minecraft:gunpowder"
+        }
+    ],
+    "result": {
+        "item": "minecraft:tnt"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:cobblestone"
+        }
+    ],
+    "result": {
+        "item": "minecraft:gravel"
+    }
+}

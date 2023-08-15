@@ -61,16 +61,20 @@ class Item:
     count: int = 1
 
     @staticmethod
-    def from_json(item_json: dict, root_path: str = '', one_id_only: bool = False) -> 'Item':
+    def from_json( item_json: dict, root_path: str = '', one_id_only: bool = False
+                 , ignore_count: bool = False) -> 'Item':
         ''' If parsing fails a ValueError will be raised. 
             
             root_path 
-                The path of object keys leading up to the recipe JSON object, 
+                The path of object keys leading up to the item JSON object, 
                 used for error printing. Must end in period if non-empty.
             one_id_only
                 Whether to raise an error if there is more than one item id
-                specified. Used for resulting items where only one id makes
-                sense. '''
+                specified. Used for result items where only one id makes
+                sense. 
+            ignore_count
+                Whether to ignore the count specified in the JSON and just set 
+                the item count to 1. '''
         ids = item_json.get("item")
         if ids is None:
             raise ValueError(f"Unable to decode item JSON: missing value for key '{root_path}item'")
@@ -96,7 +100,7 @@ class Item:
             raise ValueError(f"Unable to decode item JSON: expected string in optional key '{root_path}nbt' (found: '{type(tag)}')")
         
         count = item_json.get("count")
-        if count is not None:
+        if not ignore_count and count is not None:
             if type(count) is not int:
                 raise ValueError(f"Unable to decode item JSON: expected integer in optional key '{root_path}count' (found: '{type(count)}')")
             if count <= 0:
@@ -113,6 +117,7 @@ class RecipeType(Enum):
     ''' Represents the possible recipe types that can be used in the recipe
         files. Values are the value that should be specified in the files. '''
     COMBUSTION_FORGE_SHAPED = "combustion_forge_shaped"
+    COMBUSTION_FORGE_SHAPELESS = "combustion_forge_shapeless"
 
 @dataclass
 class Recipe(ABC):
@@ -140,7 +145,8 @@ class Recipe(ABC):
             raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}result'")
         if type(result) is not dict or not result:
             raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}result' (found: '{type(result)}')")
-        result = Item.from_json(result, root_path='result.', one_id_only=True)
+        result = Item.from_json(result, root_path=root_path+'result.', one_id_only=True)
+
     
         if recipe_type == RecipeType.COMBUSTION_FORGE_SHAPED:
             item_keys = recipe_json.get("key")
@@ -153,7 +159,7 @@ class Recipe(ABC):
                     raise ValueError(f"Unable to decode recipe JSON: expected non-space single character string for key '{root_path}key' (found: '{item_key}')")
                 if type(item_json) is not dict or not item_json:
                     raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key.{item_key}' (found: '{type(item_json)}')")
-                item_keys[item_key] = Item.from_json(item_json, root_path='key.' + item_key + '.')
+                item_keys[item_key] = Item.from_json(item_json, root_path=root_path+'key.'+item_key+'.', ignore_count=True)
 
             pattern = recipe_json.get("pattern")
             if pattern is None:
@@ -175,8 +181,27 @@ class Recipe(ABC):
                 if len(pattern[i]) != row1Size:
                     raise ValueError(f"Unable to decode recipe JSON: expected rows of the recipe pattern to be of equal length for key '{root_path}pattern' (found: '{type(pattern)}')")
 
+            return ShapedRecipe(result, pattern, item_keys)
+        
 
-            return ShapedRecipe(recipe_type, result, pattern, item_keys)
+        elif recipe_type == RecipeType.COMBUSTION_FORGE_SHAPELESS:
+            ingredients = recipe_json.get("ingredients")
+            if ingredients is None:
+                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}ingredients'")
+            if type(ingredients) is not list:
+                raise ValueError(f"Unable to decode recipe JSON: expected non-empty list for key '{root_path}ingredients' (found: '{type(ingredients)}')")
+            if type(ingredients) is not list:
+                raise ValueError(f"Unable to decode recipe JSON: expected list of length 1 to 9 for key '{root_path}ingredients' (found: '{ingredients}')")
+            for i in range(0, len(ingredients)):
+                if type(ingredients[i]) is not dict or not ingredients[i]:
+                    raise ValueError(f"Unable to decode recipe JSON: expected non-empty object in list for key '{root_path}ingredients' (found: '{type(ingredients[i])}')")
+                ingredients[i] = Item.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}]', ignore_count=True)
+
+            return ShapelessRecipe(result, ingredients)
+        
+
+        else:
+            assert False, f"Recieved unhandled recipe type '{recipe_type}'!"
         
 # Type definition for the patterns of shaped forge recipes.
 ShapedPattern = 'list[list[Union[str,Item]]]'
@@ -187,6 +212,21 @@ class ShapedRecipe(Recipe):
     pattern: ShapedPattern
     # Maps the letters from the pattern to actual items.
     item_keys: 'list[dict[str, Item]]'
+
+    def __init__(self, pattern: ShapedPattern, item_keys: 'list[dict[str, Item]]', result: Item):
+        super().__init__(RecipeType.COMBUSTION_FORGE_SHAPED, result)
+        self.pattern = pattern
+        self.item_keys = item_keys
+        
+@dataclass
+class ShapelessRecipe(Recipe):
+    type = RecipeType.COMBUSTION_FORGE_SHAPELESS
+    ''' Represents a shapeless combustion forge recipe. '''
+    ingredients: 'list[Item]'
+
+    def __init__(self,  ingredients: 'list[Item]', result: Item):
+        super().__init__(RecipeType.COMBUSTION_FORGE_SHAPELESS, result)
+        self.ingredients = ingredients
 
 
 
@@ -339,7 +379,7 @@ def write_recipe_mcfunction_code(output_file_path: str, recipe_name: str, recipe
             logging.info(f"Wrote shaped recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
 
         else:
-            assert False, f"Recieved unhandled recipe type {recipe.type} from JSON decoder!"
+            assert False, f"Recieved unhandled recipe type '{recipe.type}' from JSON decoder!"
         
         return True
     
@@ -372,7 +412,16 @@ def main():
     # Changing directory into the recipe directory makes messing with the recipe
     #   file paths 1 million times easier.
     os.chdir(combustion_forge_recipe_directory)
-    recipe_file_paths = glob(r'**.json', recursive=True)
+    recipe_file_paths = glob(r'**/*.json', recursive=True)
+
+    if not recipe_file_paths:
+        logging.info(f"Did not find any recipe files to compile in '{combustion_forge_recipe_directory}'. Aborting!")
+        return
+    else:
+        logging.info(f"Found the following recipe files to compile in '{combustion_forge_recipe_directory}':")
+        for recipe_file_path in recipe_file_paths:
+            logging.info(f" - {recipe_file_path}")
+        logging.info("Beggining compilation.")
 
 
     recipe_function_ids = []
@@ -398,8 +447,11 @@ def main():
             if wrote_file:
                 recipe_function_ids.append(recipe_function_id)
 
-    os.makedirs(path.split(recipe_function_tag_file_path)[0], exist_ok=True)
-    write_recipe_function_tag_json(recipe_function_tag_file_path, recipe_function_ids)
+    if recipe_function_ids:
+        os.makedirs(path.split(recipe_function_tag_file_path)[0], exist_ok=True)
+        write_recipe_function_tag_json(recipe_function_tag_file_path, recipe_function_ids)
+    else:
+        logging.error(f"Could not write out recipe function ids into tag json file at '{path.abspath(output_file_path)}': no recipes successfully compiled")
 
 if __name__ == '__main__':
     main()
