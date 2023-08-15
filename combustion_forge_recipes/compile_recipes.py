@@ -61,37 +61,46 @@ class Item:
     count: int = 1
 
     @staticmethod
-    def from_json(item_json: dict, root_path: str = '') -> 'Item':
-        ''' If parsing fails a ValueError will be raised. '''
+    def from_json(item_json: dict, root_path: str = '', one_id_only: bool = False) -> 'Item':
+        ''' If parsing fails a ValueError will be raised. 
+            
+            root_path 
+                The path of object keys leading up to the recipe JSON object, 
+                used for error printing. Must end in period if non-empty.
+            one_id_only
+                Whether to raise an error if there is more than one item id
+                specified. Used for resulting items where only one id makes
+                sense. '''
         ids = item_json.get("item")
         if ids is None:
             raise ValueError(f"Unable to decode item JSON: missing value for key '{root_path}item'")
         if type(ids) is not list:
             ids = [ids]
-
         if not ids:
             raise ValueError(f"Unable to decode item JSON: expected non-empty list of item ids in key '{root_path}item'")
-
+        if one_id_only and len(ids) > 1:
+            raise ValueError(f"Unable to decode item JSON: expected single item id as string in key '{root_path}item' (found: '{ids}')")
         for id in ids:
             if type(id) is not str:
-                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in key '{root_path}item' (found: {type(id)})")
-            # TODO Check if item ids have valid namespace.
-            if not id:
-                raise ValueError(f"Unable to decode item JSON: empty item id found in key '{root_path}item'")
+                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in key '{root_path}item' (found: '{type(id)}')")
+            split_id = id.split(':')
+            if len(split_id) < 2 or not split_id[0]:
+                raise ValueError(f"Unable to decode item JSON: missing namespace in item id in key '{root_path}item' (found: '{id}')")
+            if len(split_id) > 2:
+                raise ValueError(f"Unable to decode item JSON: invalid namespace in item id in key '{root_path}item' (found: '{id}')")
+            if not split_id[1]:
+                raise ValueError(f"Unable to decode item JSON: empty item id found in key '{root_path}item' (found: '{id}')")
             
-
         tag = item_json.get("nbt")
         if tag is not None and type(tag) is not str:
-            raise ValueError(f"Unable to decode item JSON: expected string in optional key '{root_path}nbt' (found: {type(tag)})")
+            raise ValueError(f"Unable to decode item JSON: expected string in optional key '{root_path}nbt' (found: '{type(tag)}')")
         
-
         count = item_json.get("count")
         if count is not None:
             if type(count) is not int:
-                raise ValueError(f"Unable to decode item JSON: expected integer in optional key '{root_path}count' (found: {type(count)})")
-            
+                raise ValueError(f"Unable to decode item JSON: expected integer in optional key '{root_path}count' (found: '{type(count)}')")
             if count <= 0:
-                raise ValueError(f"Unable to decode item JSON: expected integer greater than 0 in optional key '{root_path}count' (found: {count})")
+                raise ValueError(f"Unable to decode item JSON: expected integer greater than 0 in optional key '{root_path}count' (found: '{count}')")
         else:
             count = 1
 
@@ -113,27 +122,61 @@ class Recipe(ABC):
 
     @staticmethod
     def from_json(recipe_json: dict, root_path: str = '') -> 'Recipe':
-        ''' If parsing fails a ValueError will be raised. '''
-        # TODO add way to request 1 item id only.
-        type = recipe_json.get("type")
-        if type is None:
+        ''' If parsing fails a ValueError will be raised. 
+
+            root_path 
+                The path of object keys leading up to the recipe JSON object, 
+                used for error printing. Must end in period if non-empty. '''
+        recipe_type = recipe_json.get("type")
+        if recipe_type is None:
             raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}type'")
         try:
-            type = RecipeType(type)
+            recipe_type = RecipeType(recipe_type)
         except ValueError:
-            raise ValueError(f"Unable to decode recipe JSON: unknown recipe type '{type}' in key '{root_path}type'")
+            raise ValueError(f"Unable to decode recipe JSON: unknown recipe type '{recipe_type}' in key '{root_path}type'")
         
-        result = Item.from_json(recipe_json["result"], 'result.')
+        result = recipe_json.get("result")
+        if result is None:
+            raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}result'")
+        if type(result) is not dict or not result:
+            raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}result' (found: '{type(result)}')")
+        result = Item.from_json(result, root_path='result.', one_id_only=True)
     
-        if type == RecipeType.COMBUSTION_FORGE_SHAPED:
-            # TODO Add verification for patterns.
-            pattern = recipe_json["pattern"]
-            
-            item_keys = recipe_json["key"]
+        if recipe_type == RecipeType.COMBUSTION_FORGE_SHAPED:
+            item_keys = recipe_json.get("key")
+            if item_keys is None:
+                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}key'")
+            if type(item_keys) is not dict or not item_keys:
+                raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key' (found: '{type(item_keys)}')")
             for item_key, item_json in item_keys.items():
-                item_keys[item_key] = Item.from_json(item_json, 'key.' + item_key + '.')
+                if len(item_key) != 1 or item_key == ' ':
+                    raise ValueError(f"Unable to decode recipe JSON: expected non-space single character string for key '{root_path}key' (found: '{item_key}')")
+                if type(item_json) is not dict or not item_json:
+                    raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key.{item_key}' (found: '{type(item_json)}')")
+                item_keys[item_key] = Item.from_json(item_json, root_path='key.' + item_key + '.')
 
-            return ShapedRecipe(type, result, pattern, item_keys)
+            pattern = recipe_json.get("pattern")
+            if pattern is None:
+                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}pattern'")
+            if type(pattern) != list:
+                raise ValueError(f"Unable to decode recipe JSON: expected non-empty list for key '{root_path}pattern' (found: '{type(pattern)}')")
+            if len(pattern) > 3 or len(pattern) < 1:
+                raise ValueError(f"Unable to decode recipe JSON: expected list of length 1 to 3 for key '{root_path}pattern' (found: '{pattern}')")
+            for row in pattern:
+                if type(row) != str:
+                    raise ValueError(f"Unable row decode recipe JSON: expected non-empty string in list for key '{root_path}pattern' (found: '{type(row)}')")
+                if len(row) > 3 or len(pattern) < 1:
+                    raise ValueError(f"Unable to decode recipe JSON: expected string of length 1 to 3 in list for key '{root_path}pattern' (found: '{row}')")
+                for key in row:
+                    if key != ' ' and key not in item_keys.keys():
+                        raise ValueError(f"Unable to decode recipe JSON: item key '{key}' not present in key '{root_path}key' for string in list in key '{root_path}pattern'")
+            row1Size = len(pattern[0])
+            for i in range(1, len(pattern)):
+                if len(pattern[i]) != row1Size:
+                    raise ValueError(f"Unable to decode recipe JSON: expected rows of the recipe pattern to be of equal length for key '{root_path}pattern' (found: '{type(pattern)}')")
+
+
+            return ShapedRecipe(recipe_type, result, pattern, item_keys)
         
 # Type definition for the patterns of shaped forge recipes.
 ShapedPattern = 'list[list[Union[str,Item]]]'
@@ -301,7 +344,7 @@ def write_recipe_mcfunction_code(output_file_path: str, recipe_name: str, recipe
         return True
     
     except ValueError as error:
-        logging.error(f"Unable to decode recipe JSON: {error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
+        logging.error(f"{error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
         return False
 
 def write_recipe_function_tag_json(output_file_path: str, recipe_function_ids: 'list[str]'):
