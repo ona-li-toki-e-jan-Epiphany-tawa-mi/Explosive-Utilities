@@ -405,9 +405,11 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     output_file.write('\n\n\n')
 
 
+    empty_spaces = 9
+
     output_file.write(f'scoreboard players set _valid_ingredient_count {variable_storage_scoreboard} 0\n')
     output_file.write('\n')
-    
+
     for i in range(0, len(recipe.ingredients)):
         item_count_variable = f'_item_{i+1}_count'
         output_file.write(f'scoreboard players set {item_count_variable} {variable_storage_scoreboard} 0\n')
@@ -427,20 +429,34 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
         output_file.write(f'scoreboard players reset {item_count_variable} {variable_storage_scoreboard}\n')
         output_file.write('\n')
 
+        empty_spaces -= ingredient.count
 
+    if empty_spaces > 0:
+        output_file.write(f'scoreboard players set _empty_space_count {variable_storage_scoreboard} 0\n')
+
+        for crafting_grid_z in range(-1, 2):
+                for crafting_grid_x in range(-1, 2):
+                    output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add _empty_space_count {variable_storage_scoreboard} 1\n')
+
+        output_file.write(f'execute if score _empty_space_count {variable_storage_scoreboard} matches {empty_spaces} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
+        output_file.write(f'scoreboard players reset _empty_space_count {variable_storage_scoreboard}\n')
+        output_file.write('\n')
+
+
+    required_valid_ingredient_count = len(recipe.ingredients) + (1 if empty_spaces > 0 else 0)
     result_item_tag_string = f',tag:{recipe.result.tag}' if recipe.result.tag else '' 
 
     output_file.write('\n\n')
     # If it is present, we can consume the ingredients,
     output_file.write('# Consume ingredients.\n')
-    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {len(recipe.ingredients)} run function {decrement_crafting_grid_function_id}\n')
+    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {decrement_crafting_grid_function_id}\n')
     #   produce the resulting item(s),
     output_file.write('# Create result.\n')
-    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {len(recipe.ingredients)} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{recipe.result.ids[0]}",Count:{recipe.result.count}b{result_item_tag_string}}}}}\n')
-    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {len(recipe.ingredients)} run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
+    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{recipe.result.ids[0]}",Count:{recipe.result.count}b{result_item_tag_string}}}}}\n')
+    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
     #   and recursively run the recipe now that is has been found.
     output_file.write('# Recipe found, repeat until done.\n')
-    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {len(recipe.ingredients)} run function {recipe_function_id}\n')
+    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {recipe_function_id}\n')
     output_file.write('\n\n\n')
 
 

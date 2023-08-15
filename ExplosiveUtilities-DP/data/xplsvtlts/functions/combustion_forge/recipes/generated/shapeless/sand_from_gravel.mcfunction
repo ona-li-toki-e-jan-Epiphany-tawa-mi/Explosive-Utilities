@@ -47,15 +47,28 @@ execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gravel
 execute if score _item_1_count xplsvtlts matches 1 run scoreboard players add _valid_ingredient_count xplsvtlts 1
 scoreboard players reset _item_1_count xplsvtlts
 
+scoreboard players set _empty_space_count xplsvtlts 0
+execute unless block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute unless block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
+execute if score _empty_space_count xplsvtlts matches 8 run scoreboard players add _valid_ingredient_count xplsvtlts 1
+scoreboard players reset _empty_space_count xplsvtlts
+
 
 
 # Consume ingredients.
-execute if score _valid_ingredient_count xplsvtlts matches 1 run function xplsvtlts:combustion_forge/recipes/decrement_crafting_grid
+execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/decrement_crafting_grid
 # Create result.
-execute if score _valid_ingredient_count xplsvtlts matches 1 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:sand",Count:1b}}
-execute if score _valid_ingredient_count xplsvtlts matches 1 run scoreboard players add _items_crafted xplsvtlts 1
+execute if score _valid_ingredient_count xplsvtlts matches 2 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:sand",Count:1b}}
+execute if score _valid_ingredient_count xplsvtlts matches 2 run scoreboard players add _items_crafted xplsvtlts 1
 # Recipe found, repeat until done.
-execute if score _valid_ingredient_count xplsvtlts matches 1 run function xplsvtlts:combustion_forge/recipes/generated/shapeless/sand_from_gravel
+execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/generated/shapeless/sand_from_gravel
 
 
 
