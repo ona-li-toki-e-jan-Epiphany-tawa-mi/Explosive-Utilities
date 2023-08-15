@@ -23,6 +23,8 @@
 # Returns:
 #   _items_crafted (scoreboard: xplsvtlts) - the number of items crafted.
 #   _found_recipe (scoreboard: xplsvtlts) - whether a recipe was found.
+#   _valid_ingredient_count (scoreboard: xplsvtlts) - temporary variable
+#        used in recipe functions. Please reset.
 #
 
 execute if score _items_crafted xplsvtlts matches 16.. run return 0
@@ -98,10 +100,9 @@ execute if score _valid_ingredient_count xplsvtlts matches 9 run function xplsvt
 execute if score _valid_ingredient_count xplsvtlts matches 9 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:enchanted_book",Count:1b,tag:{CustomModelData:1385753,display:{Name:'{"text":"Reactive Plating","italic":false,"color":"red"}',Lore:['{"text":"Explosive Utilities","italic":false,"color":"blue"}']}}}}
 execute if score _valid_ingredient_count xplsvtlts matches 9 run scoreboard players add _items_crafted xplsvtlts 1
 # Recipe found, repeat until done.
-execute if score _valid_ingredient_count xplsvtlts matches 9 run function xplsvtlts:combustion_forge/recipes/generated/reactive_plating
+execute if score _valid_ingredient_count xplsvtlts matches 9 run function xplsvtlts:combustion_forge/recipes/generated/shaped/reactive_plating
 
 
 
-scoreboard players reset _valid_ingredient_count xplsvtlts
 # Mark that the recipe was found if it was able to be crafted.
 execute if score _items_crafted xplsvtlts matches 1.. run scoreboard players set _found_recipe xplsvtlts 1

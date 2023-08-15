@@ -22,15 +22,16 @@ execute unless block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboar
 
 
 
-execute if score _empty_slot_count xplsvtlts matches ..8 run scoreboard players set _items_crafted xplsvtlts 0
-execute if score _empty_slot_count xplsvtlts matches ..8 run scoreboard players set _found_recipe xplsvtlts 0
+scoreboard players set _items_crafted xplsvtlts 0
+scoreboard players set _found_recipe xplsvtlts 0
 
 # See {PROJECT_DIR}/combustion_forge_recipes/ for adding more recipes to the
 #   combustion forge.
 execute if score _empty_slot_count xplsvtlts matches ..8 run function #xplsvtlts:combustion_forge_recipes/recipes
 
-execute if score _empty_slot_count xplsvtlts matches ..8 run scoreboard players reset _items_crafted xplsvtlts
-execute if score _empty_slot_count xplsvtlts matches ..8 run scoreboard players reset _found_recipe xplsvtlts
+scoreboard players reset _items_crafted xplsvtlts
+scoreboard players reset _found_recipe xplsvtlts
+scoreboard players reset _valid_ingredient_count xplsvtlts
 
 
 

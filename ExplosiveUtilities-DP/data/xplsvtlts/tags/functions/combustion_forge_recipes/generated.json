@@ -1,7 +1,10 @@
 {
 	"values": [
-		"xplsvtlts:combustion_forge/recipes/generated/tnt_on_a_stick",
-		"xplsvtlts:combustion_forge/recipes/generated/reactive_plating",
-		"xplsvtlts:combustion_forge/recipes/generated/tnt_wand"
+		"xplsvtlts:combustion_forge/recipes/generated/shapeless/sand_from_gravel",
+		"xplsvtlts:combustion_forge/recipes/generated/shapeless/tnt",
+		"xplsvtlts:combustion_forge/recipes/generated/shapeless/gravel_from_cobblestone",
+		"xplsvtlts:combustion_forge/recipes/generated/shaped/tnt_on_a_stick",
+		"xplsvtlts:combustion_forge/recipes/generated/shaped/reactive_plating",
+		"xplsvtlts:combustion_forge/recipes/generated/shaped/tnt_wand"
 	]
 }
