@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:bone"
+        }
+    ],
+    "result": {
+        "item": "minecraft:bone_meal",
+        "count": 6
+    }
+}

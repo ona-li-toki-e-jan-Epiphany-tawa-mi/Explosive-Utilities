@@ -35,15 +35,15 @@ execute if score _found_recipe xplsvtlts matches 1 run return 0
 scoreboard players set _valid_ingredient_count xplsvtlts 0
 
 scoreboard players set _item_1_count xplsvtlts 0
-execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
-execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:cobblestone"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
+execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:raw_iron_block"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if score _item_1_count xplsvtlts matches 1 run scoreboard players add _valid_ingredient_count xplsvtlts 1
 scoreboard players reset _item_1_count xplsvtlts
 
@@ -65,10 +65,10 @@ scoreboard players reset _empty_space_count xplsvtlts
 # Consume ingredients.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/decrement_crafting_grid
 # Create result.
-execute if score _valid_ingredient_count xplsvtlts matches 2 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:gravel",Count:1b}}
+execute if score _valid_ingredient_count xplsvtlts matches 2 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:raw_iron",Count:9b}}
 execute if score _valid_ingredient_count xplsvtlts matches 2 run scoreboard players add _items_crafted xplsvtlts 1
 # Recipe found, repeat until done.
-execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/generated/shapeless/gravel_from_cobblestone
+execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/generated/shapeless/decompression/raw_iron_from_block
 
 
 

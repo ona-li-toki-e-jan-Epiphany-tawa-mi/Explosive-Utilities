@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:redstone_block"
+        }
+    ],
+    "result": {
+        "item": "minecraft:redstone",
+        "count": 9
+    }
+}

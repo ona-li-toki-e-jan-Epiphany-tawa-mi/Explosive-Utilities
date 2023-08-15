@@ -185,19 +185,25 @@ class Recipe(ABC):
         
 
         elif recipe_type == RecipeType.COMBUSTION_FORGE_SHAPELESS:
-            # TODO make raise error for duplicate ingredients.
-            # TODO make sure item counts add up to a maximum of 9 and a minimum of 1
             ingredients = recipe_json.get("ingredients")
             if ingredients is None:
                 raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}ingredients'")
-            if type(ingredients) is not list:
+            if type(ingredients) is not list or not ingredients:
                 raise ValueError(f"Unable to decode recipe JSON: expected non-empty list for key '{root_path}ingredients' (found: '{type(ingredients)}')")
-            #if len(ingredients) > 9 or len(ingredients) < 1:
-                #raise ValueError(f"Unable to decode recipe JSON: expected list of length 1 to 9 for key '{root_path}ingredients' (found: '{ingredients}')")
             for i in range(0, len(ingredients)):
                 if type(ingredients[i]) is not dict or not ingredients[i]:
                     raise ValueError(f"Unable to decode recipe JSON: expected non-empty object in list for key '{root_path}ingredients' (found: '{type(ingredients[i])}')")
                 ingredients[i] = Item.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}]')
+            ingredient_item_count = 0
+            for ingredient in ingredients:
+                ingredient_item_count += ingredient.count
+            if ingredient_item_count > 9 or ingredient_item_count < 1:
+                raise ValueError(f"Unable to decode recipe JSON: expected a total count for ingredient items of 1 to 9 in list for key '{root_path}ingredients' (found: '{ingredient_item_count}')")
+            for i in range(0, len(ingredients)):
+                for k in range(0, len(ingredients)):
+                    if i != k and ingredients[i].ids == ingredients[k].ids and ingredients[i].tag == ingredients[k].tag:
+                        raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{ingredients[i]}')")
+
 
             return ShapelessRecipe(ingredients, result)
         

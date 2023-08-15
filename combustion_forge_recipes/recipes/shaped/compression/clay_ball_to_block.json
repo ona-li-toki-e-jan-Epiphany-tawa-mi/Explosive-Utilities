@@ -1,0 +1,15 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "BB",
+        "BB"    
+    ],
+    "key": {
+        "B": {
+            "item": "minecraft:clay_ball"
+        }
+    },
+    "result": {
+        "item": "minecraft:clay"
+    }
+}

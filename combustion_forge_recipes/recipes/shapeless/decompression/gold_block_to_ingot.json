@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:gold_block"
+        }
+    ],
+    "result": {
+        "item": "minecraft:gold_ingot",
+        "count": 9
+    }
+}

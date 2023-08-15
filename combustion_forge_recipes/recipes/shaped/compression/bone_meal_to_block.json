@@ -1,0 +1,16 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "BBB",
+        "BBB",
+        "BBB"
+    ],
+    "key": {
+        "B": {
+            "item": "minecraft:bone_meal"
+        }
+    },
+    "result": {
+        "item": "minecraft:bone_block"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:lapis_block"
+        }
+    ],
+    "result": {
+        "item": "minecraft:lapis_lazuli",
+        "count": 9
+    }
+}

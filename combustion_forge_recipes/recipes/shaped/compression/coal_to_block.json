@@ -1,0 +1,16 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "CCC",
+        "CCC",
+        "CCC"
+    ],
+    "key": {
+        "C": {
+            "item": "minecraft:coal"
+        }
+    },
+    "result": {
+        "item": "minecraft:coal_block"
+    }
+}

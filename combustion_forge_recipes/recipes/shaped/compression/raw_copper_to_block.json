@@ -1,0 +1,17 @@
+
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "RRR",
+        "RRR",
+        "RRR"  
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:raw_copper"
+        }
+    },
+    "result": {
+        "item": "minecraft:raw_copper_block"
+    }
+}

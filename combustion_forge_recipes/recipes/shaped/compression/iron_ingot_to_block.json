@@ -1,0 +1,16 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "III",
+        "III",
+        "III"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:iron_ingot"
+        }
+    },
+    "result": {
+        "item": "minecraft:iron_block"
+    }
+}

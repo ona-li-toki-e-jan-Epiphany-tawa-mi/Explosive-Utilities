@@ -1,0 +1,16 @@
+{
+    "type": "combustion_forge_shaped",
+    "pattern": [
+        "III",
+        "III",
+        "III"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:gold_ingot"
+        }
+    },
+    "result": {
+        "item": "minecraft:gold_block"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "type": "combustion_forge_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:bricks"
+        }
+    ],
+    "result": {
+        "item": "minecraft:brick",
+        "count": 4
+    }
+}
