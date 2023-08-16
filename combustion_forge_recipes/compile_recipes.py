@@ -11,6 +11,7 @@ from enum import Enum
 from glob import glob
 from io import TextIOWrapper
 from typing import Union
+import jsonschema
 
 ################################################################################
 # This file is used to compile the recipes for the combustion forge in 
@@ -24,16 +25,23 @@ from typing import Union
 # Note: If a recipe has been removed, this will not clear them from 
 #   {recipe_output_directory}. Do it yourself, peasant.
 #
+# Dependencies:
+#  - jsonschema <https://pypi.org/project/jsonschema>
+#     Run 'pip install jsonschema' in the terminal to install.
+#
 
 ################################################################################
 # CONFIG START                                                                 #
 ################################################################################
 # Where the uncompiled combustion forge recipes are located. Relative path from
-#   the prject directory.
+#   the project directory.
 combustion_forge_recipe_directory = r'combustion_forge_recipes/recipes/'
 # Where to output the compiled recipes to. Relative path from 
 #   {combustion_forge_recipe_directory}.
 recipe_output_directory = r'../../ExplosiveUtilities-DP/data/xplsvtlts/functions/combustion_forge/recipes/generated/'
+# The file path to read in the recipe JSON schema from. Relative path from
+#   {combustion_forge_recipe_directory}
+recipe_schema_file_path = r'../recipe_schema.json'
 # The file path to write out the function tag that will run all combustion forge
 #   recipes. Relative path from {combustion_forge_recipe_directory}.
 recipe_function_tag_file_path = r'../../ExplosiveUtilities-DP/data/xplsvtlts/tags/functions/combustion_forge_recipes/generated.json'
@@ -58,7 +66,7 @@ logging_level = logging.ERROR
 class Item:
     ''' Represents Minecraft items. '''
     ids: 'list[str]'
-    tag: str = ""
+    tag: str = ''
     count: int = 1
 
     def do_ids_overlap(self, other_item: 'Item') -> bool:
@@ -77,58 +85,20 @@ class Item:
         return self.tag == other_item.tag and self.do_ids_overlap(other_item)
 
     @staticmethod
-    def from_json( item_json: dict, root_path: str = ''
-                  , one_id_only: bool = False, ignore_count: bool = False
-                  ) -> 'Item':
-        ''' If parsing fails a ValueError will be raised. 
-            
-            root_path 
-                The path of object keys leading up to the item JSON object, 
-                used for error printing. Must end in period if non-empty.
-            one_id_only
-                Whether to raise an error if there is more than one item id
-                specified. Used for result items where only one id makes
-                sense. 
+    def from_json(item_json: dict, ignore_count: bool = False) -> 'Item':
+        ''' Expects JSON data to be pre-verified by the recipe schema. If 
+            parsing fails a ValueError will be raised. 
+
             ignore_count
                 Whether to ignore the count specified in the JSON and just set 
                 the item count to 1. '''
-        ids = item_json.get("item")
-        if ids is None:
-            raise ValueError(f"Unable to decode item JSON: missing value for key '{root_path}item'")
+        ids = item_json["item"]
         if type(ids) is not list:
             ids = [ids]
-        if not ids:
-            raise ValueError(f"Unable to decode item JSON: expected non-empty list of item ids in key '{root_path}item'")
-        if one_id_only and len(ids) > 1:
-            raise ValueError(f"Unable to decode item JSON: expected single item id as string in key '{root_path}item' (found: '{ids}')")
-        for id in ids:
-            if type(id) is not str:
-                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in list in key '{root_path}item' (found: '{type(id)}')")
-            split_id = id.split(':')
-            if len(split_id) < 2 or not split_id[0]:
-                raise ValueError(f"Unable to decode item JSON: missing namespace in item id in list in key '{root_path}item' (found: '{id}')")
-            if len(split_id) > 2:
-                raise ValueError(f"Unable to decode item JSON: invalid namespace in item id in list in key '{root_path}item' (found: '{id}')")
-            if not split_id[1]:
-                raise ValueError(f"Unable to decode item JSON: empty item id found in list in key '{root_path}item' (found: '{id}')")
-        for i in range(0, len(ids)):
-            for k in range(0, len(ids)):
-                if i != k and ids[i] == ids[k]:
-                    raise ValueError(f"Unable to decode item JSON: duplicate item id found in list in key '{root_path}item' (found: '{ids[i]}')")
-            
-        tag = item_json.get("nbt")
-        if tag is not None and type(tag) is not str:
-            raise ValueError(f"Unable to decode item JSON: expected string in optional key '{root_path}nbt' (found: '{type(tag)}')")
         
-        count = item_json.get("count")
-        if not ignore_count and count is not None:
-            if type(count) is not int:
-                raise ValueError(f"Unable to decode item JSON: expected integer in optional key '{root_path}count' (found: '{type(count)}')")
-            if count <= 0:
-                raise ValueError(f"Unable to decode item JSON: expected integer greater than 0 in optional key '{root_path}count' (found: '{count}')")
-        else:
-            count = 1
-
+        tag = item_json.get("nbt", '')
+        
+        count = item_json.get("count", 1) if not ignore_count else 1
 
         return Item(ids, tag, count)
     
@@ -152,7 +122,8 @@ class IngredientWhitelist:
     def from_json( item_whitelist_json: Union[dict, list], root_path: str = ''
                  , enforce_count_sameness: bool = False
                  ) -> 'IngredientWhitelist':
-        ''' If parsing fails a ValueError will be raised. 
+        ''' Expects JSON data to be pre-verified by the recipe schema. If 
+            parsing fails a ValueError will be raised. 
                 
             item_list_json
                 The JSON object containing the ingredient item whitelist.
@@ -164,30 +135,28 @@ class IngredientWhitelist:
             enforce_count_sameness
                 Whether to raise an error if the counts of each item in the
                 whitelist differ. '''
-        if type(item_whitelist_json) is not list:
-            item_whitelist_json = [item_whitelist_json]
-        if not item_whitelist_json:
-            raise ValueError(f"Unable to decode recipe JSON: expected non-empty item whitelist for key '{root_path}")
-        
-        first_count = None
-        for i in range(0, len(item_whitelist_json)):
-            if type(item_whitelist_json[i]) is not dict or not item_whitelist_json[i]:
-                raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}[{i}]' (found: '{item_whitelist_json[i]}')")
-            item_whitelist_json[i] = Item.from_json(item_whitelist_json[i], root_path=f'{root_path}[{i}].')
+        acceptable_items = item_whitelist_json
+        if type(acceptable_items) is not list:
+            acceptable_items = [acceptable_items]
+        for i in range(0, len(acceptable_items)):
+            acceptable_items[i] = Item.from_json(acceptable_items[i])
             
-            if enforce_count_sameness:
+        if enforce_count_sameness:
+            first_count = None
+            
+            for item in acceptable_items:
                 if first_count is None:
-                    first_count = item_whitelist_json[i].count
+                    first_count = item.count
                 else:
-                    if item_whitelist_json[i].count != first_count:
+                    if item.count != first_count:
                         raise ValueError(f"Unable to decode recipe JSON: expected all counts of items to be same for list in key '{root_path}'")
         
-        for i in range(0, len(item_whitelist_json)):
-            for k in range(0, len(item_whitelist_json)):
-                if i != k and item_whitelist_json[i].do_items_overlap(item_whitelist_json[k]):
+        for i in range(0, len(acceptable_items)):
+            for k in range(0, len(acceptable_items)):
+                if i != k and acceptable_items[i].do_items_overlap(acceptable_items[k]):
                     raise ValueError(f"Unable to decode recipe JSON: found duplicate item ids in item id lists in item whitelist in '{root_path}' (found: '{root_path}[{i}]' and '{root_path}[{k}]')")
                         
-        return IngredientWhitelist(item_whitelist_json)
+        return IngredientWhitelist(acceptable_items)
 
 # Used to fill in the empty spaces of shaped patterns.
 empty_whitelist = IngredientWhitelist([])
@@ -209,70 +178,37 @@ class Recipe(ABC):
 
     @staticmethod
     def from_json(recipe_json: dict, root_path: str = '') -> 'Recipe':
-        ''' If parsing fails a ValueError will be raised. 
+        ''' Expects JSON data to be pre-verified by the recipe schema. If 
+            parsing fails a ValueError will be raised. 
 
             root_path 
                 The path of object keys leading up to the recipe JSON object, 
                 used for error printing. Must end in period if non-empty. '''
-        recipe_type = recipe_json.get("type")
-        if recipe_type is None:
-            raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}type'")
-        try:
-            recipe_type = RecipeType(recipe_type)
-        except ValueError:
-            raise ValueError(f"Unable to decode recipe JSON: unknown recipe type '{recipe_type}' in key '{root_path}type'")
-        
-        result = recipe_json.get("result")
-        if result is None:
-            raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}result'")
-        if type(result) is not dict or not result:
-            raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}result' (found: '{type(result)}')")
-        result = Item.from_json(result, root_path=root_path+'result.', one_id_only=True)
+        recipe_type = RecipeType(recipe_json["type"])
 
+        result = Item.from_json(recipe_json["result"])
     
         if recipe_type == RecipeType.COMBUSTION_FORGE_SHAPED:
-            item_keys = recipe_json.get("key")
-            if item_keys is None:
-                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}key'")
-            if type(item_keys) is not dict or not item_keys:
-                raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key' (found: '{type(item_keys)}')")
+            item_keys = recipe_json["key"]
             for item_key, item_whitelist in item_keys.items():
-                if len(item_key) != 1 or item_key == ' ':
-                    raise ValueError(f"Unable to decode recipe JSON: expected non-space single character string for key '{root_path}key' (found: '{item_key}')")
                 item_keys[item_key] = IngredientWhitelist.from_json(item_whitelist, f'{root_path}key')
 
-            pattern = recipe_json.get("pattern")
-            if pattern is None:
-                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}pattern'")
-            if type(pattern) != list:
-                raise ValueError(f"Unable to decode recipe JSON: expected non-empty list for key '{root_path}pattern' (found: '{type(pattern)}')")
-            if len(pattern) > 3 or len(pattern) < 1:
-                raise ValueError(f"Unable to decode recipe JSON: expected list of length 1 to 3 for key '{root_path}pattern' (found: '{pattern}')")
+            pattern = recipe_json["pattern"]
             for row in pattern:
-                if type(row) != str:
-                    raise ValueError(f"Unable row decode recipe JSON: expected non-empty string in list for key '{root_path}pattern' (found: '{type(row)}')")
-                if len(row) > 3 or len(pattern) < 1:
-                    raise ValueError(f"Unable to decode recipe JSON: expected string of length 1 to 3 in list for key '{root_path}pattern' (found: '{row}')")
                 for key in row:
                     if key != ' ' and key not in item_keys.keys():
                         raise ValueError(f"Unable to decode recipe JSON: item key '{key}' not present in key '{root_path}key' for string in list in key '{root_path}pattern'")
             row1Size = len(pattern[0])
             for i in range(1, len(pattern)):
                 if len(pattern[i]) != row1Size:
-                    raise ValueError(f"Unable to decode recipe JSON: expected rows of the recipe pattern to be of equal length for key '{root_path}pattern' (found: '{type(pattern)}')")
+                    raise ValueError(f"Unable to decode recipe JSON: expected rows of the recipe pattern to be of equal length for key '{root_path}pattern'")
 
             return ShapedRecipe(pattern, item_keys, result)
         
 
         elif recipe_type == RecipeType.COMBUSTION_FORGE_SHAPELESS:
-            ingredients = recipe_json.get("ingredients")
-            if ingredients is None:
-                raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}ingredients'")
-            if type(ingredients) is not list or not ingredients:
-                raise ValueError(f"Unable to decode recipe JSON: expected non-empty list for key '{root_path}ingredients' (found: '{type(ingredients)}')")
+            ingredients = recipe_json["ingredients"]
             for i in range(0, len(ingredients)):
-                if type(ingredients[i]) is not dict or not ingredients[i]:
-                    raise ValueError(f"Unable to decode recipe JSON: expected non-empty object in list for key '{root_path}ingredients' (found: '{type(ingredients[i])}')")
                 ingredients[i] = IngredientWhitelist.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}].', enforce_count_sameness=True)
             ingredient_item_count = 0
             for ingredient_whitelist in ingredients:
@@ -609,8 +545,12 @@ def main():
     # Changing directory into the recipe directory makes messing with the recipe
     #   file paths 1 million times easier.
     os.chdir(combustion_forge_recipe_directory)
-    recipe_file_paths = glob(r'**/*.json', recursive=True)
 
+    # Used to verify recipe. If an error occurs we can just let this crash.
+    with open(recipe_schema_file_path, 'rb') as recipe_schema_byte_stream:
+        recipe_schema = json.loads(recipe_schema_byte_stream.read())
+
+    recipe_file_paths = glob(r'**/*.json', recursive=True)
     if not recipe_file_paths:
         logging.info(f"Did not find any recipe files to compile in '{combustion_forge_recipe_directory}'. Aborting!")
         return
@@ -632,16 +572,19 @@ def main():
         output_file_path = path.join(recipe_output_directory, recipe_directory_path, recipe_name + '.mcfunction')
 
         with open(recipe_file_path, 'rb') as recipe_byte_stream:
-            recipe_json = None
             try:
                 recipe_json = json.loads(recipe_byte_stream.read())
+                jsonschema.validate(recipe_json, recipe_schema)
+
+                wrote_file = write_recipe_mcfunction_code(output_file_path, recipe_name, recipe_function_id, recipe_json)
+                if wrote_file:
+                    recipe_function_ids.append(recipe_function_id)
+
             except json.JSONDecodeError as error:
                 logging.error(f"Unable to decode recipe JSON: {error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
-                
-        if recipe_json is not None: 
-            wrote_file = write_recipe_mcfunction_code(output_file_path, recipe_name, recipe_function_id, recipe_json)
-            if wrote_file:
-                recipe_function_ids.append(recipe_function_id)
+            except jsonschema.ValidationError as error:
+                logging.error(f"Unable to decode recipe JSON: view the following error message. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
+                logging.error(error)
 
     if recipe_function_ids:
         os.makedirs(path.split(recipe_function_tag_file_path)[0], exist_ok=True)

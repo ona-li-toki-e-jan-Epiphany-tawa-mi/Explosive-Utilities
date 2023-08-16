@@ -1,8 +1,9 @@
 {
+    "$schema": "../../../recipe_schema.json",
     "type": "combustion_forge_shaped",
     "pattern": [
         "BB",
-        "BB"    
+        "BB"
     ],
     "key": {
         "B": {
