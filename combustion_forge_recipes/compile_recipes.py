@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from enum import Enum
 from glob import glob
 from io import TextIOWrapper
+from typing import Union
 
 ################################################################################
 # This file is used to compile the recipes for the combustion forge in 
@@ -46,7 +47,7 @@ recipe_function_directory_id = r'xplsvtlts:combustion_forge/recipes/generated/'
 #   recipes.
 variable_storage_scoreboard = r'xplsvtlts'
 
-logging_level = logging.NOTSET
+logging_level = logging.ERROR
 ################################################################################
 # CONFIG END                                                                   #
 ################################################################################
@@ -60,9 +61,25 @@ class Item:
     tag: str = ""
     count: int = 1
 
+    def do_ids_overlap(self, other_item: 'Item') -> bool:
+        ''' Checks to see if there are item ids that exist in the both items' id
+            lists. '''
+        for id in self.ids:
+            if id in other_item.ids:
+                return True
+            
+        return False
+    
+    def do_items_overlap(self, other_item: 'Item') -> bool:
+        ''' Checks to see if there is any overlap in what actual minecraft items 
+            the items will match to. Returns true if the items share nbt AND 
+            any ids in their item id lists overlap. '''
+        return self.tag == other_item.tag and self.do_ids_overlap(other_item)
+
     @staticmethod
-    def from_json( item_json: dict, root_path: str = '', one_id_only: bool = False
-                 , ignore_count: bool = False) -> 'Item':
+    def from_json( item_json: dict, root_path: str = ''
+                  , one_id_only: bool = False, ignore_count: bool = False
+                  ) -> 'Item':
         ''' If parsing fails a ValueError will be raised. 
             
             root_path 
@@ -86,14 +103,18 @@ class Item:
             raise ValueError(f"Unable to decode item JSON: expected single item id as string in key '{root_path}item' (found: '{ids}')")
         for id in ids:
             if type(id) is not str:
-                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in key '{root_path}item' (found: '{type(id)}')")
+                raise ValueError(f"Unable to decode item JSON: expected item id or list of item ids in list in key '{root_path}item' (found: '{type(id)}')")
             split_id = id.split(':')
             if len(split_id) < 2 or not split_id[0]:
-                raise ValueError(f"Unable to decode item JSON: missing namespace in item id in key '{root_path}item' (found: '{id}')")
+                raise ValueError(f"Unable to decode item JSON: missing namespace in item id in list in key '{root_path}item' (found: '{id}')")
             if len(split_id) > 2:
-                raise ValueError(f"Unable to decode item JSON: invalid namespace in item id in key '{root_path}item' (found: '{id}')")
+                raise ValueError(f"Unable to decode item JSON: invalid namespace in item id in list in key '{root_path}item' (found: '{id}')")
             if not split_id[1]:
-                raise ValueError(f"Unable to decode item JSON: empty item id found in key '{root_path}item' (found: '{id}')")
+                raise ValueError(f"Unable to decode item JSON: empty item id found in list in key '{root_path}item' (found: '{id}')")
+        for i in range(0, len(ids)):
+            for k in range(0, len(ids)):
+                if i != k and ids[i] == ids[k]:
+                    raise ValueError(f"Unable to decode item JSON: duplicate item id found in list in key '{root_path}item' (found: '{ids[i]}')")
             
         tag = item_json.get("nbt")
         if tag is not None and type(tag) is not str:
@@ -111,6 +132,67 @@ class Item:
 
         return Item(ids, tag, count)
     
+@dataclass
+class IngredientWhitelist:
+    ''' A list of items that can match for the ingredient of a recipe. '''
+    acceptable_items: 'list[Item]'
+
+    def do_items_overlap(self, other_whitelist: 'IngredientWhitelist') -> bool:
+        ''' Checks to see if there is any overlap in what items the whitelists
+            will match to. Returns true if any whitelist items share nbt AND 
+            any ids in their item id lists overlap. '''
+        for item in self.acceptable_items:
+            for other_item in other_whitelist.acceptable_items:
+                if item.do_items_overlap(other_item):
+                    return True
+                
+        return False
+
+    @staticmethod
+    def from_json( item_whitelist_json: Union[dict, list], root_path: str = ''
+                 , enforce_count_sameness: bool = False
+                 ) -> 'IngredientWhitelist':
+        ''' If parsing fails a ValueError will be raised. 
+                
+            item_list_json
+                The JSON object containing the ingredient item whitelist.
+                Can either be an item object or a list of item objects to
+                match with multiple items.
+            root_path 
+                The path of object keys leading up to the item JSON object, 
+                used for error printing. Must end in period if non-empty.
+            enforce_count_sameness
+                Whether to raise an error if the counts of each item in the
+                whitelist differ. '''
+        if type(item_whitelist_json) is not list:
+            item_whitelist_json = [item_whitelist_json]
+        if not item_whitelist_json:
+            raise ValueError(f"Unable to decode recipe JSON: expected non-empty item whitelist for key '{root_path}")
+        
+        first_count = None
+        for i in range(0, len(item_whitelist_json)):
+            if type(item_whitelist_json[i]) is not dict or not item_whitelist_json[i]:
+                raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}[{i}]' (found: '{item_whitelist_json[i]}')")
+            item_whitelist_json[i] = Item.from_json(item_whitelist_json[i], root_path=f'{root_path}[{i}].')
+            
+            if enforce_count_sameness:
+                if first_count is None:
+                    first_count = item_whitelist_json[i].count
+                else:
+                    if item_whitelist_json[i].count != first_count:
+                        raise ValueError(f"Unable to decode recipe JSON: expected all counts of items to be same for list in key '{root_path}'")
+        
+        for i in range(0, len(item_whitelist_json)):
+            for k in range(0, len(item_whitelist_json)):
+                if i != k and item_whitelist_json[i].do_items_overlap(item_whitelist_json[k]):
+                    raise ValueError(f"Unable to decode recipe JSON: found duplicate item ids in item id lists in item whitelist in '{root_path}' (found: '{root_path}[{i}]' and '{root_path}[{k}]')")
+                        
+        return IngredientWhitelist(item_whitelist_json)
+
+# Used to fill in the empty spaces of shaped patterns.
+empty_whitelist = IngredientWhitelist([])
+
+
 
 
 class RecipeType(Enum):
@@ -154,12 +236,10 @@ class Recipe(ABC):
                 raise ValueError(f"Unable to decode recipe JSON: missing value for key '{root_path}key'")
             if type(item_keys) is not dict or not item_keys:
                 raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key' (found: '{type(item_keys)}')")
-            for item_key, item_json in item_keys.items():
+            for item_key, item_whitelist in item_keys.items():
                 if len(item_key) != 1 or item_key == ' ':
                     raise ValueError(f"Unable to decode recipe JSON: expected non-space single character string for key '{root_path}key' (found: '{item_key}')")
-                if type(item_json) is not dict or not item_json:
-                    raise ValueError(f"Unable to decode recipe JSON: expected non-empty object for key '{root_path}key.{item_key}' (found: '{type(item_json)}')")
-                item_keys[item_key] = Item.from_json(item_json, root_path=root_path+'key.'+item_key+'.', ignore_count=True)
+                item_keys[item_key] = IngredientWhitelist.from_json(item_whitelist, f'{root_path}key')
 
             pattern = recipe_json.get("pattern")
             if pattern is None:
@@ -193,16 +273,16 @@ class Recipe(ABC):
             for i in range(0, len(ingredients)):
                 if type(ingredients[i]) is not dict or not ingredients[i]:
                     raise ValueError(f"Unable to decode recipe JSON: expected non-empty object in list for key '{root_path}ingredients' (found: '{type(ingredients[i])}')")
-                ingredients[i] = Item.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}]')
+                ingredients[i] = IngredientWhitelist.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}].', enforce_count_sameness=True)
             ingredient_item_count = 0
-            for ingredient in ingredients:
-                ingredient_item_count += ingredient.count
+            for ingredient_whitelist in ingredients:
+                ingredient_item_count += ingredient_whitelist.acceptable_items[0].count
             if ingredient_item_count > 9 or ingredient_item_count < 1:
                 raise ValueError(f"Unable to decode recipe JSON: expected a total count for ingredient items of 1 to 9 in list for key '{root_path}ingredients' (found: '{ingredient_item_count}')")
             for i in range(0, len(ingredients)):
                 for k in range(0, len(ingredients)):
-                    if i != k and ingredients[i].ids == ingredients[k].ids and ingredients[i].tag == ingredients[k].tag:
-                        raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{ingredients[i]}')")
+                    if i != k and ingredients[i].do_items_overlap(ingredients[k]):
+                        raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{root_path}ingredients[{i}]' and '{root_path}ingredients[{i}]')")
 
 
             return ShapelessRecipe(ingredients, result)
@@ -212,16 +292,18 @@ class Recipe(ABC):
             assert False, f"Recieved unhandled recipe type '{recipe_type}'!"
         
 # Type definition for the patterns of shaped forge recipes.
-ShapedPattern = 'list[list[Union[str,Item]]]'
+ShapedPattern = 'list[list[Union[str,IngredientWhitelist]]'
 
 @dataclass
 class ShapedRecipe(Recipe):
     ''' Represents a shaped combustion forge recipe. '''
     pattern: ShapedPattern
-    # Maps the letters from the pattern to actual items.
-    item_keys: 'list[dict[str, Item]]'
+    # Maps the letters from the pattern a item whitelist.
+    item_keys: 'list[dict[str, IngredientWhitelist]]'
 
-    def __init__(self, pattern: ShapedPattern, item_keys: 'list[dict[str, Item]]', result: Item):
+    def __init__( self, pattern: ShapedPattern
+                , item_keys: 'list[dict[str, IngredientWhitelist]]'
+                , result: Item):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPED, result)
         self.pattern = pattern
         self.item_keys = item_keys
@@ -230,16 +312,11 @@ class ShapedRecipe(Recipe):
 class ShapelessRecipe(Recipe):
     type = RecipeType.COMBUSTION_FORGE_SHAPELESS
     ''' Represents a shapeless combustion forge recipe. '''
-    ingredients: 'list[Item]'
+    ingredients: 'list[IngredientWhitelist]'
 
-    def __init__(self,  ingredients: 'list[Item]', result: Item):
+    def __init__(self,  ingredients: 'list[IngredientWhitelist]', result: Item):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPELESS, result)
         self.ingredients = ingredients
-
-
-
-# The item form of air, used to fill the empty spaces of shaped patterns.
-item_air = Item([r"minecraft:air"])
 
 
 
@@ -252,7 +329,7 @@ def decode_shaped_recipe_pattern(recipe: ShapedRecipe) -> ShapedPattern:
         decoded_row = []
         for key in row:
             if key == ' ':
-                decoded_row.append(item_air)
+                decoded_row.append(empty_whitelist)
             else:
                 decoded_row.append(recipe.item_keys[key])
 
@@ -276,8 +353,8 @@ def create_pattern_arrangments(decoded_pattern: ShapedPattern) -> 'list[ShapedPa
 
             # Fills in empty spots of pattern with air.
             for row in range(0, height):
-               shifted_pattern[row] = [item_air] * delta_x + shifted_pattern[row] + [item_air] * (empty_horizontal_spaces - delta_x)
-            shifted_pattern = [[item_air,item_air,item_air]] * (empty_vertical_spaces - delta_y) + shifted_pattern + [[item_air,item_air,item_air]] * delta_y
+               shifted_pattern[row] = [empty_whitelist] * delta_x + shifted_pattern[row] + [empty_whitelist] * (empty_horizontal_spaces - delta_x)
+            shifted_pattern = [[empty_whitelist,empty_whitelist,empty_whitelist]] * (empty_vertical_spaces - delta_y) + shifted_pattern + [[empty_whitelist,empty_whitelist,empty_whitelist]] * delta_y
 
             pattern_arrangements.append(shifted_pattern)
 
@@ -341,15 +418,17 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
         #   crafting grid.
         for crafting_grid_z in range(-1, 2):
             for crafting_grid_x in range(-1, 2):
-                ingredient_item: Item = pattern[crafting_grid_z + 1][crafting_grid_x + 1]
-                item_tag_string = f',tag:{ingredient_item.tag}' if ingredient_item.tag else '' 
-
                 output_file.write(f'# Item {(crafting_grid_x + 1) + (crafting_grid_z + 1) * 3 + 1}.\n')
-                for ingredient_item_id in ingredient_item.ids:
-                    if ingredient_item_id != 'minecraft:air':
-                        output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{ingredient_item_id}"{item_tag_string}}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
-                    else:
-                        output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
+                ingredient_items: IngredientWhitelist = pattern[crafting_grid_z + 1][crafting_grid_x + 1]
+
+                if ingredient_items != empty_whitelist:
+                    for ingredient_item in ingredient_items.acceptable_items:
+                        item_tag_string = f',tag:{ingredient_item.tag}' if ingredient_item.tag else '' 
+
+                        for ingredient_item_id in ingredient_item.ids:
+                            output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{ingredient_item_id}"{item_tag_string}}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
+                else:
+                    output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
 
         # If it is present, we can consume the ingredients,
         output_file.write('# Consume ingredients.\n')
@@ -413,23 +492,24 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
     empty_spaces = 9
 
+    # Used to count number of valid ingredients to see if the recipe 
+    #   is present in the grid.
     output_file.write(f'scoreboard players set _valid_ingredient_count {variable_storage_scoreboard} 0\n')
     output_file.write('\n')
 
+    # Counts up ingredients to see if the correct amounts are present.
     for i in range(0, len(recipe.ingredients)):
         item_count_variable = f'_item_{i+1}_count'
         output_file.write(f'scoreboard players set {item_count_variable} {variable_storage_scoreboard} 0\n')
 
-        ingredient = recipe.ingredients[i]
-        item_tag_string = f',tag:{ingredient.tag}' if ingredient.tag else '' 
+        ingredient_whitelist = recipe.ingredients[i]
+        for ingredient in ingredient_whitelist.acceptable_items:
+            item_tag_string = f',tag:{ingredient.tag}' if ingredient.tag else '' 
 
-        for crafting_grid_z in range(-1, 2):
-            for crafting_grid_x in range(-1, 2):
-                for item_id in ingredient.ids:
-                    if item_id != 'minecraft:air':
+            for crafting_grid_z in range(-1, 2):
+                for crafting_grid_x in range(-1, 2):
+                    for item_id in ingredient.ids:
                         output_file.write(f'execute if block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b,id:"{item_id}"{item_tag_string}}}]}} run scoreboard players add {item_count_variable} {variable_storage_scoreboard} 1\n')
-                    else:
-                        output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add {item_count_variable} {variable_storage_scoreboard} 1\n')
 
         output_file.write(f'execute if score {item_count_variable} {variable_storage_scoreboard} matches {ingredient.count} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
         output_file.write(f'scoreboard players reset {item_count_variable} {variable_storage_scoreboard}\n')
@@ -437,6 +517,7 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
         empty_spaces -= ingredient.count
 
+    # Counts up empty spaces to see if there are no items that don't belong.
     if empty_spaces > 0:
         output_file.write(f'scoreboard players set _empty_space_count {variable_storage_scoreboard} 0\n')
 
