@@ -174,7 +174,7 @@ class RecipeType(Enum):
 class Recipe(ABC):
     ''' Represents a generic combustion forge recipe. '''
     type: RecipeType
-    result: Item
+    result: 'list[Item]'
 
     @staticmethod
     def from_json(recipe_json: dict, root_path: str = '') -> 'Recipe':
@@ -186,7 +186,11 @@ class Recipe(ABC):
                 used for error printing. Must end in period if non-empty. '''
         recipe_type = RecipeType(recipe_json["type"])
 
-        result = Item.from_json(recipe_json["result"])
+        result = recipe_json["result"]
+        if type(result) != list:
+            result = [result]
+        for i in range(0, len(result)):
+            result[i] = Item.from_json(result[i])
     
         if recipe_type == RecipeType.COMBUSTION_FORGE_SHAPED:
             item_keys = recipe_json["key"]
@@ -239,7 +243,7 @@ class ShapedRecipe(Recipe):
 
     def __init__( self, pattern: ShapedPattern
                 , item_keys: 'list[dict[str, IngredientWhitelist]]'
-                , result: Item):
+                , result: 'list[Item]'):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPED, result)
         self.pattern = pattern
         self.item_keys = item_keys
@@ -250,7 +254,8 @@ class ShapelessRecipe(Recipe):
     ''' Represents a shapeless combustion forge recipe. '''
     ingredients: 'list[IngredientWhitelist]'
 
-    def __init__(self,  ingredients: 'list[IngredientWhitelist]', result: Item):
+    def __init__( self,  ingredients: 'list[IngredientWhitelist]'
+                , result: 'list[Item]'):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPELESS, result)
         self.ingredients = ingredients
 
@@ -338,8 +343,6 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
     
     pattern_arrangements = create_pattern_arrangments(decode_shaped_recipe_pattern(recipe))
 
-    
-    result_item_tag_string = f',tag:{recipe.result.tag}' if recipe.result.tag else '' 
 
     pattern_number = 1
     # Writes code to test and craft each possible arrangement of the recipe on
@@ -371,7 +374,9 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run function {decrement_crafting_grid_function_id}\n')
         #   produce the resulting item(s),
         output_file.write('# Create result.\n')
-        output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{recipe.result.ids[0]}",Count:{recipe.result.count}b{result_item_tag_string}}}}}\n')
+        for result_item in recipe.result:
+            result_item_tag_string = f',tag:{result_item.tag}' if result_item.tag else '' 
+            output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result_item.ids[0]}",Count:{result_item.count}b{result_item_tag_string}}}}}\n')
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
         #   and recursively run the recipe now that is has been found.
         output_file.write('# Recipe found, repeat until done.\n')
@@ -467,7 +472,6 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
 
     required_valid_ingredient_count = len(recipe.ingredients) + (1 if empty_spaces > 0 else 0)
-    result_item_tag_string = f',tag:{recipe.result.tag}' if recipe.result.tag else '' 
 
     output_file.write('\n\n')
     # If it is present, we can consume the ingredients,
@@ -475,7 +479,9 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {decrement_crafting_grid_function_id}\n')
     #   produce the resulting item(s),
     output_file.write('# Create result.\n')
-    output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{recipe.result.ids[0]}",Count:{recipe.result.count}b{result_item_tag_string}}}}}\n')
+    for result_item in recipe.result:
+        result_item_tag_string = f',tag:{result_item.tag}' if result_item.tag else '' 
+        output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result_item.ids[0]}",Count:{result_item.count}b{result_item_tag_string}}}}}\n')
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
     #   and recursively run the recipe now that is has been found.
     output_file.write('# Recipe found, repeat until done.\n')

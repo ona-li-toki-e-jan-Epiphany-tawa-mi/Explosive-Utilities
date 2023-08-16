@@ -9,8 +9,7 @@
             "enum": [ "combustion_forge_shaped", "combustion_forge_shapeless"]
         },
         "result": {
-            "type": "object",
-            "$ref": "#/$defs/item_with_count_single_id"
+            "$ref": "#/$defs/item_or_item_list_with_count_single_id_not_unique"
         }
     },
     "required": [ "type", "result" ],
@@ -160,6 +159,20 @@
                 }
             },
             "required": [ "item" ]
+        },
+        "item_or_item_list_with_count_single_id_not_unique": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/item_with_count_single_id"
+                    }
+                },
+                {
+                    "$ref": "#/$defs/item_with_count_single_id"
+                }
+            ]
         }
     }
 }
