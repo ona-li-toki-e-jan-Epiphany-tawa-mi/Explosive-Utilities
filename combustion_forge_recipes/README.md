@@ -55,7 +55,9 @@ Next, you will need to change some of the config variables in the `compile_recip
 - **recipe_function_tag_file_path** - the compiler will generate a function tag that contains all the generated recipe functions. set this to be the relative file path from `combustion_forge_recipe_directory` to the file you would like to to output to. For example, *Example-DP/data/exampledatapack/tags/functions/generated/combustion_forge_recipes.json*.
 - **recipe_function_directory_id** - set this to be the function directory id that the recipe function files are being outputted to. Going with the example for `recipe_output_directory`, this would be *exampledatapack:generated/combustion_forge_recipes/*.
 
-Additionally, you might want to temporarily set **logging_level** to `logging.NOTSET` to check if your recipes are being compiled and outputted correctly.
+Additionally, you might want to temporarily set **logging_level** to `logging.NOTSET` to check if your recipes are being compiled and outputted correctly. 
+
+To run, execute `compile_recipes.py` from the root directory of your project.
 
 Once you've ensured that is all working correctly, you will need to add the generated function tag with the recipe functions into Explosive Utilities' main recipe function tag. To do so, create the file *xplsvtlts/tags/functions/combustion_forge_recipes.json* in the data directory of your datapack (going with the previous examples, the full path from the project root would be *Example-DP/data/xplsvtlts/tags/functions/combustion_forge_recipes.json*.) In this function tag file, add the function id tag with the generate recipes. The file should look something like this:
 
@@ -68,6 +70,6 @@ Once you've ensured that is all working correctly, you will need to add the gene
 }
 ```
 
-Make sure to set **replace** to `false` (`false` is default but better safe than sorry) to not override the recipes from Explosive Utilities and other datapacks. If you wish to override the recipes from Explosive Utilities, set **values** to an empty list and **replace** to `true` in  *xplsvtlts/tags/functions/generated/combustion_forge_recipes.json* within the data directory of datapack.
+Make sure to set **replace** to `false` (`false` is default but better safe than sorry) to not override the recipes from Explosive Utilities and other datapacks. If you wish to override the recipes from Explosive Utilities, set **values** to an empty list and **replace** to `true` in  *xplsvtlts/tags/functions/generated/combustion_forge_recipes.json* within the data directory of your datapack.
 
 Afterwards, reload and test your recipes in the combustion forge. If they don't work, I wish you luck in debugging hell ;).
