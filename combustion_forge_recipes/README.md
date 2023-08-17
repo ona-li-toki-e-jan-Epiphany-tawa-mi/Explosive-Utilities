@@ -10,6 +10,30 @@ In order to run the compliation script, you will need [Python 3](https://www.pyt
 pip install jsonschema
 ```
 
+See the following sections for the recipe file format and how to add them to a project.
+
+## Recipe JSON File Format
+
+ - {object} The root tag.
+   - {string} **\$schema** - technically, setting **\$schema** in a json file marks it as a JSON schema, rather than a data file. However, if you set this key to the relative path from this recipe file to the recipe schema, you will get autocompletion and linting for the recipe without having to configure your development enviroment, assuming it is capable enough with JSON. Rules are meant to be broken!
+   - {string} **type**: `"combustion_forge_shaped"` for shaped recipes, or `"combustion_forge_shapeless"` for shapeless.
+   - {object or object list} **result**: either a single result or a list of results. The output items of the recipe.
+     - {string} **type**: either `"item"` or `"loot_table"`.
+     - If **type** is `"item"`: {string} **item**: the item ID. Must include namespace.
+     - If **type** is `"item"`: {optional, integer} **count**: the amount of the item to make. Defaults to 1.
+     - If **type** is `"item"`: {optional, string} **nbt**: the nbt data to go in the item's tag nbt field. Example: `"{CustomModelData:1385753,display:{Name:'{\"text\":\"Reactive Plating\",\"italic\":false,\"color\":\"red\"}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']}}"`
+     - If **type** is `"loot_table"`: {string} **loot**: the loot table ID. Must include namespace.
+   - If **type** is `"combustion_forge_shaped"`: {list} **pattern**: a list of single character keys used to describe a pattern for shaped recipes. Each row in the crafting grid is one string in this list containing 3 or less keys. All strings in this list need to have the same amount of keys. A space can be used to indicate an empty spot. All non-space characters must be present in **key**.
+   - If **type** is  `"combustion_forge_shaped"`: {object} **key**: All keys used for this shaped crafting recipe. 
+     - {object or object list} (A key): The ingredients or a list of ingredients corresponding to this key.
+       - {string or string list} **item**: an item ID or list of item IDs. Must include namespace.
+       - {optional, string} **nbt**: the nbt data in the item's tag nbt field. Example: `"{CustomModelData:1385753,display:{Name:'{\"text\":\"Reactive Plating\",\"italic\":false,\"color\":\"red\"}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']}}"`
+   - If **type** is  `"combustion_forge_shapeless"`: {list} **ingredients**: A list of entries for this shapeless crafting recipe. The total count of the ingredients matched from each entry must be at least 1 and no greater than 9. Each entry must match to a unique item, no overlap.
+     - {object or object list}: An entry made of a single item or item list to match for the ingredient. If using a list, **count** in each item must be equal. 
+       - {string or string list} **item**: an item ID or list of item IDs. Must include namespace.
+       - {optional, integer} **count**: the number of times the item must appear in the crafting grid. Defaults to 1.
+       - {optional, string} **nbt**: the nbt data in the item's tag nbt field. Example: `"{CustomModelData:1385753,display:{Name:'{\"text\":\"Reactive Plating\",\"italic\":false,\"color\":\"red\"}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']}}"`
+
 ## Adding Recipes To Explosive Utilites
 
 To add recipes to Explosive Utilites, place the recipe files inside `{PROJECT_ROOT}/combustion_forge_recipes/recipes` within the relavent subdirectory.
