@@ -12,6 +12,7 @@
         }
     },
     "result": {
+        "type": "item",
         "item": "minecraft:emerald_block"
     }
 }

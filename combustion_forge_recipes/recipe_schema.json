@@ -9,7 +9,7 @@
             "enum": [ "combustion_forge_shaped", "combustion_forge_shapeless"]
         },
         "result": {
-            "$ref": "#/$defs/item_or_item_list_with_count_single_id_not_unique"
+            "$ref": "#/$defs/recipe_result_or_recipe_result_list"
         }
     },
     "required": [ "type", "result" ],
@@ -67,22 +67,22 @@
     ],
 
     "$defs": {
-        "item_id": {
+        "resource_id": {
             "type": "string",
             "pattern": "^[-.0-9A-Z_a-z]+:[-./0-9A-Z_a-z]+$"
         },
-        "item_id_or_item_id_list": {
+        "resource_id_or_resource_id_list": {
             "anyOf": [
                 {
                     "type": "array",
                     "minItems": 1,
                     "uniqueItems": true,
                     "items": {
-                        "$ref": "#/$defs/item_id"
+                        "$ref": "#/$defs/resource_id"
                     }
                 },
                 {
-                    "$ref": "#/$defs/item_id"
+                    "$ref": "#/$defs/resource_id"
                 }
             ]
         },
@@ -90,7 +90,7 @@
             "type": "object",
             "properties": {
                 "item": {
-                    "$ref": "#/$defs/item_id_or_item_id_list"
+                    "$ref": "#/$defs/resource_id_or_resource_id_list"
                 },
                 "nbt": {
                     "type": "string"
@@ -117,7 +117,7 @@
             "type": "object",
             "properties": {
                 "item": {
-                    "$ref": "#/$defs/item_id_or_item_id_list"
+                    "$ref": "#/$defs/resource_id_or_resource_id_list"
                 },
                 "count": {
                     "type": "integer",
@@ -144,33 +144,66 @@
                 }
             ]
         },
-        "item_with_count_single_id": {
+        "recipe_result": {
             "type": "object",
             "properties": {
-                "item": {
-                    "$ref": "#/$defs/item_id"
-                },
-                "count": {
-                    "type": "integer",
-                    "minimum": 1
-                },
-                "nbt": {
-                    "type": "string"
+                "type": {
+                    "type": "string",
+                    "enum": [ "item", "loot_table" ]
                 }
             },
-            "required": [ "item" ]
+            "required": [ "type" ],
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "type": { "const": "item"}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "item": {
+                                "$ref": "#/$defs/resource_id"
+                            },
+                            "count": {
+                                "type": "integer",
+                                "minimum": 1
+                            },
+                            "nbt": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [ "item" ]
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": { "const": "loot_table"}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "loot": {
+                                "$ref": "#/$defs/resource_id"
+                            }
+                        },
+                        "required": [ "loot" ]
+                    }
+                }
+            ]
         },
-        "item_or_item_list_with_count_single_id_not_unique": {
+        "recipe_result_or_recipe_result_list": {
             "anyOf": [
                 {
                     "type": "array",
                     "minItems": 1,
                     "items": {
-                        "$ref": "#/$defs/item_with_count_single_id"
+                        "$ref": "#/$defs/recipe_result"
                     }
                 },
                 {
-                    "$ref": "#/$defs/item_with_count_single_id"
+                    "$ref": "#/$defs/recipe_result"
                 }
             ]
         }

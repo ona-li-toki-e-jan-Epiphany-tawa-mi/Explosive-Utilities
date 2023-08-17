@@ -65,7 +65,7 @@ scoreboard players reset _empty_space_count xplsvtlts
 # Consume ingredients.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/decrement_crafting_grid
 # Create result.
-execute if score _valid_ingredient_count xplsvtlts matches 2 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:blaze_powder",Count:3b}}
+execute if score _valid_ingredient_count xplsvtlts matches 2 run loot spawn ~ ~ ~ loot xplsvtlts:combustion_forge/pulverize_blaze_rod
 execute if score _valid_ingredient_count xplsvtlts matches 2 run scoreboard players add _items_crafted xplsvtlts 1
 # Recipe found, repeat until done.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/recipes/generated/shapeless/pulverization/blaze_powder

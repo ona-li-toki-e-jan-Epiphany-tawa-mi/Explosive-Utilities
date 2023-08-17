@@ -7,6 +7,7 @@
         }
     ],
     "result": {
+        "type": "item",
         "item": "minecraft:prismarine_shard",
         "count": 9
     }

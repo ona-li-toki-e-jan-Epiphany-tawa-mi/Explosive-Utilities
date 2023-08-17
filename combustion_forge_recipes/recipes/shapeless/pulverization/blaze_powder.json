@@ -7,7 +7,7 @@
         }
     ],
     "result": {
-        "item": "minecraft:blaze_powder",
-        "count": 3
+        "type": "loot_table",
+        "loot": "xplsvtlts:combustion_forge/pulverize_blaze_rod"
     }
 }

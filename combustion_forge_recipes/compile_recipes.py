@@ -66,8 +66,13 @@ logging_level = logging.ERROR
 class Item:
     ''' Represents Minecraft items. '''
     ids: 'list[str]'
-    tag: str = ''
-    count: int = 1
+    tag: str
+    count: int
+
+    def __init__(self, ids: 'list[str]', tag: str = '', count: int = 1):
+        self.ids = ids
+        self.tag = tag
+        self.count = count 
 
     def do_ids_overlap(self, other_item: 'Item') -> bool:
         ''' Checks to see if there are item ids that exist in the both items' id
@@ -163,6 +168,45 @@ empty_whitelist = IngredientWhitelist([])
 
 
 
+class RecipeResultType(Enum):
+    ''' Repesents the possible types of results for forge recipes. '''
+    ITEM       = "item"
+    LOOT_TABLE = "loot_table"
+
+@dataclass
+class RecipeResult:
+    ''' Represents a single result of a forge recipe. '''
+    result_type: RecipeResultType
+    item: Union[Item, None]
+    loot_table_id: Union[str, None]
+
+    def __init__(self, result_type: RecipeResultType, result: Union[Item, str]):
+        self.result_type = result_type
+        self.item = None
+        self.loot_table_id = None
+        
+        if self.result_type is RecipeResultType.ITEM:
+            self.item = result
+        elif self.result_type is RecipeResultType.LOOT_TABLE:
+            self.loot_table_id = result
+        else:
+            assert False, f"Recieved unhandled recipe result type '{result_type}'!"
+
+    @staticmethod
+    def from_json(result_json: dict) -> 'RecipeResult':
+        result_type = RecipeResultType(result_json["type"])
+        
+        result = None
+        if result_type is RecipeResultType.ITEM:
+            result = Item.from_json(result_json)
+        elif result_type is RecipeResultType.LOOT_TABLE:
+            result = result_json["loot"]
+        else:
+            assert False, f"Recieved unhandled recipe result type '{result_type}'!"
+
+        return RecipeResult(result_type, result)
+
+            
 
 class RecipeType(Enum):
     ''' Represents the possible recipe types that can be used in the recipe
@@ -174,7 +218,7 @@ class RecipeType(Enum):
 class Recipe(ABC):
     ''' Represents a generic combustion forge recipe. '''
     type: RecipeType
-    result: 'list[Item]'
+    results: 'list[RecipeResult]'
 
     @staticmethod
     def from_json(recipe_json: dict, root_path: str = '') -> 'Recipe':
@@ -186,13 +230,13 @@ class Recipe(ABC):
                 used for error printing. Must end in period if non-empty. '''
         recipe_type = RecipeType(recipe_json["type"])
 
-        result = recipe_json["result"]
-        if type(result) != list:
-            result = [result]
-        for i in range(0, len(result)):
-            result[i] = Item.from_json(result[i])
+        results = recipe_json["result"]
+        if type(results) != list:
+            results = [results]
+        for i in range(0, len(results)):
+            results[i] = RecipeResult.from_json(results[i])
     
-        if recipe_type == RecipeType.COMBUSTION_FORGE_SHAPED:
+        if recipe_type is RecipeType.COMBUSTION_FORGE_SHAPED:
             item_keys = recipe_json["key"]
             for item_key, item_whitelist in item_keys.items():
                 item_keys[item_key] = IngredientWhitelist.from_json(item_whitelist, f'{root_path}key')
@@ -207,10 +251,10 @@ class Recipe(ABC):
                 if len(pattern[i]) != row1Size:
                     raise ValueError(f"Unable to decode recipe JSON: expected rows of the recipe pattern to be of equal length for key '{root_path}pattern'")
 
-            return ShapedRecipe(pattern, item_keys, result)
+            return ShapedRecipe(pattern, item_keys, results)
         
 
-        elif recipe_type == RecipeType.COMBUSTION_FORGE_SHAPELESS:
+        elif recipe_type is RecipeType.COMBUSTION_FORGE_SHAPELESS:
             ingredients = recipe_json["ingredients"]
             for i in range(0, len(ingredients)):
                 ingredients[i] = IngredientWhitelist.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}].', enforce_count_sameness=True)
@@ -225,7 +269,7 @@ class Recipe(ABC):
                         raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{root_path}ingredients[{i}]' and '{root_path}ingredients[{i}]')")
 
 
-            return ShapelessRecipe(ingredients, result)
+            return ShapelessRecipe(ingredients, results)
         
 
         else:
@@ -243,7 +287,7 @@ class ShapedRecipe(Recipe):
 
     def __init__( self, pattern: ShapedPattern
                 , item_keys: 'list[dict[str, IngredientWhitelist]]'
-                , result: 'list[Item]'):
+                , result: 'list[RecipeResult]'):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPED, result)
         self.pattern = pattern
         self.item_keys = item_keys
@@ -255,7 +299,7 @@ class ShapelessRecipe(Recipe):
     ingredients: 'list[IngredientWhitelist]'
 
     def __init__( self,  ingredients: 'list[IngredientWhitelist]'
-                , result: 'list[Item]'):
+                , result: 'list[RecipeResult]'):
         super().__init__(RecipeType.COMBUSTION_FORGE_SHAPELESS, result)
         self.ingredients = ingredients
 
@@ -374,9 +418,14 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run function {decrement_crafting_grid_function_id}\n')
         #   produce the resulting item(s),
         output_file.write('# Create result.\n')
-        for result_item in recipe.result:
-            result_item_tag_string = f',tag:{result_item.tag}' if result_item.tag else '' 
-            output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result_item.ids[0]}",Count:{result_item.count}b{result_item_tag_string}}}}}\n')
+        for result in recipe.results:
+            if result.result_type is RecipeResultType.ITEM:
+                result_item_tag_string = f',tag:{result.item.tag}' if result.item.tag else '' 
+                output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result.item.ids[0]}",Count:{result.item.count}b{result_item_tag_string}}}}}\n')
+            elif result.result_type is RecipeResultType.LOOT_TABLE:
+                output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run loot spawn ~ ~ ~ loot {result.loot_table_id}\n')
+            else:
+                assert False, f"Recieved unhandled recipe result type '{result.result_type}'!"
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
         #   and recursively run the recipe now that is has been found.
         output_file.write('# Recipe found, repeat until done.\n')
@@ -479,9 +528,14 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {decrement_crafting_grid_function_id}\n')
     #   produce the resulting item(s),
     output_file.write('# Create result.\n')
-    for result_item in recipe.result:
-        result_item_tag_string = f',tag:{result_item.tag}' if result_item.tag else '' 
-        output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result_item.ids[0]}",Count:{result_item.count}b{result_item_tag_string}}}}}\n')
+    for result in recipe.results:
+        if result.result_type is RecipeResultType.ITEM:
+            result_item_tag_string = f',tag:{result.item.tag}' if result.item.tag else '' 
+            output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run summon minecraft:item ~ ~ ~ {{Item:{{id:"{result.item.ids[0]}",Count:{result.item.count}b{result_item_tag_string}}}}}\n')
+        elif result.result_type is RecipeResultType.LOOT_TABLE:
+            output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run loot spawn ~ ~ ~ loot {result.loot_table_id}\n')
+        else:
+            assert False, f"Recieved unhandled recipe result type '{result.result_type}'!"
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
     #   and recursively run the recipe now that is has been found.
     output_file.write('# Recipe found, repeat until done.\n')
@@ -505,13 +559,13 @@ def write_recipe_mcfunction_code(output_file_path: str, recipe_name: str, recipe
     try:
         recipe = Recipe.from_json(recipe_json)
 
-        if recipe.type == RecipeType.COMBUSTION_FORGE_SHAPED:
+        if recipe.type is RecipeType.COMBUSTION_FORGE_SHAPED:
             with open(output_file_path, 'w') as output_file:
                 write_shaped_recipe_mcfunction_code(output_file, recipe_function_id, recipe)
 
             logging.info(f"Wrote shaped recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
 
-        elif recipe.type == RecipeType.COMBUSTION_FORGE_SHAPELESS:
+        elif recipe.type is RecipeType.COMBUSTION_FORGE_SHAPELESS:
             with open(output_file_path, 'w') as output_file:
                 write_shapeless_recipe_mcfunction_code(output_file, recipe_function_id, recipe)
 

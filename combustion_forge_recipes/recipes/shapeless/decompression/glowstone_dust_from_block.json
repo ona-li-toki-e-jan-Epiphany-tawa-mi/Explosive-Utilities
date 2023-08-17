@@ -7,6 +7,7 @@
         }
     ],
     "result": {
+        "type": "item",
         "item": "minecraft:glowstone_dust",
         "count": 4
     }

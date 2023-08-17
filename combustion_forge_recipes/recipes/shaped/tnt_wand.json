@@ -18,6 +18,7 @@
         }
     },
     "result": {
+        "type": "item",
         "item": "minecraft:stone_pickaxe",
         "nbt": "{CustomModelData:7106215,display:{Name:'{\"text\":\"Tnt Wand\",\"italic\":false,\"color\":\"yellow\"}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']},Unbreakable:true}"
     }

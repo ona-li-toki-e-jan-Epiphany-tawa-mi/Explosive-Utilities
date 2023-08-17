@@ -34,6 +34,7 @@
         }
     },
     "result": {
+        "type": "item",
         "item": "minecraft:stone_sword",
         "nbt": "{CustomModelData:9200798,display:{Name:'{\"text\":\"Tnt on a Stick\",\"italic\":false}',Lore:['{\"text\":\"Explosive Utilities\",\"italic\":false,\"color\":\"blue\"}']}}"
     }

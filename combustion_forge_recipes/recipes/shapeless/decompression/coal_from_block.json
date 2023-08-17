@@ -7,6 +7,7 @@
         }
     ],
     "result": {
+        "type": "item",
         "item": "minecraft:coal",
         "count": 9
     }
