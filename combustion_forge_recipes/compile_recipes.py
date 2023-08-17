@@ -60,19 +60,19 @@ import jsonschema
 combustion_forge_recipe_directory = r'combustion_forge_recipes/recipes/'
 # Where to output the compiled recipes to. Relative path from 
 #   {combustion_forge_recipe_directory}.
-recipe_output_directory = r'../../ExplosiveUtilities-DP/data/xplsvtlts/functions/combustion_forge/recipes/generated/'
+recipe_output_directory = r'../../ExplosiveUtilities-DP/data/xplsvtlts/functions/combustion_forge/crafting/generated'
 # The file path to read in the recipe JSON schema from. Relative path from
 #   {combustion_forge_recipe_directory}
 recipe_schema_file_path = r'../recipe_schema.json'
 # The file path to write out the function tag that will run all combustion forge
 #   recipes. Relative path from {combustion_forge_recipe_directory}.
-recipe_function_tag_file_path = r'../../ExplosiveUtilities-DP/data/xplsvtlts/tags/functions/combustion_forge_recipes/generated.json'
+recipe_function_tag_file_path = r'../../ExplosiveUtilities-DP/data/xplsvtlts/tags/functions/generated/combustion_forge_recipes.json'
 # The id for the function that decrements each slot of the combustion forge's
 #   crafting grid.
-decrement_crafting_grid_function_id = r'xplsvtlts:combustion_forge/recipes/decrement_crafting_grid'
+decrement_crafting_grid_function_id = r'xplsvtlts:combustion_forge/crafting/decrement_crafting_grid'
 # The resource id of the directory where the generation function files are 
 #   located. Must end in a '/'.
-recipe_function_directory_id = r'xplsvtlts:combustion_forge/recipes/generated/'
+recipe_function_directory_id = r'xplsvtlts:combustion_forge/crafting/generated/'
 # The scoreboard to use to read and store to and from the variables used by the
 #   recipes.
 variable_storage_scoreboard = r'xplsvtlts'
