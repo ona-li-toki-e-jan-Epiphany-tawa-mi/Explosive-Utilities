@@ -165,6 +165,10 @@ After that, remove the datapack from your world's datapacks folder before reload
 ![holding a tnt on a stick](screenshots/holding_a_tnt_on_a_stick.png)
 ![reactive trident detonation](screenshots/reactive_trident_detonation.png)
 
+## For Developers
+
+To add recipes to the combustion forge multiblock, whether into this datapack, or from your own datapack as an addon, [see this tutorial.](combustion_forge_recipes/README.md "Combustion forge recipe tutorial")
+
 ## Changelog
 
 - Added combatiblity with Incendiary Bees to corral them with the tnt wand.
