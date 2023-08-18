@@ -6,7 +6,7 @@ execute as @e[type=minecraft:item,nbt={Item:{id:"minecraft:enchanted_book",tag:{
 
 execute as @e[type=minecraft:sheep] run function xplsvtlts:reactive_plating/sheep/on_every_second
 
-execute as @a at @s run function xplsvtlts:combustion_forge/player_on_every_second
+execute as @a at @s run function xplsvtlts:player_on_every_second
 
 
 

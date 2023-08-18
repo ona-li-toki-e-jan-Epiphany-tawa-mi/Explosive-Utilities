@@ -79,7 +79,7 @@ recipe_function_directory_id = r'xplsvtlts:combustion_forge/crafting/generated/'
 #   recipes.
 variable_storage_scoreboard = r'xplsvtlts'
 
-logging_level = logging.NOTSET
+logging_level = logging.ERROR
 ################################################################################
 # CONFIG END                                                                   #
 ################################################################################

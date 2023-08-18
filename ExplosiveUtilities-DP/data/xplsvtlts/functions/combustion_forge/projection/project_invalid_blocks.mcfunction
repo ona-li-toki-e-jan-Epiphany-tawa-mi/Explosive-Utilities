@@ -55,7 +55,3 @@ execute positioned ~ ~ ~ positioned ^-1 ^1.025 ^ unless block ~ ~ ~ minecraft:fu
 execute positioned ~ ~ ~ positioned ^1 ^1.025 ^-1 unless block ~ ~ ~ minecraft:furnace unless block ~ ~ ~ #minecraft:replaceable run summon minecraft:block_display ~-0.525 ~ ~-0.525 {block_state:{Name:"minecraft:red_stained_glass"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.05f,1.05f,1.05f]},Tags:["xplsvtlts_combustion_forge_projection"]}
 execute positioned ~ ~ ~ positioned ^ ^1.025 ^-1 unless block ~ ~ ~ minecraft:furnace unless block ~ ~ ~ #minecraft:replaceable run summon minecraft:block_display ~-0.525 ~ ~-0.525 {block_state:{Name:"minecraft:red_stained_glass"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.05f,1.05f,1.05f]},Tags:["xplsvtlts_combustion_forge_projection"]}
 execute positioned ~ ~ ~ positioned ^-1 ^1.025 ^-1 unless block ~ ~ ~ minecraft:furnace unless block ~ ~ ~ #minecraft:replaceable run summon minecraft:block_display ~-0.525 ~ ~-0.525 {block_state:{Name:"minecraft:red_stained_glass"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0f,0f],scale:[1.05f,1.05f,1.05f]},Tags:["xplsvtlts_combustion_forge_projection"]}
-
-
-
-return 1
