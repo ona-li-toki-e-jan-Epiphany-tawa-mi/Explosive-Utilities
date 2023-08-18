@@ -29,11 +29,7 @@
 
 execute if score _items_crafted xplsvtlts matches 16.. run return 0
 execute if score _found_recipe xplsvtlts matches 1 run return 0
-
-
-
 scoreboard players set _valid_ingredient_count xplsvtlts 0
-
 scoreboard players set _item_1_count xplsvtlts 0
 execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:glowstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:glowstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
@@ -46,7 +42,6 @@ execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:glowst
 execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:glowstone"}]} run scoreboard players add _item_1_count xplsvtlts 1
 execute if score _item_1_count xplsvtlts matches 1 run scoreboard players add _valid_ingredient_count xplsvtlts 1
 scoreboard players reset _item_1_count xplsvtlts
-
 scoreboard players set _empty_space_count xplsvtlts 0
 execute unless block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
 execute unless block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
@@ -59,18 +54,8 @@ execute unless block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboar
 execute unless block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _empty_space_count xplsvtlts 1
 execute if score _empty_space_count xplsvtlts matches 8 run scoreboard players add _valid_ingredient_count xplsvtlts 1
 scoreboard players reset _empty_space_count xplsvtlts
-
-
-
-# Consume ingredients.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/crafting/decrement_crafting_grid
-# Create result.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run summon minecraft:item ~ ~ ~ {Item:{id:"minecraft:glowstone_dust",Count:4b}}
 execute if score _valid_ingredient_count xplsvtlts matches 2 run scoreboard players add _items_crafted xplsvtlts 1
-# Recipe found, repeat until done.
 execute if score _valid_ingredient_count xplsvtlts matches 2 run function xplsvtlts:combustion_forge/crafting/generated/shapeless/decompression/glowstone_dust_from_block
-
-
-
-# Mark that the recipe was found if it was able to be crafted.
 execute if score _items_crafted xplsvtlts matches 1.. run scoreboard players set _found_recipe xplsvtlts 1

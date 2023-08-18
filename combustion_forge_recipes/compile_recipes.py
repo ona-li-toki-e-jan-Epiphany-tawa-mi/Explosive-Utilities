@@ -406,26 +406,22 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
     # If we already found the recipe the forge contains we don't need to try any
     #   other ones.
     output_file.write(f'execute if score _found_recipe {variable_storage_scoreboard} matches 1 run return 0\n')
-    output_file.write('\n\n\n')
 
     
     pattern_arrangements = create_pattern_arrangments(decode_shaped_recipe_pattern(recipe))
 
 
-    pattern_number = 1
     # Writes code to test and craft each possible arrangement of the recipe on
     #   the crafting grid one by one.
     for pattern in pattern_arrangements:
         # Used to count number of valid ingredients to see if the recipe 
         #   is present in the grid.
-        output_file.write(f'## Pattern {pattern_number}.\n')
         output_file.write(f'scoreboard players set _valid_ingredient_count {variable_storage_scoreboard} 0\n')
 
         # Tests if crafting pattern arrangement is present on the 
         #   crafting grid.
         for crafting_grid_z in range(-1, 2):
             for crafting_grid_x in range(-1, 2):
-                output_file.write(f'# Item {(crafting_grid_x + 1) + (crafting_grid_z + 1) * 3 + 1}.\n')
                 ingredient_items: IngredientWhitelist = pattern[crafting_grid_z + 1][crafting_grid_x + 1]
 
                 if ingredient_items != empty_whitelist:
@@ -438,10 +434,8 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
                     output_file.write(f'execute unless block ^{crafting_grid_x} ^1 ^{crafting_grid_z} minecraft:furnace{{Items:[{{Slot:0b}}]}} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
 
         # If it is present, we can consume the ingredients,
-        output_file.write('# Consume ingredients.\n')
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run function {decrement_crafting_grid_function_id}\n')
         #   produce the resulting item(s),
-        output_file.write('# Create result.\n')
         for result in recipe.results:
             if result.result_type is RecipeResultType.ITEM:
                 result_item_tag_string = f',tag:{result.item.tag}' if result.item.tag else '' 
@@ -452,16 +446,11 @@ def write_shaped_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_funct
                 assert False, f"Recieved unhandled recipe result type '{result.result_type}'!"
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
         #   and recursively run the recipe now that is has been found.
-        output_file.write('# Recipe found, repeat until done.\n')
         output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches 9 run function {recipe_function_id}\n')
-        output_file.write('\n\n\n')
-
-        pattern_number += 1
 
 
     # If the item was able to be crafted, we mark that the recipe was found and
     #   skip the other recipes.
-    output_file.write('# Mark that the recipe was found if it was able to be crafted.\n')
     output_file.write(f'execute if score _items_crafted {variable_storage_scoreboard} matches 1.. run scoreboard players set _found_recipe {variable_storage_scoreboard} 1\n')
 
 def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_function_id: str, recipe: ShapelessRecipe):
@@ -501,7 +490,6 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     # If we already found the recipe the forge contains we don't need to try any
     #   other ones.
     output_file.write(f'execute if score _found_recipe {variable_storage_scoreboard} matches 1 run return 0\n')
-    output_file.write('\n\n\n')
 
 
     empty_spaces = 9
@@ -509,7 +497,6 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     # Used to count number of valid ingredients to see if the recipe 
     #   is present in the grid.
     output_file.write(f'scoreboard players set _valid_ingredient_count {variable_storage_scoreboard} 0\n')
-    output_file.write('\n')
 
     # Counts up ingredients to see if the correct amounts are present.
     for i in range(0, len(recipe.ingredients)):
@@ -527,7 +514,6 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
         output_file.write(f'execute if score {item_count_variable} {variable_storage_scoreboard} matches {ingredient.count} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
         output_file.write(f'scoreboard players reset {item_count_variable} {variable_storage_scoreboard}\n')
-        output_file.write('\n')
 
         empty_spaces -= ingredient.count
 
@@ -541,17 +527,13 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
         output_file.write(f'execute if score _empty_space_count {variable_storage_scoreboard} matches {empty_spaces} run scoreboard players add _valid_ingredient_count {variable_storage_scoreboard} 1\n')
         output_file.write(f'scoreboard players reset _empty_space_count {variable_storage_scoreboard}\n')
-        output_file.write('\n')
 
 
     required_valid_ingredient_count = len(recipe.ingredients) + (1 if empty_spaces > 0 else 0)
 
-    output_file.write('\n\n')
     # If it is present, we can consume the ingredients,
-    output_file.write('# Consume ingredients.\n')
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {decrement_crafting_grid_function_id}\n')
     #   produce the resulting item(s),
-    output_file.write('# Create result.\n')
     for result in recipe.results:
         if result.result_type is RecipeResultType.ITEM:
             result_item_tag_string = f',tag:{result.item.tag}' if result.item.tag else '' 
@@ -562,15 +544,11 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
             assert False, f"Recieved unhandled recipe result type '{result.result_type}'!"
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run scoreboard players add _items_crafted {variable_storage_scoreboard} 1\n')
     #   and recursively run the recipe now that is has been found.
-    output_file.write('# Recipe found, repeat until done.\n')
     output_file.write(f'execute if score _valid_ingredient_count {variable_storage_scoreboard} matches {required_valid_ingredient_count} run function {recipe_function_id}\n')
-    output_file.write('\n\n\n')
-
 
 
     # If the item was able to be crafted, we mark that the recipe was found and
     #   skip the other recipes.
-    output_file.write('# Mark that the recipe was found if it was able to be crafted.\n')
     output_file.write(f'execute if score _items_crafted {variable_storage_scoreboard} matches 1.. run scoreboard players set _found_recipe {variable_storage_scoreboard} 1\n')
 
 
