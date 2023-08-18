@@ -20,7 +20,7 @@ execute if score _is_valid_structure xplsvtlts matches 1 if entity @s[tag=!xplsv
 execute if score _is_valid_structure xplsvtlts matches 0 if entity @s[tag=xplsvtlts_was_valid_structure] run function xplsvtlts:pistol_kiln/validation/_mark_as_invalid
 
 # Kickstarts looping for valid inactive pistol kilns.
-#execute if score _is_valid_structure xplsvtlts matches 1 run schedule function xplsvtlts:combustion_forge/ideling/tick_inactive_cores 1s 
+execute if score _is_valid_structure xplsvtlts matches 1 run schedule function xplsvtlts:pistol_kiln/ideling/tick_inactive_cores 1s 
 
 
 

@@ -27,6 +27,6 @@ function xplsvtlts:combustion_forge/processing/_explode
 # Marks inactive.
 tag @s remove xplsvtlts_is_running
 # Kickstarts tick loop for inactive forges.
-schedule function xplsvtlts:combustion_forge/tick_inactive_cores 1s
+schedule function xplsvtlts:combustion_forge/ideling/tick_inactive_cores 1s
 # Resets runtime for next time the forge runs.
 scoreboard players reset @s xplsvtlts_combustion_forge_runtime

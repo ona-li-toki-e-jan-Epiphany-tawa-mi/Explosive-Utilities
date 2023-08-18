@@ -39,6 +39,8 @@ scoreboard players reset @e xplsvtlts_raycast_uuid_memory_3
 scoreboard objectives remove xplsvtlts_raycast_uuid_memory_3
 scoreboard players reset @e xplsvtlts_combustion_forge_runtime 
 scoreboard objectives remove xplsvtlts_combustion_forge_runtime 
+scoreboard players reset @e xplsvtlts_pistol_kiln_runtime 
+scoreboard objectives remove xplsvtlts_pistol_kiln_runtime 
 
 
 

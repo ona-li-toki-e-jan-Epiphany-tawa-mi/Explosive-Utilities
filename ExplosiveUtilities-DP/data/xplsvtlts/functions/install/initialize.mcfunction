@@ -45,10 +45,11 @@ scoreboard objectives add xplsvtlts_raycast_uuid_memory_2 dummy
 scoreboard objectives add xplsvtlts_raycast_uuid_memory_3 dummy
 # Used to track how long combustion forges have been running for, in ticks.
 scoreboard objectives add xplsvtlts_combustion_forge_runtime dummy
-
+# Used to track how long pistol kilns have been running for, in ticks.
+scoreboard objectives add xplsvtlts_pistol_kiln_runtime dummy
 
 
 tellraw @a {"text":"===================================================","color":"gold"}
 tellraw @a {"text":"Successfully installed Explosive Utilities!","color":"gold"}
-tellraw @a [{"text":"To uninstall, run '","color":"gold"},{"text":"/function xplsvtlts:uninstall","color":"white","bold":true,"clickEvent":{"action":"run_command","value":"/function xplsvtlts:uninstall"},"hoverEvent":{"action":"show_text","value":{"text":"Click to run command","italic":true}}},{"text":"' and remove it from the world's datapack directory"}]
+tellraw @a [{"text":"To uninstall, run '","color":"gold"},{"text":"/function xplsvtlts:uninstall","color":"white","bold":true,"clickEvent":{"action":"run_command","value":"/function xplsvtlts:install/uninstall"},"hoverEvent":{"action":"show_text","value":{"text":"Click to run command","italic":true}}},{"text":"' and remove it from the world's datapack directory"}]
 tellraw @a {"text":"===================================================","color":"gold"}
