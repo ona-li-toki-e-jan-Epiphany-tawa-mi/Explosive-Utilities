@@ -16,7 +16,7 @@ playsound minecraft:entity.generic.explode block @a ~ ~ ~ 2.0 1.0
 particle minecraft:explosion_emitter ~ ~ ~ 0 0 0 0.0 1
 
 # Damages entities in the way of the kiln
-execute positioned ~ ~ ~ as @e[dx=1,dy=7,dz=1,predicate=!xplsvtlts:entity/is_ignorable] run damage @s 10.0 minecraft:explosion 
+execute positioned ~ ~ ~ as @e[dx=0.5,dy=7,dz=0.5,predicate=!xplsvtlts:entity/is_ignorable] run damage @s 10.0 minecraft:explosion 
 
 # Blasts items out.
 execute as @e[type=minecraft:item,distance=..1] run data modify entity @s Motion[1] set value 2.0

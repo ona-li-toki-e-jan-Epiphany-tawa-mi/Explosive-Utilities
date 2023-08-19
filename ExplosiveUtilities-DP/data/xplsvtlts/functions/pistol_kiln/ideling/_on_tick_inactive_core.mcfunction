@@ -16,7 +16,8 @@ function xplsvtlts:pistol_kiln/try_consume_fuel
 
 # Marks that the kiln is now running.
 execute if score _consumed_fuel xplsvtlts matches 1 run tag @s add xplsvtlts_is_running
-
+# A E S T E T I C or smth idk.
+execute if score _consumed_fuel xplsvtlts matches 1 run function xplsvtlts:pistol_kiln/ideling/_light_furnaces
 # Kickstarts ticking for active kilns.
 execute if score _consumed_fuel xplsvtlts matches 1 run schedule function xplsvtlts:pistol_kiln/processing/tick_active_cores 1t
 
