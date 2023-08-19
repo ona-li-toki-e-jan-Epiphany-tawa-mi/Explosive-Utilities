@@ -12,8 +12,7 @@ from glob import glob
 from io import TextIOWrapper
 from typing import Union
 import jsonschema
-from multiprocessing import Process, Queue
-from queue import Empty
+from multiprocessing import Pool
 
 ################################################################################
 # MIT License
@@ -553,11 +552,10 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
 
 
 
-def write_recipe_mcfunction_code(recipe_file_path: str, recipe_schema: str
-                                , function_id_output_queue: Queue):
+def write_recipe_mcfunction_code(recipe_file_path: str, recipe_schema: dict
+                                ) -> Union[str, None]:
     ''' Attempts to write out the recipe code to the corresponding function 
-        file. The function ids of the recipes that were successful will be 
-        placed into the given queue.'''
+        file. The function id of the recipe will be returned if successful. '''
     recipe_directory_path, recipe_file_name = path.split(recipe_file_path)
     recipe_name = recipe_file_name.replace('.json', '')
     recipe_function_id = recipe_function_directory_id + path.join(recipe_directory_path, recipe_name)
@@ -571,33 +569,33 @@ def write_recipe_mcfunction_code(recipe_file_path: str, recipe_schema: str
             recipe_json = json.loads(recipe_byte_stream.read())
         except json.JSONDecodeError as error:
             logging.error(f"Unable to decode recipe JSON: {error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
-            return
+            return None
         
     try:
         jsonschema.validate(recipe_json, recipe_schema)
     except jsonschema.ValidationError as error:
         logging.error(f"Unable to decode recipe JSON: view the following error message. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
         logging.error(error)
-        return
+        return None
 
     recipe = None
     try:
         recipe = Recipe.from_json(recipe_json)
     except ValueError as error:
         logging.error(f"{error}. Skipped writing recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
-        return
+        return None
 
 
     if recipe.type is RecipeType.COMBUSTION_FORGE_SHAPED:
         os.makedirs(path.split(output_file_path)[0], exist_ok=True)
-        with open(output_file_path, 'w') as output_file:
+        with open(output_file_path, 'w', encoding='utf-8') as output_file:
             write_shaped_recipe_mcfunction_code(output_file, recipe_function_id, recipe)
 
         logging.info(f"Wrote shaped recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
 
     elif recipe.type is RecipeType.COMBUSTION_FORGE_SHAPELESS:
         os.makedirs(path.split(output_file_path)[0], exist_ok=True)
-        with open(output_file_path, 'w') as output_file:
+        with open(output_file_path, 'w', encoding='utf-8') as output_file:
             write_shapeless_recipe_mcfunction_code(output_file, recipe_function_id, recipe)
 
         logging.info(f"Wrote shapedless recipe '{recipe_name}' -> '{path.abspath(output_file_path)}'")
@@ -605,12 +603,12 @@ def write_recipe_mcfunction_code(recipe_file_path: str, recipe_schema: str
     else:
         assert False, f"Recieved unhandled recipe type '{recipe.type}' from JSON decoder!"
 
-    function_id_output_queue.put(recipe_function_id)
+    return recipe_function_id
        
 def write_recipe_function_tag_json(output_file_path: str, recipe_function_ids: 'list[str]'):
     ''' Writes out the recipe function ids into a tag so they can all be called
         by the combustion forge crafting system. '''
-    with open(output_file_path, 'w') as output_file:
+    with open(output_file_path, 'w', encoding='utf-8') as output_file:
         output_file.write('{\n')
         output_file.write('\t"values": [\n')
 
@@ -646,35 +644,20 @@ def main():
             logging.info(f" - {recipe_file_path}")
         logging.info("Beggining compilation.")
 
+    
+    os.makedirs(recipe_output_directory, exist_ok=True)
 
     # Parallellized because jsonschema takes forever.
-    os.makedirs(recipe_output_directory, exist_ok=True)
-    recipe_function_id_queue = Queue()
-    recipe_processes = []
-
-    for recipe_file_path in recipe_file_paths:
-        recipe_process = Process( target=write_recipe_mcfunction_code
-                                , args=(recipe_file_path, recipe_schema, recipe_function_id_queue))
-        recipe_processes.append(recipe_process)
-        recipe_process.start()
-
-    for recipe_process in recipe_processes:
-        recipe_process.join()
-
-
-    if not recipe_function_id_queue.empty():
-        recipe_function_ids = []
-        while True:
-            try:
-                recipe_function_ids.append(recipe_function_id_queue.get_nowait())
-            except Empty:
-                break
-        recipe_function_id_queue.close()
-
+    with Pool() as pool:
+        recipe_function_ids = [recipe_function_id for recipe_function_id 
+                               in pool.starmap( write_recipe_mcfunction_code
+                                              , [[recipe_file_path, recipe_schema] for recipe_file_path in recipe_file_paths])
+                               if recipe_function_id is not None]
+    
+    if recipe_function_ids:
         recipe_function_ids.sort()
         os.makedirs(path.split(recipe_function_tag_file_path)[0], exist_ok=True)
-        write_recipe_function_tag_json(recipe_function_tag_file_path, recipe_function_ids)
-                                       
+        write_recipe_function_tag_json(recipe_function_tag_file_path, recipe_function_ids)           
     else:
         logging.error(f"Could not write out recipe function ids into tag json file at '{path.abspath(recipe_function_tag_file_path)}': no recipes successfully compiled")
 

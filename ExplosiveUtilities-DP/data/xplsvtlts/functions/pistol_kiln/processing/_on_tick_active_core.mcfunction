@@ -15,7 +15,7 @@ scoreboard players operation @s xplsvtlts_pistol_kiln_runtime += _progress_direc
 # A/v effects.
 execute if score _progress_direction xplsvtlts matches 1 run function xplsvtlts:pistol_kiln/processing/_play_processing_sound
 # Hella smog baby!
-execute if score _progress_direction xplsvtlts matches 1 run particle minecraft:campfire_signal_smoke ~ ~ ~ 0 0 0 0.1 2
+execute if score _progress_direction xplsvtlts matches 1 run particle minecraft:campfire_signal_smoke ~ ~ ~ 0 0 0 0.1 1
 
 execute if score @s xplsvtlts_pistol_kiln_runtime matches ..0 run function xplsvtlts:pistol_kiln/processing/_mark_inactive
 execute if score @s xplsvtlts_pistol_kiln_runtime matches 9000.. run function xplsvtlts:pistol_kiln/processing/_deactivate 

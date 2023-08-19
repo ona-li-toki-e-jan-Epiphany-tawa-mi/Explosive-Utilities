@@ -14,6 +14,7 @@ To view the various additions made by explosive utilities, [see the wiki.](https
 
 ![corraling tnt](screenshots/corraling_tnt.png)
 ![holding a tnt on a stick](screenshots/holding_a_tnt_on_a_stick.png)
+![pistol kiln](screenshots/pistol_kiln.png)
 ![reactive trident detonation](screenshots/reactive_trident_detonation.png)
 ![combustion forge setup](screenshots/combustion_forge_setup.png)
 
