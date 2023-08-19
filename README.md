@@ -68,7 +68,13 @@ You can set the base cooldown for the reactive armor with this command, defaults
 /scoreboard players set reactive_armor_maximum_cooldown xplsvtlts <ticks>
 ```
 
-You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 200.
+You can set how long it takes the pistol kiln to smelt items with the following command, defaults to 9000:
+
+```mcfunction
+/scoreboard players set pistol_kiln_runtime xplsvtlts <ticks>
+```
+
+You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 200:
 
 ```mcfunction
 /scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts <ticks>

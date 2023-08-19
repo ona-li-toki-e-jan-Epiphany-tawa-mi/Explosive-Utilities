@@ -19,6 +19,8 @@ scoreboard players set reactive_armor_maximum_cooldown xplsvtlts 120
 # Whether to disable the restriction on which entities can be corraled with the
 #   tnt wand.
 scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts 0
+# The time it takes for the pistol kiln to smelt items
+scoreboard players set pistol_kiln_runtime xplsvtlts 9000
 # The fuel time, in ticks, that each piece of gunpowder provides.
 scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts 200
 # Constants.
