@@ -6,6 +6,12 @@
     "overrides": [
         {
             "predicate": {
+                "custom_model_data": 4499633
+            },
+            "model": "xplsvtlts:block/pistol_kiln_core"
+        },
+        {
+            "predicate": {
                 "custom_model_data": 10462431
             },
             "model": "xplsvtlts:block/combustion_forge_core"

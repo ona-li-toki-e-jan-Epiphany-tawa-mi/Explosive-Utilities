@@ -13,6 +13,8 @@ execute unless block ~1 ~ ~ minecraft:blast_furnace{Items:[{Slot:0b}]} unless bl
 
 # Tries to consume gunpowder as fuel to start up.
 function xplsvtlts:pistol_kiln/try_consume_fuel
+# Adds consumed fuel to fuel timer
+execute if score _consumed_fuel xplsvtlts matches 1 run scoreboard players operation @s xplsvtlts_pistol_kiln_fuel_time += pistol_kiln_gunpowder_fuel_time xplsvtlts
 
 # Marks that the kiln is now running.
 execute if score _consumed_fuel xplsvtlts matches 1 run tag @s add xplsvtlts_is_running

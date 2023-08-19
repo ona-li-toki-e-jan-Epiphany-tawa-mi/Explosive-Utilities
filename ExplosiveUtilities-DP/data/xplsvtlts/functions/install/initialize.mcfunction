@@ -19,6 +19,8 @@ scoreboard players set reactive_armor_maximum_cooldown xplsvtlts 120
 # Whether to disable the restriction on which entities can be corraled with the
 #   tnt wand.
 scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts 0
+# The fuel time, in ticks, that each piece of gunpowder provides.
+scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts 200
 # Constants.
 scoreboard players set #2 xplsvtlts 2
 scoreboard players set #7 xplsvtlts 7
@@ -47,6 +49,8 @@ scoreboard objectives add xplsvtlts_raycast_uuid_memory_3 dummy
 scoreboard objectives add xplsvtlts_combustion_forge_runtime dummy
 # Used to track how long pistol kilns have been running for, in ticks.
 scoreboard objectives add xplsvtlts_pistol_kiln_runtime dummy
+# Used to track how long until pistol kilns need to consume more fuel.
+scoreboard objectives add xplsvtlts_pistol_kiln_fuel_time dummy
 
 
 tellraw @a {"text":"===================================================","color":"gold"}

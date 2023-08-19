@@ -28,7 +28,7 @@ Place the datapack inside your world's datapacks folder. [See for more informati
 
 The pack will automatically finish installation on world load, but you can force it using (recommended if updating pack, note: resets configurations):
 
-```text
+```mcfunction
 /function xplsvtlts:install/initialize
 ```
 
@@ -36,7 +36,7 @@ The pack will automatically finish installation on world load, but you can force
 
 To uninstall, you first need to run this command:
 
-```text
+```mcfunction
 /function xplsvtlts:install/uninstall
 ```
 
@@ -46,26 +46,32 @@ After that, remove the datapack from your world's datapacks folder before reload
 
 You can set the summon cooldown for the tnt wand with this command, defaults to 40:
 
-```text
+```mcfunction
 /scoreboard players set tnt_wand_summon_cooldown xplsvtlts <ticks>
 ```
 
 You can set the explosive punch cooldown for the tnt wand with this command, defaults to 80:
 
-```text
+```mcfunction
 /scoreboard players set tnt_wand_punch_cooldown xplsvtlts <ticks>
 ```
 
 You can set whether to disable the corraling restrictions on the tnt wand with the following command. 1 to disable, 0 to enable, defaults to 0.
 
-```text
+```mcfunction
 /scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts <1 or 0>
 ```
 
 You can set the base cooldown for the reactive armor with this command, defaults to 120:
 
-```text
+```mcfunction
 /scoreboard players set reactive_armor_maximum_cooldown xplsvtlts <ticks>
+```
+
+You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 200.
+
+```mcfunction
+/scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts <ticks>
 ```
 
 ## Links
@@ -89,10 +95,11 @@ To add recipes to the combustion forge multiblock, whether into this datapack, o
 - Moved minimum version to 1.20.
 - Added combustion forge.
 - Moved tnt wand recipe to require the combustion forge.
+- Added pistol kiln.
 
 Make sure to run the following command if updating (note: resets configurations):
 
-```text
+```mcfunction
 /function xplsvtlts:install/initialize
 ```
 

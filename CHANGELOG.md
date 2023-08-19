@@ -10,10 +10,11 @@
 - Moved minimum version to 1.20.
 - Added combustion forge.
 - Moved tnt wand recipe to require the combustion forge.
+- Added pistol kiln.
 
 Make sure to run the following command if updating (note: resets configurations):
 
-```text
+```mcfunction
 /function xplsvtlts:install/initialize
 ```
 
