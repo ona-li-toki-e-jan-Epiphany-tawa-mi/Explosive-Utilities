@@ -80,6 +80,12 @@ You can set how long each piece of gunpowder will burn for in the pistol kiln wi
 /scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts <ticks>
 ```
 
+You can set the fuse length of dynamite with this command, defaults to 60:
+
+```mcfunction
+/scoreboard players set dynamite_fuse_time xplsvtlts <ticks>
+```
+
 ## Links
 
 - [Explosive Utilities Wiki](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki "The Explosive Utilities Wiki")

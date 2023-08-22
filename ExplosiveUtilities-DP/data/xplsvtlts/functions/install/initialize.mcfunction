@@ -23,6 +23,8 @@ scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts 0
 scoreboard players set pistol_kiln_runtime xplsvtlts 9000
 # The fuel time, in ticks, that each piece of gunpowder provides.
 scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts 800
+# The time of the fuse on dynamite, in ticks.
+scoreboard players set dynamite_fuse_time xplsvtlts 60
 # Constants.
 scoreboard players set #2 xplsvtlts 2
 scoreboard players set #7 xplsvtlts 7
@@ -53,6 +55,8 @@ scoreboard objectives add xplsvtlts_combustion_forge_runtime dummy
 scoreboard objectives add xplsvtlts_pistol_kiln_runtime dummy
 # Used to track how long until pistol kilns need to consume more fuel.
 scoreboard objectives add xplsvtlts_pistol_kiln_fuel_time dummy
+# Used to track the fuses of dynamite entites.
+scoreboard objectives add xplsvtlts_dynamite_fuse dummy
 
 
 tellraw @a {"text":"===================================================","color":"gold"}

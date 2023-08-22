@@ -4,6 +4,20 @@
         {
             "condition": "minecraft:reference",
             "name": "xplsvtlts:entity/tnt_wand/is_holding_tnt_wand"
+        },
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "equipment": {
+                    "mainhand": {
+                        "items": [
+                            "minecraft:armor_stand"
+                        ],
+                        "nbt": "{CustomModelData:15704532}"
+                    }
+                }
+            }
         }
     ]
 }

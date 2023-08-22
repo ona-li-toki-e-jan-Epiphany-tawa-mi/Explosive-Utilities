@@ -9,6 +9,7 @@ scoreboard players reset reactive_armor_maximum_cooldown xplsvtlts
 scoreboard players reset disable_tnt_wand_corraling_restrictions xplsvtlts
 scoreboard players reset pistol_kiln_runtime xplsvtlts
 scoreboard players reset pistol_kiln_gunpowder_fuel_time xplsvtlts
+scoreboard players reset dynamite_fuse_time xplsvtlts
 scoreboard players reset #2 xplsvtlts
 scoreboard players reset #7 xplsvtlts
 scoreboard objectives remove xplsvtlts
@@ -45,6 +46,8 @@ scoreboard players reset @e xplsvtlts_pistol_kiln_runtime
 scoreboard objectives remove xplsvtlts_pistol_kiln_runtime 
 scoreboard players reset @e xplsvtlts_pistol_kiln_fuel_time 
 scoreboard objectives remove xplsvtlts_pistol_kiln_fuel_time 
+scoreboard players reset @e xplsvtlts_dynamite_fuse
+scoreboard objectives remove xplsvtlts_dynamite_fuse 
 
 
 

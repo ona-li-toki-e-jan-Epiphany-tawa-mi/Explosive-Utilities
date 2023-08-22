@@ -20,6 +20,7 @@ schedule function xplsvtlts:tnt_wand/cooldown/tick_summon_cooldowns 1t
 schedule function xplsvtlts:reactive_plating/rorre/_error_loop_error 1t
 schedule function xplsvtlts:combustion_forge/processing/tick_active_cores 1t
 schedule function xplsvtlts:pistol_kiln/processing/tick_active_cores 1t
+schedule function xplsvtlts:dynamite/tick_dynamite 1t
 
 schedule function xplsvtlts:combustion_forge/ideling/tick_inactive_cores 1s
 schedule function xplsvtlts:pistol_kiln/ideling/tick_inactive_cores 1s 

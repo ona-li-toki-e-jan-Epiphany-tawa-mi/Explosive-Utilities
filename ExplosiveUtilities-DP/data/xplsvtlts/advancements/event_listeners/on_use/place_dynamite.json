@@ -1,0 +1,23 @@
+{
+    "criteria": {
+        "on_place_dynamite": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "minecraft:armor_stand"
+                            ],
+                            "nbt": "{CustomModelData:15704532}"
+                        }
+                    }
+                },
+                "location": []
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:dynamite/on_place"
+    }
+}
