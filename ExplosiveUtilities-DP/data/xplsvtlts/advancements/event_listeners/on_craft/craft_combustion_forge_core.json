@@ -1,6 +1,6 @@
 {
     "criteria": {
-        "on_craft_reactive plating": {
+        "on_craft_reactive_plating": {
             "trigger": "minecraft:recipe_unlocked",
             "conditions": {
                 "recipe": "xplsvtlts:crafting/combustion_forge_core"

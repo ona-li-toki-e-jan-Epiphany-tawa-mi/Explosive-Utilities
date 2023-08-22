@@ -1,6 +1,6 @@
 {
     "criteria": {
-        "on_use_reactive_shovel_on_block": {
+        "on_till_with_reactive_hoe": {
             "trigger": "minecraft:item_used_on_block",
             "conditions": {
                 "player": {

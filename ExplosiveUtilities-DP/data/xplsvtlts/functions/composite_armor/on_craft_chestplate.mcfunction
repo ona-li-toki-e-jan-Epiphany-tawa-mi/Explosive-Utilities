@@ -10,4 +10,4 @@ advancement revoke @s only xplsvtlts:event_listeners/on_craft/composite_armor/cr
 clear @p minecraft:knowledge_book
 
 
-give @p iron_chestplate{display:{Name:'{"text":"Composite Chestplate","italic":false}'},Enchantments:[{id:"minecraft:protection",lvl:1s},{id:"minecraft:blast_protection",lvl:2s}],Trim:{material:"minecraft:copper",pattern:"minecraft:sentry"}} 1
+give @p iron_chestplate{display:{Name:'{"text":"Composite Chestplate","italic":false}',Lore:['{"text":"Explosive Utilities","color":"blue","italic":false}']},Enchantments:[{id:"minecraft:protection",lvl:1s},{id:"minecraft:blast_protection",lvl:2s}],Trim:{material:"minecraft:copper",pattern:"minecraft:sentry"}} 1
