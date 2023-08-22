@@ -8,6 +8,9 @@
 
 # The kiln can only try to start up once there are items in the input furnaces.
 execute unless block ~1 ~ ~ minecraft:blast_furnace{Items:[{Slot:0b}]} unless block ~-1 ~ ~ minecraft:blast_furnace{Items:[{Slot:0b}]} unless block ~ ~ ~1 minecraft:blast_furnace{Items:[{Slot:0b}]} unless block ~ ~ ~-1 minecraft:blast_furnace{Items:[{Slot:0b}]} run return 0
+# Won't run if there is a block in the core to prevent overwriting it, the 
+#   structural validator will catch the issue later on.
+execute unless block ~ ~ ~ #minecraft:replaceable run return 0
 
 
 

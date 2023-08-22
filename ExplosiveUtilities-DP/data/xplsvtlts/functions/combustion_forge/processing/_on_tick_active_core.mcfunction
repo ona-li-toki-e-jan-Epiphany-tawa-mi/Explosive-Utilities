@@ -17,4 +17,6 @@ execute if score @s xplsvtlts_combustion_forge_runtime matches ..120 run functio
 execute if score @s xplsvtlts_combustion_forge_runtime matches 120 positioned ^1 ^-1 ^-1 if block ~ ~ ~ minecraft:target run setblock ~ ~ ~ minecraft:target[power=15]
 
 # Once the door opens, the machine stops, finished or not with processing.
-execute if block ^ ^ ^1 minecraft:iron_trapdoor[powered=false] run function xplsvtlts:combustion_forge/processing/_deactivate
+# Won't run if there is a block in the core to prevent overwriting it, the 
+#   structural validator will catch the issue later on.
+execute if block ^ ^ ^1 minecraft:iron_trapdoor[powered=false] if block ~ ~ ~ #minecraft:replaceable run function xplsvtlts:combustion_forge/processing/_deactivate

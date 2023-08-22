@@ -29,7 +29,9 @@ execute if score _progress_direction xplsvtlts matches 1 run particle minecraft:
 
 execute if score @s xplsvtlts_pistol_kiln_runtime matches ..0 run function xplsvtlts:pistol_kiln/processing/_mark_inactive
 execute if score @s xplsvtlts_pistol_kiln_runtime matches ..0 run function xplsvtlts:pistol_kiln/processing/_unlight_furnaces
-execute if score @s xplsvtlts_pistol_kiln_runtime > pistol_kiln_runtime xplsvtlts run function xplsvtlts:pistol_kiln/processing/_deactivate 
+# Won't run if there is a block in the core to prevent overwriting it, the 
+#   structural validator will catch the issue later on.
+execute if score @s xplsvtlts_pistol_kiln_runtime > pistol_kiln_runtime xplsvtlts if block ~ ~ ~ #minecraft:replaceable run function xplsvtlts:pistol_kiln/processing/_deactivate 
 
 
 
