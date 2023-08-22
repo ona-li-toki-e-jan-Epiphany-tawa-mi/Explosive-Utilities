@@ -74,7 +74,7 @@ You can set how long it takes the pistol kiln to smelt items with the following 
 /scoreboard players set pistol_kiln_runtime xplsvtlts <ticks>
 ```
 
-You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 200:
+You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 800:
 
 ```mcfunction
 /scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts <ticks>

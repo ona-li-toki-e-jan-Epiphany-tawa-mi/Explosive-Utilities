@@ -22,7 +22,7 @@ scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts 0
 # The time it takes for the pistol kiln to smelt items
 scoreboard players set pistol_kiln_runtime xplsvtlts 9000
 # The fuel time, in ticks, that each piece of gunpowder provides.
-scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts 200
+scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts 800
 # Constants.
 scoreboard players set #2 xplsvtlts 2
 scoreboard players set #7 xplsvtlts 7
