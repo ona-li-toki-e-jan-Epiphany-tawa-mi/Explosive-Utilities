@@ -7,7 +7,7 @@
 #   Vector register 1 - the motion to apply to the dynamite.
 #
 
-data merge entity @s {Tags:["xplsvtlts_dynamite"],Invisible:1b,Invulnerable:1b,Small:1b}
+data merge entity @s {Tags:["xplsvtlts_dynamite"],Invisible:1b,Invulnerable:1b,Small:1b,ArmorItems:[{},{},{},{id:"minecraft:armor_stand",Count:1b,tag:{CustomModelData:15704532}}]}
 function xplsvtlts:vector3d/set_motion
 scoreboard players operation @s xplsvtlts_dynamite_fuse = dynamite_fuse_time xplsvtlts
 

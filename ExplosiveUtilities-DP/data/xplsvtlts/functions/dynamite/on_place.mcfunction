@@ -14,6 +14,8 @@ advancement revoke @s only xplsvtlts:event_listeners/on_use/place_dynamite
 
 
 
+playsound minecraft:entity.tnt.primed player @a ~ ~ ~
+
 # The only thing we can really do is kickstart ticking for dynamite. This is 
 #   fine since the placed entity already has all the needed data.
 schedule function xplsvtlts:dynamite/tick_dynamite 1t

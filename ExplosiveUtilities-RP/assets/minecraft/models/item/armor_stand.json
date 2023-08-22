@@ -15,6 +15,12 @@
                 "custom_model_data": 10462431
             },
             "model": "xplsvtlts:block/combustion_forge_core"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 15704532
+            },
+            "model": "xplsvtlts:block/dynamite"
         }
     ]
 }
