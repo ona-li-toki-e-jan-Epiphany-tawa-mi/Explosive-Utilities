@@ -11,4 +11,4 @@ clear @p minecraft:knowledge_book
 
 
 
-give @p iron_leggings{display:{Name:'{"text":"Composite Leggings","italic":false}'},Enchantments:[{id:"minecraft:blast_protection",lvl:2s}],Trim:{material:"minecraft:copper",pattern:"minecraft:sentry"}} 1
+give @p iron_leggings{display:{Name:'{"text":"Composite Leggings","italic":false}'},Enchantments:[{id:"minecraft:protection",lvl:1s},{id:"minecraft:blast_protection",lvl:2s}],Trim:{material:"minecraft:copper",pattern:"minecraft:sentry"}} 1
