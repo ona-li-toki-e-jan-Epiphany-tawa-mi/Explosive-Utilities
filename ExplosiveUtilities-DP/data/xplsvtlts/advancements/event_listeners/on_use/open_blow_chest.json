@@ -1,0 +1,23 @@
+{
+    "criteria": {
+        "on_open_blow_chest": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+                "location": [
+                    {
+                        "condition": "minecraft:location_check",
+                        "predicate": {
+                            "block": {
+                                "tag": "xplsvtlts:chests",
+                                "nbt": "{Items:[{id:\"minecraft:enchanted_book\",tag:{CustomModelData:14881210}}]}"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "rewards": {
+        "function": "xplsvtlts:blow_chest/on_open"
+    }
+}

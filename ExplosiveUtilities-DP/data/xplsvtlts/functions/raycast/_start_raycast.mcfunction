@@ -9,6 +9,8 @@
 #   @s - the raycast marker as a fresh armor stand.
 #   _max_distance (scoreboard: xplsvtlts) - the maximum distance to carry the 
 #       raycast.
+#   _collide_with_entities (scoreboard: xplsvtlts) - 1 to collide with entities,
+#       0 to not.
 #   [_uuid0, _uuid1, _uuid2, _uuid3] (scoreboard: xplsvtlts) - the UUID of the
 #       source entity, if applicable.
 #   _source_y_rotation (scoreboard: xplsvtlts) - the y rotation to give to the 

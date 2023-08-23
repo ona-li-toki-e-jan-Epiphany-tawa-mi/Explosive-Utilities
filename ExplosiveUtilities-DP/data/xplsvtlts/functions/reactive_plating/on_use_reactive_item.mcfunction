@@ -23,10 +23,12 @@ effect give @s minecraft:resistance 1 4 true
 # Raycasts out to the nearest block or entity to try and create the explosion 
 #   with the thing the player interacted with.
 scoreboard players set _max_distance xplsvtlts 6
+scoreboard players set _collide_with_entities xplsvtlts 1
 function xplsvtlts:raycast/raycast_from_entity
 execute at @e[type=minecraft:armor_stand,tag=xplsvtlts_raycast_marker,limit=1,sort=nearest] run summon creeper ~ ~ ~ {Fuse:0s,ExplosionRadius:1b,"CustomName":'{"text":"Reactive Item Explosion"}',"CustomNameVisible":false}
 function xplsvtlts:raycast/cleanup
 scoreboard players reset _max_distance xplsvtlts
+scoreboard players reset _collide_with_entities xplsvtlts
 
 execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_no_unbreaking
 execute if entity @s[gamemode=!creative] run item modify entity @s weapon xplsvtlts:reactive_plating/wear_and_tear/reactive_wear_unbreaking_i

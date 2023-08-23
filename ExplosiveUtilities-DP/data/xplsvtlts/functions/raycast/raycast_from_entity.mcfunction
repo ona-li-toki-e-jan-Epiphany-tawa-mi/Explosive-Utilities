@@ -10,6 +10,8 @@
 #   @s - the entity to start raycasting from.
 #   _max_distance (scoreboard: xplsvtlts) - the maximum distance to carry the 
 #       raycast.
+#   _collide_with_entities (scoreboard: xplsvtlts) - 1 to collide with entities,
+#       0 to not.
 #
 # Returns:
 #   An armor stand with the tag "xplsvtlts_raycast_marker" as the raycast 

@@ -9,6 +9,8 @@
 #   Location - at @s.
 #   _max_distance (scoreboard: xplsvtlts) - the remaning distance before ending 
 #       the raycast.
+#   _collide_with_entities (scoreboard: xplsvtlts) - 1 to collide with entities,
+#       0 to not.
 #   [_uuid0, _uuid1, _uuid2, _uuid3] (scoreboard: xplsvtlts) - the UUID of the
 #       source entity, if applicable.
 #
@@ -19,7 +21,7 @@
 
 execute if score _max_distance xplsvtlts matches ..0 run return 0
 execute unless block ~ ~ ~ #replaceable run return 0
-execute if entity @e[limit=1,distance=..1.1,sort=nearest,predicate=!xplsvtlts:entity/is_ignorable,predicate=!xplsvtlts:entity/does_uuid_match_raycast_memory] run return 0
+execute if score _collide_with_entities xplsvtlts matches 1 if entity @e[limit=1,distance=..1.1,sort=nearest,predicate=!xplsvtlts:entity/is_ignorable,predicate=!xplsvtlts:entity/does_uuid_match_raycast_memory] run return 0
 
 tp @s ^ ^ ^1
 scoreboard players remove _max_distance xplsvtlts 1
