@@ -3,15 +3,12 @@
         "on_interact_with_entity_with_dynamite": {
             "trigger": "minecraft:player_interacted_with_entity",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "offhand": {
-                            "items": [
-                                "minecraft:flint_and_steel"
-                            ]
-                        }
-                    }  
-                },
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/dynamite/can_light_dynamite"
+                    }
+                ],
                 "item": {
                     "items": [
                         "minecraft:armor_stand"

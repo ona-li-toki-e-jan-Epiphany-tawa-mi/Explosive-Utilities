@@ -10,7 +10,7 @@
                         "items": [
                             "minecraft:stone_pickaxe"
                         ],
-                        "nbt": "{\"CustomModelData\":7106215}"
+                        "nbt": "{CustomModelData:7106215}"
                     }
                 }
             }

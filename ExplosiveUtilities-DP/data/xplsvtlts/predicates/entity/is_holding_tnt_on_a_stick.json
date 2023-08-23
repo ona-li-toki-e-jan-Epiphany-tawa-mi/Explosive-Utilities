@@ -5,9 +5,9 @@
         "equipment": {
             "mainhand": {
                 "items": [
-                    "minecraft:stone_pickaxe"
+                    "minecraft:stone_sword"
                 ],
-                "nbt": "{xplsvtlts:{Reactive:1b},CustomModelData:7106216}"
+                "nbt": "{CustomModelData:9200798}"
             }
         }
     }

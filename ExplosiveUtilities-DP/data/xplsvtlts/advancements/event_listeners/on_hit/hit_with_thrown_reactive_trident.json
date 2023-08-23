@@ -6,7 +6,7 @@
                 "damage": {
                     "type": {
                         "direct_entity": {
-                            "nbt": "{\"Trident\":{\"tag\":{\"xplsvtlts\":{\"Reactive\":1b}}}}",
+                            "nbt": "{Trident:{tag:{xplsvtlts:{Reactive:1b}}}}",
                             "type": "minecraft:trident"
                         }
                     }

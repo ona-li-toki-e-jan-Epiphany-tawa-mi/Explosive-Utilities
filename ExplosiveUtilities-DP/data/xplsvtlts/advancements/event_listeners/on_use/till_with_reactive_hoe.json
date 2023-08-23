@@ -3,29 +3,20 @@
         "on_till_with_reactive_hoe": {
             "trigger": "minecraft:item_used_on_block",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "mainhand": {
-                            "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}",
-                            "tag": "minecraft:hoes"
-                        }
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/reactive_plating/is_holding_reactive_hoe"
                     }
-                },
+                ],
                 "location": [
                     {
-                        "condition": "minecraft:any_of",
-                        "terms": [
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:farmland",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:dirt",
-                                "properties": {}
+                        "condition": "minecraft:location_check",
+                        "predicate": {
+                            "block": {
+                                "tag": "xplsvtlts:hoed"
                             }
-                        ]
+                        }
                     }
                 ]
             }

@@ -3,56 +3,20 @@
         "on_use_reactive_shears_on_block": {
             "trigger": "minecraft:item_used_on_block",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "mainhand": {
-                            "items": [
-                                "minecraft:shears"
-                            ],
-                            "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}"
-                        }
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/reactive_plating/is_holding_reactive_shears"
                     }
-                },
+                ],
                 "location": [
                     {
-                        "condition": "minecraft:any_of",
-                        "terms": [
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:carved_pumpkin",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:weeping_vines",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:cave_vines",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:kelp",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:twisting_vines",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:bee_nest",
-                                "properties": {}
-                            },
-                            {
-                                "condition": "minecraft:block_state_property",
-                                "block": "minecraft:beehive",
-                                "properties": {}
+                        "condition": "minecraft:location_check",
+                        "predicate": {
+                            "block": {
+                                "tag": "xplsvtlts:sheared"
                             }
-                        ]
+                        }
                     }
                 ]
             }

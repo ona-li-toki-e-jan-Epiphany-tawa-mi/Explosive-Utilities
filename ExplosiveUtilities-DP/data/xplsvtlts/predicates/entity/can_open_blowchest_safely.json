@@ -5,9 +5,8 @@
         "equipment": {
             "mainhand": {
                 "items": [
-                    "minecraft:stone_pickaxe"
-                ],
-                "nbt": "{xplsvtlts:{Reactive:1b},CustomModelData:7106216}"
+                    "minecraft:shears"
+                ]
             }
         }
     }

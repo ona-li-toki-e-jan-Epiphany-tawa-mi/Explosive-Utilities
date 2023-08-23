@@ -3,16 +3,12 @@
         "on_place_dynamite": {
             "trigger": "minecraft:item_used_on_block",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "mainhand": {
-                            "items": [
-                                "minecraft:armor_stand"
-                            ],
-                            "nbt": "{CustomModelData:15704532}"
-                        }
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/dynamite/is_holding_dynamite"
                     }
-                },
+                ],
                 "location": []
             }
         }

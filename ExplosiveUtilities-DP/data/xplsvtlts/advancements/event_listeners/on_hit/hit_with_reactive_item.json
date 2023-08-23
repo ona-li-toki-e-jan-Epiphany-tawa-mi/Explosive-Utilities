@@ -3,14 +3,12 @@
         "on_hit_with_reactive_item": {
             "trigger": "minecraft:player_hurt_entity",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "mainhand": {
-                            "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}",
-                            "tag": "xplsvtlts:can_reactive_explode_on_melee"
-                        }
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/reactive_plating/is_holding_reactive_melee_weapon"
                     }
-                },
+                ],
                 "damage": {
                     "type": {
                         "tags": [

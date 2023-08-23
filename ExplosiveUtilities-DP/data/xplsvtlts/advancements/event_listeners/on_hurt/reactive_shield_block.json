@@ -1,45 +1,14 @@
 {
     "criteria": {
-        "on_mainhand_reactive_shield_block": {
+        "on_reactive_shield_block": {
             "trigger": "minecraft:entity_hurt_player",
             "conditions": {
-                "player": {
-                    "equipment": {
-                        "mainhand": {
-                            "items": [
-                                "minecraft:shield"
-                            ],
-                            "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}"
-                        }
+                "player": [
+                    {
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/reactive_plating/is_holding_reactive_shield"
                     }
-                },
-                "damage": {
-                    "blocked": true,
-                    "source_entity": {},
-                    "type": {
-                        "tags": [
-                            {
-                                "id": "is_explosion",
-                                "expected": false
-                            }
-                        ]
-                    }                    
-                }
-            }
-        },
-        "on_offhand_reactive_shield_block": {
-            "trigger": "minecraft:entity_hurt_player",
-            "conditions": {
-                "player": {
-                    "equipment": {
-                        "offhand": {
-                            "items": [
-                                "minecraft:shield"
-                            ],
-                            "nbt": "{\"Reactive\":1b}"
-                        }
-                    }
-                },
+                ],
                 "damage": {
                     "blocked": true,
                     "source_entity": {},
@@ -55,12 +24,6 @@
             }
         }
     },
-    "requirements": [
-        [
-            "on_mainhand_reactive_shield_block",
-            "on_offhand_reactive_shield_block"
-        ]
-    ],
     "rewards": {
         "function": "xplsvtlts:reactive_plating/on_reactive_shield_block"
     }

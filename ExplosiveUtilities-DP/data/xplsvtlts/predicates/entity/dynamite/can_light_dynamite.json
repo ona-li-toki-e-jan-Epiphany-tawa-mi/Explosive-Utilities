@@ -3,9 +3,11 @@
     "entity": "this",
     "predicate": {
         "equipment": {
-            "chest": {
-                "nbt": "{xplsvtlts:{Reactive:1b}}"
+            "offhand": {
+                "items": [
+                    "minecraft:flint_and_steel"
+                ]
             }
-        }
+        }  
     }
 }

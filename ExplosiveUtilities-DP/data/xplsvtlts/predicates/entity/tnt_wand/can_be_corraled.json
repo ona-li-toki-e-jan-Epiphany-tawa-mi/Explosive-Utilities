@@ -73,7 +73,7 @@
                             "condition": "minecraft:entity_properties",
                             "entity": "this",
                             "predicate": {
-                                "nbt": "{\"Tags\":[\"pgsthtgbmnthnght_explosive\"]}"
+                                "nbt": "{Tags:[\"pgsthtgbmnthnght_explosive\"]}"
                             }
                         }
                     ]

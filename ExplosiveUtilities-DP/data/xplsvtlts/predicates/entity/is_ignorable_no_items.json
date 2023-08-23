@@ -12,7 +12,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-                "nbt": "{\"Marker\":1b}",
+                "nbt": "{Marker:1b}",
                 "type": "minecraft:armor_stand"
             }
         }

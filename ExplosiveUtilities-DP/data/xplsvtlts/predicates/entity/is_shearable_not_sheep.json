@@ -5,14 +5,14 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-                "nbt": "{Item:{tag:{CustomModelData:7106215}}}"
+                "type": "minecraft:mooshroom"
             }
         },
         {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-                "nbt": "{Item:{tag:{Reactive:1b,CustomModelData:7106216}}}"
+                "type": "minecraft:snow_golem"
             }
         }
     ]

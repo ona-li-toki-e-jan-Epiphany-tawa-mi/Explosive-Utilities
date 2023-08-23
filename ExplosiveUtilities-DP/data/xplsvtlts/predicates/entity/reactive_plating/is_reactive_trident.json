@@ -2,7 +2,7 @@
     "condition": "minecraft:entity_properties",
     "entity": "this",
     "predicate": {
-        "nbt": "{\"Trident\":{\"tag\":{\"xplsvtlts\":{\"Reactive\":1b}}}}",
+        "nbt": "{Trident:{tag:{xplsvtlts:{Reactive:1b}}}}",
         "type": "minecraft:trident"
     }
 }

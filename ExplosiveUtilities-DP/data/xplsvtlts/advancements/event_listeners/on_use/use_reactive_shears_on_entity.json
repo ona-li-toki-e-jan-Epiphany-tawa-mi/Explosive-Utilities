@@ -7,27 +7,12 @@
                     "items": [
                         "minecraft:shears"
                     ],
-                    "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}"
+                    "nbt": "{xplsvtlts:{Reactive:1b}}"
                 },
                 "entity": [
                     {
-                        "condition": "minecraft:any_of",
-                        "terms": [
-                            {
-                                "condition": "minecraft:entity_properties",
-                                "entity": "this",
-                                "predicate": {
-                                    "type": "minecraft:mooshroom"
-                                }
-                            },
-                            {
-                                "condition": "minecraft:entity_properties",
-                                "entity": "this",
-                                "predicate": {
-                                    "type": "minecraft:snow_golem"
-                                }
-                            }
-                        ]
+                        "condition": "minecraft:reference",
+                        "name": "xplsvtlts:entity/is_shearable_not_sheep"
                     }
                 ]
             }

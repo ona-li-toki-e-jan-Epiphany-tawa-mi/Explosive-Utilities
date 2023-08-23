@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "legs": {
-                "nbt": "{\"xplsvtlts\":{\"Reactive\":1b}}"
+                "nbt": "{xplsvtlts:{Reactive:1b}}"
             }
         }
     }
