@@ -121,7 +121,7 @@ class Item:
                 Whether to ignore the count specified in the JSON and just set 
                 the item count to 1. '''
         ids = item_json["item"]
-        if type(ids) is not list:
+        if not isinstance(ids, list):
             ids = [ids]
         
         tag = item_json.get("nbt", '')
@@ -164,10 +164,10 @@ class IngredientWhitelist:
                 Whether to raise an error if the counts of each item in the
                 whitelist differ. '''
         acceptable_items = item_whitelist_json
-        if type(acceptable_items) is not list:
+        if not isinstance(acceptable_items, list):
             acceptable_items = [acceptable_items]
-        for i in range(0, len(acceptable_items)):
-            acceptable_items[i] = Item.from_json(acceptable_items[i])
+        for i, acceptable_item in enumerate(acceptable_items):
+            acceptable_items[i] = Item.from_json(acceptable_item)
             
         if enforce_count_sameness:
             first_count = None
@@ -179,9 +179,9 @@ class IngredientWhitelist:
                     if item.count != first_count:
                         raise ValueError(f"Unable to decode recipe JSON: expected all counts of items to be same for list in key '{root_path}'")
         
-        for i in range(0, len(acceptable_items)):
-            for k in range(0, len(acceptable_items)):
-                if i != k and acceptable_items[i].do_items_overlap(acceptable_items[k]):
+        for i, acceptable_item in enumerate(acceptable_items):
+            for k, other_acceptable_item in enumerate(acceptable_items):
+                if i != k and acceptable_item.do_items_overlap(other_acceptable_item):
                     raise ValueError(f"Unable to decode recipe JSON: found duplicate item ids in item id lists in item whitelist in '{root_path}' (found: '{root_path}[{i}]' and '{root_path}[{k}]')")
                         
         return IngredientWhitelist(acceptable_items)
@@ -254,10 +254,10 @@ class Recipe(ABC):
         recipe_type = RecipeType(recipe_json["type"])
 
         results = recipe_json["result"]
-        if type(results) != list:
+        if not isinstance(results, list):
             results = [results]
-        for i in range(0, len(results)):
-            results[i] = RecipeResult.from_json(results[i])
+        for i, result in enumerate(results):
+            results[i] = RecipeResult.from_json(result)
     
         if recipe_type is RecipeType.COMBUSTION_FORGE_SHAPED:
             item_keys = recipe_json["key"]
@@ -267,7 +267,7 @@ class Recipe(ABC):
             pattern = recipe_json["pattern"]
             for row in pattern:
                 for key in row:
-                    if key != ' ' and key not in item_keys.keys():
+                    if key != ' ' and key not in item_keys:
                         raise ValueError(f"Unable to decode recipe JSON: item key '{key}' not present in key '{root_path}key' for string in list in key '{root_path}pattern'")
             row1Size = len(pattern[0])
             for i in range(1, len(pattern)):
@@ -279,17 +279,17 @@ class Recipe(ABC):
 
         elif recipe_type is RecipeType.COMBUSTION_FORGE_SHAPELESS:
             ingredients = recipe_json["ingredients"]
-            for i in range(0, len(ingredients)):
-                ingredients[i] = IngredientWhitelist.from_json(ingredients[i], root_path=root_path+f'ingredients[{i}].', enforce_count_sameness=True)
+            for i, ingredient in enumerate(ingredients):
+                ingredients[i] = IngredientWhitelist.from_json(ingredient, root_path=root_path+f'ingredients[{i}].', enforce_count_sameness=True)
             ingredient_item_count = 0
             for ingredient_whitelist in ingredients:
                 ingredient_item_count += ingredient_whitelist.acceptable_items[0].count
             if ingredient_item_count > 9 or ingredient_item_count < 1:
                 raise ValueError(f"Unable to decode recipe JSON: expected a total count for ingredient items of 1 to 9 in list for key '{root_path}ingredients' (found: '{ingredient_item_count}')")
-            for i in range(0, len(ingredients)):
-                for k in range(0, len(ingredients)):
-                    if i != k and ingredients[i].do_items_overlap(ingredients[k]):
-                        raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{root_path}ingredients[{i}]' and '{root_path}ingredients[{i}]')")
+            for i, ingredient in enumerate(ingredients):
+                for k, other_ingredient in enumerate(ingredients):
+                    if i != k and ingredient.do_items_overlap(other_ingredient):
+                        raise ValueError(f"Unable to decode recipe JSON: found duplicate item in list for key '{root_path}ingredients' (found: '{root_path}ingredients[{i}]' and '{root_path}ingredients[{k}]')")
 
 
             return ShapelessRecipe(ingredients, results)
@@ -498,11 +498,10 @@ def write_shapeless_recipe_mcfunction_code(output_file: TextIOWrapper, recipe_fu
     output_file.write(f'scoreboard players set _valid_ingredient_count {variable_storage_scoreboard} 0\n')
 
     # Counts up ingredients to see if the correct amounts are present.
-    for i in range(0, len(recipe.ingredients)):
+    for i, ingredient_whitelist in enumerate(recipe.ingredients):
         item_count_variable = f'_item_{i+1}_count'
         output_file.write(f'scoreboard players set {item_count_variable} {variable_storage_scoreboard} 0\n')
 
-        ingredient_whitelist = recipe.ingredients[i]
         for ingredient in ingredient_whitelist.acceptable_items:
             item_tag_string = f',tag:{ingredient.tag}' if ingredient.tag else '' 
 
