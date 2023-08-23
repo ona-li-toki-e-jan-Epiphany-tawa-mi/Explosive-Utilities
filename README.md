@@ -109,6 +109,8 @@ To add recipes to the combustion forge multiblock, whether into this datapack, o
 - Moved tnt wand recipe to require the combustion forge.
 - Added pistol kiln.
 - Added composite armor.
+- Added dynamite.
+- Added blow chest traps.
 
 Make sure to run the following command if updating (note: resets configurations):
 

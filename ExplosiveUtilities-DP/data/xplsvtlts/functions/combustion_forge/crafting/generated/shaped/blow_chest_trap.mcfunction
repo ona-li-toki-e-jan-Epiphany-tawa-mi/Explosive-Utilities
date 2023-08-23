@@ -33,9 +33,9 @@ scoreboard players set _valid_ingredient_count xplsvtlts 0
 execute if block ^-1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^0 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:fire_charge"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^1 ^1 ^-1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
-execute if block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
+execute unless block ^-1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^0 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:tripwire_hook"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
-execute if block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
+execute unless block ^1 ^1 ^0 minecraft:furnace{Items:[{Slot:0b}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^-1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^0 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:string"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1
 execute if block ^1 ^1 ^1 minecraft:furnace{Items:[{Slot:0b,id:"minecraft:gunpowder"}]} run scoreboard players add _valid_ingredient_count xplsvtlts 1

@@ -9,6 +9,12 @@
                 "custom_model_data": 1385753
             },
             "model": "xplsvtlts:item/reactive_plating"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 14881210
+            },
+            "model": "xplsvtlts:item/blow_chest_trap"
         }
     ]
 }
