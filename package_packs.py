@@ -26,7 +26,7 @@ data_pack_output_base_file_path = 'dist/ExplosiveUtilities-Datapack'
 #   packaged resource pack to. Do not include a file extension.
 resource_pack_output_base_file_path = 'dist/ExplosiveUtilities-Resourcepack'
 # A version specifier to add to the end of the outputted files.
-explosive_utilities_version = 'V0.1.0'
+explosive_utilities_version = 'V0.2.0'
 
 logging_level = logging.NOTSET
 ################################################################################
