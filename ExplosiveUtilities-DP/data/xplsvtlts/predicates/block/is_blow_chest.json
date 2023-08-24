@@ -2,7 +2,7 @@
     "condition": "minecraft:location_check",
     "predicate": {
         "block": {
-            "tag": "xplsvtlts:chests",
+            "tag": "xplsvtlts:blow_chest_trapable",
             "nbt": "{Items:[{id:\"minecraft:enchanted_book\",tag:{CustomModelData:14881210}}]}"
         }
     }
