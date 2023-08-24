@@ -622,7 +622,7 @@ def write_recipe_function_tag_json(output_file_path: str, recipe_function_ids: '
         logging.info(f'Wrote out recipe function ids into tag json file -> {path.abspath(output_file_path)}')
 
 def main():
-    logging.getLogger().setLevel(logging_level)
+    logging.basicConfig(level=logging_level, format='[%(asctime)s] %(levelname)s: %(message)s')
 
 
     # Changing directory into the recipe directory makes messing with the recipe
