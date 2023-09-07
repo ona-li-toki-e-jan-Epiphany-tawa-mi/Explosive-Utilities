@@ -1,11 +1,11 @@
 ##
 # Attempts to summon a piece of tnt using the tnt wand.
-# If the player is in survival, it will need to consume a piece of tnt to 
+# If the player is in survival, it will need to consume a piece of tnt to
 #   succeed.
 #
 # Parameters:
 #   @s - the player.
-#   Location - where to summon the tnt. 
+#   Location - where to summon the tnt.
 #
 
 scoreboard players set _summoned_tnt xplsvtlts 1
