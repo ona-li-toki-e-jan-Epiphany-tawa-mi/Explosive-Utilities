@@ -2,8 +2,8 @@
 
 import logging
 from shutil import make_archive
-from os import makedirs
 import os.path as path
+from enum import Enum, auto
 
 ################################################################################
 # This file is used to package the data and resource packs in zip files.
@@ -16,15 +16,18 @@ import os.path as path
 # Config START                                                                 #
 ################################################################################
 # The relative path from the project directory to the data pack's directory.
-data_pack_directory = 'ExplosiveUtilities-DP'
+data_pack_directory = 'ExplosiveUtilities-DP/'
 # The relative path from the project directory to the resource pack's directory.
-resource_pack_directory = 'ExplosiveUtilities-RP'
-# The relative path from the project directory to the file to output the 
-#   packaged data pack pack to. Do not include a file extension.
-data_pack_output_base_file_path = 'dist/ExplosiveUtilities-Datapack'
-# The relative path from the project directory to the file to output the 
-#   packaged resource pack to. Do not include a file extension.
-resource_pack_output_base_file_path = 'dist/ExplosiveUtilities-Resourcepack'
+resource_pack_directory = 'ExplosiveUtilities-RP/'
+# The relative path from the project directory to the folder to put the packaged
+# packs inside of.
+pack_output_directory = 'dist/'
+# The file name of the outputted packaged datapack. Do not include a file
+# extension.
+data_pack_output_file_name = 'ExplosiveUtilities-Datapack'
+# The file name of the outputted packaged resource pack. Do not include a file
+# extension.
+resource_pack_output_file_name = 'ExplosiveUtilities-Resourcepack'
 # A version specifier to add to the end of the outputted files.
 explosive_utilities_version = 'V0.2.0'
 
@@ -35,29 +38,33 @@ logging_level = logging.NOTSET
 
 
 
+class PackageType(Enum):
+    """ The type of the package to be packed, just used for logging. """
+    DATA_PACK     = auto()
+    RESOURCE_PACK = auto()
+
+def package_pack(pack_directory: str, output_file_name: str, package_type: PackageType):
+    """ Packages the pack at the given directiory and outputs as the given file
+        name in the pack output directory. """
+    logging_name = "data pack" if package_type == PackageType.DATA_PACK else "resource pack"
+
+    if path.exists(pack_directory):
+        logging.info(f'Packaging {logging_name} directory "{path.abspath(pack_directory)}"')
+
+        output_path = path.join(pack_output_directory, output_file_name + '-' + explosive_utilities_version)
+        make_archive(output_path, 'zip', pack_directory, verbose=True)
+
+        logging.info(f'Outputted packaged {logging_name} -> {path.abspath(output_path)}')
+    else:
+        logging.error(f'Could not locate directory {path.abspath(pack_directory)}! Skipping {logging_name}')
+
+
+
 def main():
     logging.basicConfig(level=logging_level, format='[%(asctime)s] %(levelname)s: %(message)s')
 
-
-    if path.exists(data_pack_directory):
-        logging.info(f'Packaging data pack directory "{path.abspath(data_pack_directory)}"')
-        
-        output_path = data_pack_output_base_file_path + '-' + explosive_utilities_version
-        make_archive(output_path, 'zip', data_pack_directory, verbose=True)
-
-        logging.info(f'Outputted packaged data pack -> {path.abspath(output_path)}')
-    else:
-        logging.error(f'Could not locate directory {path.abspath(data_pack_directory)}! Skipping data pack packaging')
-
-    if path.exists(resource_pack_directory):
-        logging.info(f'Packaging resource pack directory "{path.abspath(resource_pack_directory)}"')
-
-        output_path = path.join(resource_pack_output_base_file_path + '-' + explosive_utilities_version)
-        make_archive(output_path, 'zip', resource_pack_directory, verbose=True)
-
-        logging.info(f'Outputted packaged resource pack -> {path.abspath(output_path)}')
-    else:
-        logging.error(f'Could not locate directory {path.abspath(resource_pack_directory)}! Skipping resource pack packaging')
+    package_pack(data_pack_directory, data_pack_output_file_name, PackageType.DATA_PACK)
+    package_pack(resource_pack_directory, resource_pack_output_file_name, PackageType.RESOURCE_PACK)
 
 if __name__ == '__main__':
     main()
