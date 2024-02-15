@@ -91,7 +91,6 @@ You can set the fuse length of dynamite with this command, defaults to 60:
 ## Links
 
 - [Explosive Utilities Wiki](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki "The Explosive Utilities Wiki")
-- [Explosive Utilities Planet Minecraft Page](https://www.planetminecraft.com/data-pack/explosive-utilities "Explosive Utilities on Planet Minecraft")
 - [V0.2.0 Demonstration Video](https://youtu.be/3j7tIpFTiLw "Explosive Utilities V0.2.0 Demo on YouTube").
 
 ## For Developers
