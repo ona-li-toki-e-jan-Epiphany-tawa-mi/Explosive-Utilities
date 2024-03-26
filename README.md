@@ -1,16 +1,20 @@
 ![logo](logo.png)
 
-**!!NOTICE!!:** I have decided to abandon Minecraft in favor of the FOSS Minetest ([https://www.minetest.net](https://www.minetest.net "Minetest website")). As such, this project will no longer be maintained or developed.
+**!!NOTICE!!:** I have decided to abandon Minecraft in favor of the FOSS
+Minetest (https://www.minetest.net). As such, this project will no longer be
+maintained or developed.
 
 # Explosive Utilities
 
 *Nitroglycerinomancology Reborn*
 
-A data pack and resource pack for Minecraft 1.20+ that adds various explosive tools to your world.
+A data pack and resource pack for Minecraft 1.20+ that adds various explosive
+tools to your world.
 
 ## What It Do?
 
-To view the various additions made by explosive utilities, [see the wiki.](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki "The Explosive Utilities wiki")
+To view the various additions made by explosive utilities, see the wiki
+(https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki).
 
 ## Screenshots
 
@@ -22,13 +26,17 @@ To view the various additions made by explosive utilities, [see the wiki.](https
 
 ## Installation
 
-Grab a version from [RELEASES.](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/releases "Explosive Utilities Releases Page")
+Download the resource and data pack folders from the git repository.
 
-Place the resource pack inside your Minecraft installation's resource pack folder and enable it. [See for more information.](https://minecraft.fandom.com/wiki/Tutorials/Loading_a_resource_pack "A Minecraft Wiki tutorial on installing resource packs")
+Place the resource pack inside your Minecraft installation's resource pack
+folder and enable it. See for more information:
+https://minecraft.fandom.com/wiki/Tutorials/Loading_a_resource_pack
 
-Place the datapack inside your world's datapacks folder. [See for more information.](https://minecraft.fandom.com/wiki/Tutorials/Installing_a_data_pack "A Minecraft Wiki tutorial on installing data packs")
+Place the datapack inside your world's datapacks folder. See for more information:
+https://minecraft.fandom.com/wiki/Tutorials/Installing_a_data_pack
 
-The pack will automatically finish installation on world load, but you can force it using (recommended if updating pack, note: resets configurations):
+The pack will automatically finish installation on world load, but you can force
+it using (recommended if updating pack, note: resets configurations):
 
 ```mcfunction
 /function xplsvtlts:install/initialize
@@ -42,41 +50,48 @@ To uninstall, you first need to run this command:
 /function xplsvtlts:install/uninstall
 ```
 
-After that, remove the datapack from your world's datapacks folder before reloading.
+After that, remove the datapack from your world's datapacks folder before
+reloading.
 
 ## Configuration
 
-You can set the summon cooldown for the tnt wand with this command, defaults to 40:
+You can set the summon cooldown for the tnt wand with this command, defaults to
+40:
 
 ```mcfunction
 /scoreboard players set tnt_wand_summon_cooldown xplsvtlts <ticks>
 ```
 
-You can set the explosive punch cooldown for the tnt wand with this command, defaults to 80:
+You can set the explosive punch cooldown for the tnt wand with this command,
+defaults to 80:
 
 ```mcfunction
 /scoreboard players set tnt_wand_punch_cooldown xplsvtlts <ticks>
 ```
 
-You can set whether to disable the corraling restrictions on the tnt wand with the following command. 1 to disable, 0 to enable, defaults to 0.
+You can set whether to disable the corraling restrictions on the tnt wand with
+the following command. 1 to disable, 0 to enable, defaults to 0.
 
 ```mcfunction
 /scoreboard players set disable_tnt_wand_corraling_restrictions xplsvtlts <1 or 0>
 ```
 
-You can set the base cooldown for the reactive armor with this command, defaults to 120:
+You can set the base cooldown for the reactive armor with this command, defaults
+to 120:
 
 ```mcfunction
 /scoreboard players set reactive_armor_maximum_cooldown xplsvtlts <ticks>
 ```
 
-You can set how long it takes the pistol kiln to smelt items with the following command, defaults to 9000:
+You can set how long it takes the pistol kiln to smelt items with the following
+command, defaults to 9000:
 
 ```mcfunction
 /scoreboard players set pistol_kiln_runtime xplsvtlts <ticks>
 ```
 
-You can set how long each piece of gunpowder will burn for in the pistol kiln with the following command, defaults to 800:
+You can set how long each piece of gunpowder will burn for in the pistol kiln
+with the following command, defaults to 800:
 
 ```mcfunction
 /scoreboard players set pistol_kiln_gunpowder_fuel_time xplsvtlts <ticks>
@@ -90,14 +105,16 @@ You can set the fuse length of dynamite with this command, defaults to 60:
 
 ## Links
 
-- [Explosive Utilities Wiki](https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki "The Explosive Utilities Wiki")
-- [V0.2.0 Demonstration Video](https://odysee.com/@ona-li-toki-e-jan-Epiphany-tawa-mi:9/Explosive-Utilities-V0.2.0-Demo:4?r=HYroMZaqrVN4gL5oSJ35gcTgt3K56r39 "Explosive Utilities V0.2.0 Demo on Odysee").
+- Explosive Utilities Wiki - https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/Explosive-Utilities/wiki
+- V0.2.0 Demonstration Video - https://odysee.com/@ona-li-toki-e-jan-Epiphany-tawa-mi:9/Explosive-Utilities-V0.2.0-Demo:4?r=HYroMZaqrVN4gL5oSJ35gcTgt3K56r39
 
 ## For Developers
 
-To add recipes to the combustion forge multiblock, whether into this datapack, or from your own datapack as an addon, [see this tutorial.](combustion_forge_recipes/README.md "Combustion forge recipe tutorial")
+To add recipes to the combustion forge multiblock, whether into this datapack,
+or from your own datapack as an addon, see the tutorial in
+`combustion_forge_recipes/README.md`.
 
-## Changelog
+## Release Notes
 
 - Added combatiblity with Incendiary Bees to corral them with the tnt wand.
 - Added visual and auditory cue for when the tnt wand's cooldowns are over.
